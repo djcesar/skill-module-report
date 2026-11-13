@@ -1,6 +1,6 @@
 # skill-module-report
 
-[English](README.md) · **Español**
+[English](README.md) · **Español** · [Historial de cambios](CHANGELOG.md) · [Contribuir](CONTRIBUTING.md) · [Licencia](LICENSE)
 
 Skill para agentes de IA que analiza un flujo, módulo, función o proceso del proyecto donde estés trabajando, leyendo el código real, y entrega una ficha con ocho secciones.
 

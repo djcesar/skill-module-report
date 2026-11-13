@@ -1,6 +1,6 @@
 # skill-module-report
 
-**English** · [Español](README.es.md)
+**English** · [Español](README.es.md) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md) · [License](LICENSE)
 
 An agent skill that analyzes a flow, module, function or process in the project you are working on by reading the actual code, and delivers a report with eight sections.
 
