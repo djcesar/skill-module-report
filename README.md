@@ -67,7 +67,7 @@ Se pueden combinar: "explícame X en modo técnico y negocio", "X desde cero, so
 ## Instalación
 
 ```bash
-git clone https://github.com/djcesar/skill-analizar-modulo.git ~/.claude/skills/analizar-modulo
+git clone https://github.com/djcesar/skill-analizar-modulo.git ~/.claude/skills/skill-analizar-modulo
 ```
 
 Claude Code lo carga automáticamente; se activa al pedir que explique, analice o documente algo del código, sin necesidad de nombrarlo.
