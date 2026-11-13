@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SmsService } from '../notificaciones/sms.service';
@@ -19,6 +19,16 @@ export class ReservasService {
       `Club Deportivo Ejemplo: tu reserva #${reserva.id} quedó pendiente. Detalle: https://reservas.clubejemplo.org/reserva/${reserva.id}`,
     );
     return reserva;
+  }
+
+  async buscarReservaDelHorario(dto: ReservaDto) {
+    const existente = await this.repo.findOne({
+      where: { canchaId: dto.canchaId, fecha: dto.fecha, hora: dto.hora },
+    });
+    if (existente) {
+      throw new ConflictException('El horario ya está reservado');
+    }
+    return existente;
   }
 
   async buscar(id: number) {

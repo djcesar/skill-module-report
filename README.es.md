@@ -22,7 +22,7 @@ La ficha completa siempre se guarda como archivo Markdown en `docs/module-report
 
 - **Sale del código, no de suposiciones.** Sigue el flujo de punta a punta (entradas, lógica, datos, integraciones, configuración, permisos), también entre repos hermanos, y marca como *(inferido)* lo que deduce.
 - **Revisión de seguridad en todos los modos.** Siempre revisa acciones sin sesión, control de rol y de dueño del registro en el servidor, campos sensibles aceptados desde el cliente, datos personales expuestos, ids o enlaces adivinables, secretos y abuso (correos/SMS sin límite). Cada modo los reporta a su manera: por mecanismo, por impacto en el negocio o como requisito que los previene.
-- **Los hallazgos críticos se verifican dos veces.** Antes de reportar un 🔴, vuelve a leer el código exacto y confirma la cadena completa. Cada uno lleva *(verificado en código)* o *(inferido)*, y *no probado en vivo* salvo que se haya reproducido.
+- **Los hallazgos críticos se verifican dos veces.** Antes de reportar un 🔴, vuelve a leer el código exacto y confirma la cadena completa: que la línea citada de verdad se ejecuta (siguiendo cada llamada hasta su `return` o `throw`), la ruta y el handler exactos, cada eslabón de un ataque de varios pasos por separado, todos los endpoints que pueden filtrar el mismo secreto y qué necesita realmente un atacante. Las ramas inalcanzables se reportan como código muerto, no como vulnerabilidades. Cada uno lleva *(verificado en código)* o *(inferido)*, y *no probado en vivo* salvo que se haya reproducido.
 - **Diagramas Mermaid donde ayudan.** Secuencia del camino principal y diagrama de estados en `as-technical`, flujo del usuario en `as-business`, y máquina de estados más modelo de datos en `as-new-spec`. Se ven en GitHub y en la mayoría de editores.
 
 ## Modos
@@ -139,7 +139,7 @@ Rinde mejor en herramientas tipo agente que trabajan directamente dentro del rep
 
 | Caso | Qué prueba |
 |---|---|
-| `booking-as-technical` | Dónde queda la ficha y el resumen, secciones, qué fallas detecta, marcas de certeza, diagrama de secuencia |
+| `booking-as-technical` | Dónde queda la ficha y el resumen, secciones, qué fallas detecta, marcas de certeza, diagrama de secuencia, y que una trampa (una rama inalcanzable que parece una fuga de datos) no se reporte como vulnerabilidad |
 | `booking-as-business` | Historias de usuario, textos literales de pantalla, riesgos por impacto, diagrama de flujo, sin jerga, encabezados en inglés |
 | `booking-as-new-spec` | Anonimización, máquina de estados y modelo de datos, requisitos que previenen las fallas, archivo de trazabilidad |
 | `booking-git-local` | Primera ficha en un repo git: pregunta repo o local, agrega la regla sin tocar las existentes y no hace commit |

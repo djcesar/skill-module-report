@@ -4,7 +4,7 @@ description: 'Analysis report on a flow, module, function, endpoint, screen or p
 license: Apache-2.0
 compatibility: 'Requires an agent with read access to the repository (search and open files). Recommended - write access to docs/module-reports/, read-only commands (git log) and subagents for large modules.'
 metadata:
-  version: "3.1.0"
+  version: "3.2.0"
 ---
 
 # Analyze module
@@ -90,6 +90,16 @@ Scale the depth to the size of the target: a function needs a few files; a full 
 The report is only as useful as it is trustworthy. What you saw in the code is stated; what is deduced (business intent, production behavior, real usage) is marked "(inferred)" or "probably". Do not invent use cases, fields, messages or requirements the code does not support.
 
 **Verify every 🔴 finding before writing it.** A false high-severity risk discredits the whole report, and a false security one can make someone act in vain or in alarm. Before reporting it, reopen the exact code and confirm the whole chain, not just one piece. For example, a route being public is not enough: confirm the decorator applies to that route (and not the one next to it), that there is no other protection further on (a global guard, a middleware, a database rule), and that the dangerous field really reaches the write.
+
+What "the whole chain" means in practice, because each of these has caused a false or incomplete 🔴:
+
+- **Confirm the line actually runs.** Follow every call the code makes, into the services and helpers it uses, down to each `return` and `throw`, and write down the exact condition that makes the cited line reachable. If an earlier check, exception or guard blocks it, it is not a finding: it is dead code (see the last point).
+- **Name the exact route and handler.** Routes with similar paths often live in different controllers (`POST /signature` and `POST /user/signature` are different endpoints with different guards). Cite the controller file and line of the handler you actually read, not the path you expected.
+- **Label each link of a chain on its own.** A multi-step attack (get a secret, then use it) is only as solid as its weakest step. Mark every link *(verified in code)*, *(inferred)* or *(not reviewed)*, and give the chain the weakest label among its links.
+- **For every secret that can leak, find every way out.** When a field is sensitive (a token, a signing code, an external account id), look for **all** the endpoints that return the entity containing it, especially public ones that return whole records, not just the first one that seems to.
+- **Ask what the attacker really needs.** If authorization only checks something guessable (a sequential id, a predictable path), the secret you were tracing may not even be necessary; the real chain can be shorter or different.
+- **Read near-duplicate methods one by one.** Methods with almost identical names and bodies often differ exactly in the condition that matters (one throws always, another only in some state). Do not assume one behaves like its sibling.
+- **Report dead code as its own finding.** An unreachable branch is not a vulnerability, but it misleads whoever reads the code next and usually signals a refactor that went wrong. Report it (usually 🟡) with the condition that makes it unreachable.
 
 Label each 🔴 with its certainty:
 - **(verified in code)**: you confirmed the whole chain by reading the code.

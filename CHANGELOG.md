@@ -2,6 +2,11 @@
 
 All notable changes to this skill. The version lives in `SKILL.md` (`metadata.version`) and follows [semantic versioning](https://semver.org/): a new mode or section is a minor change; renaming modes or changing where the report goes is a major one.
 
+## 3.2.0 — 2026-11-13
+
+- **Stricter verification of 🔴 findings.** "Confirm the whole chain" is now spelled out: confirm the cited line is reachable by following every call down to its `return`/`throw`; name the exact route and handler (similar paths in different controllers are different endpoints); label each link of a multi-step attack on its own and give the chain its weakest label; find every endpoint that can leak the same secret; ask what an attacker really needs (a guessable id may make the secret unnecessary); read near-duplicate methods one by one; and report unreachable branches as dead code instead of vulnerabilities. Prompted by a real case where a public endpoint's leaky branch was reported as verified although a service call always threw before it.
+- **New decoy in the tests:** the sample project's public `POST /reservas/disponibilidad` has a branch that looks like a personal-data leak but can never run; `booking-as-technical` checks it is not reported as a 🔴.
+
 ## 3.1.0 — 2026-11-13
 
 - **`as-new-spec` on its own now delivers a single file**, `<topic>-as-new-spec.md`, with "Part 1 · Functional specification" and "Part 2 · Technical specification" inside, sharing the same requirement numbering. Before it wrote two files named `-as-new-spec-as-business.md` and `-as-new-spec-as-technical.md`, which looked like combined modes and had to be handed over separately. Combined with one mode (`as-new-spec as-business` or `as-new-spec as-technical`) it still writes only that part, with the suffix. The traceability file stays separate because it is internal.

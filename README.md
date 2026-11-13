@@ -24,7 +24,7 @@ The full report is always saved as a Markdown file in `docs/module-reports/` at 
 
 - **Built from the code, not assumptions.** It follows the flow end to end (entry points, logic, data, integrations, configuration, permissions) across sibling repositories, and marks anything it deduces as *(inferred)*.
 - **Security checklist in every mode.** It always checks unauthenticated actions, server-side role and ownership checks, sensitive fields accepted from the client, exposed personal data, guessable IDs or links, secrets, and abuse (unlimited emails/SMS). Each mode reports them its own way: mechanism, business impact, or a requirement that prevents them.
-- **Critical findings are double-checked.** Before reporting a 🔴, it re-reads the exact code and confirms the whole chain. Each one is labeled *(verified in code)* or *(inferred)*, plus *not tested live* unless it was actually reproduced.
+- **Critical findings are double-checked.** Before reporting a 🔴, it re-reads the exact code and confirms the whole chain: that the cited line is actually reachable (following every call down to its `return` or `throw`), the exact route and handler, each link of a multi-step attack on its own, every endpoint that can leak the same secret, and what an attacker really needs. Unreachable branches are reported as dead code, not as vulnerabilities. Each one is labeled *(verified in code)* or *(inferred)*, plus *not tested live* unless it was actually reproduced.
 - **Mermaid diagrams where they help.** A sequence diagram of the main path and a state diagram in `as-technical`, a user-flow chart in `as-business`, and a state machine plus data model in `as-new-spec`. They render on GitHub and most editors.
 
 ## Modes
@@ -141,7 +141,7 @@ Results are best in agent-style tools that work directly inside the repository; 
 
 | Case | What it checks |
 |---|---|
-| `booking-as-technical` | Report location and summary, sections, which flaws are detected, certainty labels, sequence diagram |
+| `booking-as-technical` | Report location and summary, sections, which flaws are detected, certainty labels, sequence diagram, and that a decoy (an unreachable branch that looks like a data leak) is not reported as a vulnerability |
 | `booking-as-business` | User stories, literal UI texts, risks by impact, flowchart, no jargon, English headings |
 | `booking-as-new-spec` | Anonymization, state machine and data model, requirements that prevent the flaws, traceability file |
 | `booking-git-local` | First report in a git repository: asks repo or local, adds the ignore rule without touching existing ones, does not commit |

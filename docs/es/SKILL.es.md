@@ -84,6 +84,16 @@ La ficha es útil en la medida en que se pueda confiar en ella. Lo que viste en 
 
 **Verifica cada hallazgo 🔴 antes de escribirlo.** Un riesgo alto falso le quita credibilidad a toda la ficha, y uno de seguridad puede hacer que alguien actúe en vano o con alarma. Antes de reportarlo, vuelve a abrir el código exacto y confirma la cadena completa, no solo una pieza. Por ejemplo, que una ruta sea pública no basta: confirma que el decorador aplica a esa ruta (y no a la de al lado), que no hay otra protección más adelante (un guard global, un middleware, una regla de base de datos), y que el campo peligroso llega de verdad hasta la escritura.
 
+Qué significa en la práctica "la cadena completa", porque cada uno de estos puntos ya produjo un 🔴 falso o incompleto:
+
+- **Confirma que la línea de verdad se ejecuta.** Sigue cada llamada que hace el código, dentro de los servicios y helpers que usa, hasta cada `return` y `throw`, y anota la condición exacta que hace alcanzable la línea citada. Si una validación, excepción o guard anterior la bloquea, no es un hallazgo: es código muerto (ver el último punto).
+- **Nombra la ruta y el handler exactos.** Rutas con caminos parecidos suelen vivir en controladores distintos (`POST /signature` y `POST /user/signature` son endpoints distintos con protecciones distintas). Cita el archivo del controlador y la línea del handler que de verdad leíste, no el camino que esperabas.
+- **Marca cada eslabón de una cadena por separado.** Un ataque de varios pasos (obtener un secreto y luego usarlo) es tan sólido como su paso más débil. Marca cada eslabón *(verificado en código)*, *(inferido)* o *(no revisado)*, y dale a la cadena la marca más débil de sus eslabones.
+- **Para cada secreto que pueda filtrarse, busca todas las salidas.** Cuando un campo es sensible (un token, un código de firma, el id de una cuenta externa), busca **todos** los endpoints que devuelven la entidad que lo contiene, sobre todo los públicos que devuelven registros completos, no solo el primero que lo parece.
+- **Pregunta qué necesita realmente el atacante.** Si la autorización solo comprueba algo adivinable (un id secuencial, una ruta predecible), puede que el secreto que estabas rastreando ni siquiera haga falta; la cadena real puede ser más corta o distinta.
+- **Lee uno por uno los métodos casi duplicados.** Métodos con nombres y cuerpos casi iguales suelen diferir justo en la condición que importa (uno lanza siempre, otro solo en cierto estado). No supongas que uno se comporta como su hermano.
+- **Reporta el código muerto como hallazgo propio.** Una rama inalcanzable no es una vulnerabilidad, pero confunde a quien lea el código después y suele delatar un refactor que salió mal. Repórtalo (normalmente 🟡) con la condición que la hace inalcanzable.
+
 Marca cada 🔴 con su nivel de certeza:
 - **(verificado en código)**: confirmaste la cadena completa leyendo el código.
 - **(inferido)**: lo deduces, pero falta una pieza que no pudiste ver (otro sistema, configuración de producción).

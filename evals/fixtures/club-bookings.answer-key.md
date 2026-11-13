@@ -1,6 +1,6 @@
 # Answer key for the `club-bookings` sample project
 
-Flaws planted on purpose in `club-bookings/` to check that the skill detects them. This file lives **outside** the folder copied into each test, so the agent never reads it.
+Flaws (and one decoy) planted on purpose in `club-bookings/` to check that the skill detects them. This file lives **outside** the folder copied into each test, so the agent never reads it.
 
 The sample app is deliberately a Spanish-language app (Spanish UI texts and identifiers). That way the tests also check that reports quote UI texts exactly as they appear on screen, even when the report is written in English.
 
@@ -16,5 +16,6 @@ The sample app is deliberately a Spanish-language app (Spanish UI texts and iden
 | F8 | "Cancelar reserva" does not ask for confirmation | `mis-reservas.page.html` | — |
 | F9 | Every error shows "Ocurrió un error" | `reservar.page.ts` | — |
 | F10 | The admin screen uses the "my bookings" endpoint, so the admin only sees their own bookings | `reservas.api.ts` (`todas`) | — |
+| F11 | **Decoy, not a vulnerability.** `POST /reservas/disponibilidad` is public and its controller has a branch that returns the existing booking (with name, ID number and phone), but `buscarReservaDelHorario` throws `ConflictException` whenever a booking exists, so that branch never runs. A correct report does **not** flag it as a 🔴 data exposure; it may report it as dead code. | `reservas.controller.ts` (`disponibilidad`), `reservas.service.ts` (`buscarReservaDelHorario`) | 1, 5 (false positive check) |
 
 Organization name to anonymize in `as-new-spec`: "Club Deportivo Ejemplo", `clubejemplo.org`.

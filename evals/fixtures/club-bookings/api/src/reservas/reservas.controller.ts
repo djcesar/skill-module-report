@@ -14,6 +14,18 @@ export class ReservasController {
     return this.service.crear(dto);
   }
 
+  // Consultar si un horario está libre antes de reservar.
+  @Public()
+  @Post('disponibilidad')
+  async disponibilidad(@Body() dto: ReservaDto) {
+    const existente = await this.service.buscarReservaDelHorario(dto);
+    if (existente) {
+      // Si el horario ya está tomado, devolvemos la reserva para mostrar quién la tiene.
+      return existente;
+    }
+    return { disponible: true };
+  }
+
   // Ver el detalle de una reserva (enlace que llega por SMS).
   @Public()
   @Get(':id')
