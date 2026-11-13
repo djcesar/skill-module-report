@@ -1,4 +1,4 @@
-# analizar-flujo
+# skill-analizar-modulo
 
 Skill para Claude Code que analiza un flujo, módulo, función o proceso del proyecto donde estés trabajando, leyendo el código real, y entrega una ficha con ocho secciones:
 
@@ -24,7 +24,7 @@ Se pueden combinar: "explícame X en modo técnico y negocio", "X desde cero, so
 ## Instalación
 
 ```bash
-git clone https://github.com/djcesar/analizar-flujo.git ~/.claude/skills/analizar-flujo
+git clone https://github.com/djcesar/skill-analizar-modulo.git ~/.claude/skills/analizar-modulo
 ```
 
 Claude Code lo carga automáticamente; se activa al pedir que explique, analice o documente algo del código, sin necesidad de nombrarlo.

@@ -1,9 +1,9 @@
 ---
-name: analizar-flujo
+name: analizar-modulo
 description: Produce una ficha de análisis de un flujo, módulo, función, endpoint, pantalla o proceso del proyecto actual, investigando el código real, con ocho secciones fijas (Descripción, Casos de uso, Features requeridas, Cosas importantes a tener en cuenta, Cosas a resolver, Cosas que sería bueno incluir, Qué haría diferente, Relacionados). Tiene dos versiones - técnica (archivos, servicios, datos, para quien va a tocar el código) y de negocio (historias de usuario, pantallas, botones, campos y mensajes, sin jerga, para producto/QA/cliente). Úsalo siempre que el usuario pida explicar, analizar, documentar, entender, auditar o "hacer la ficha" de cómo funciona algo: "¿cómo funciona el flujo de X?", "analízame el módulo Y", "dame el panorama de Z antes de tocarlo", "qué falta en el módulo de pagos", "qué está relacionado con esta función", "dame las historias de usuario de X", "qué harías diferente en X", "cómo debió hacerse Y", "explícame X en forma de negocio / funcional / para el PO", "qué botones y campos tiene el proceso de X". También tiene una opción "desde cero" que convierte el análisis en la especificación base para construir ese módulo limpio en un proyecto nuevo (casos de uso, requisitos, diseño correcto, decisiones abiertas, sin bugs ni nombres de la organización); úsala con "desde cero", "como si fuera nuevo", "para un proyecto nuevo", "especificación", "documentación base", "cómo debería construirse X". Actívalo aunque no mencione las secciones ni la palabra "ficha". También en inglés ("walk me through the X flow", "user stories for Y").
 ---
 
-# Analizar flujo
+# Analizar módulo
 
 El objetivo es que quien lo pidió termine entendiendo **qué es, cómo funciona, qué le falta y qué toca** una parte del sistema, sin tener que leer el código. Por eso la ficha se basa en el código real del proyecto, no en suposiciones: cada afirmación importante debería poder rastrearse a un archivo. (En la opción "desde cero" el código se usa igual para entender el dominio, pero el documento final no lo cita.)
 
