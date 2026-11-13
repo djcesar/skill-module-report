@@ -1,66 +1,66 @@
-# Modo `as-technical`
+# Mode `as-technical`
 
-Para quien va a desarrollar, revisar o tocar el código. Cita archivos como enlaces markdown relativos con línea (`[users.service.ts:120](src/users/users.service.ts:120)`).
+For whoever will build, review or change the code. Cite files as relative Markdown links with the line (`[users.service.ts:120](src/users/users.service.ts:120)`).
 
 ```markdown
-# <Nombre del flujo/módulo>
+# <Name of the flow/module>
 
-> **Alcance:** qué revisaste (repos/carpetas/archivos clave) y qué quedó fuera.
+> **Scope:** what you reviewed (key repositories/folders/files) and what was left out.
 
-## Resumen
-5–8 líneas para quien solo lea esto: qué es y cómo funciona en una frase, los hallazgos 🔴
-con una línea cada uno, y el cambio de fondo más importante de "Qué haría diferente".
-Es lo mismo que se muestra en el chat.
+## Summary
+5–8 lines for someone who reads only this: what it is and how it works in one sentence, the 🔴
+findings with one line each, and the most important deep change from "What I would do differently".
+It is the same text shown in the chat.
 
-## Descripción
-Qué es, para qué existe y cómo funciona, en 1–2 párrafos. Luego el recorrido en pasos numerados
-(entrada → validación → lógica → datos → respuesta/efectos), con enlaces a los archivos.
-Si el recorrido cruza dos o más componentes (front, API, base de datos, servicios externos),
-agrega un `sequenceDiagram` de Mermaid del camino principal. Si el objeto tiene estados
-(pendiente, aprobado…), agrega también un `stateDiagram-v2` con los estados como están hoy,
-incluidas las combinaciones raras que encontraste.
+## Description
+What it is, why it exists and how it works, in 1–2 paragraphs. Then the walkthrough in numbered steps
+(entry → validation → logic → data → response/effects), with links to the files.
+If the walkthrough crosses two or more components (frontend, API, database, external services),
+add a Mermaid `sequenceDiagram` of the main path. If the object has states (pending, approved…),
+also add a `stateDiagram-v2` with the states as they are today, including the odd combinations
+you found.
 
-## Casos de uso
-Lista de "**Actor** quiere/necesita **objetivo**" con el disparador. Incluye los caminos alternos
-y de error relevantes (dato inválido, sin permiso, recurso inexistente), no solo el feliz.
+## Use cases
+List of "**Actor** wants/needs **goal**" with the trigger. Include the relevant alternate and
+error paths (invalid data, no permission, missing resource), not just the happy path.
 
-## Features o características requeridas
-Lo que el flujo necesita hacer/tener para funcionar: entradas y salidas, validaciones, reglas
-de negocio, permisos, dependencias (servicios, tablas, variables de entorno, integraciones).
-Si conviene, agrúpalas (Funcionales / Datos / Configuración / Seguridad).
+## Required features
+What the flow needs to do/have in order to work: inputs and outputs, validations, business rules,
+permissions, dependencies (services, tables, environment variables, integrations).
+Group them if it helps (Functional / Data / Configuration / Security).
 
-## Cosas importantes a tener en cuenta
-Lo que alguien debe saber antes de tocarlo o usarlo: efectos secundarios, invariantes,
-acoplamientos, orden de operaciones, diferencias entre ambientes, trampas conocidas,
-rendimiento, seguridad. Lo que rompe algo si se cambia sin cuidado.
+## Things to keep in mind
+What someone must know before changing or using it: side effects, invariants, coupling,
+order of operations, differences between environments, known pitfalls, performance, security.
+What breaks if it is changed carelessly.
 
-## Cosas a resolver
-Defectos y deudas concretas encontradas: bugs, validaciones faltantes, TODO/FIXME, código
-muerto, inconsistencias entre capas, riesgos de seguridad. Cada uno con evidencia (archivo:línea)
-y una severidad (🔴 alta / 🟡 media / 🟢 baja). Si no hallaste nada, dilo.
+## Issues to fix
+Concrete defects and debt found: bugs, missing validations, TODO/FIXME, dead code,
+inconsistencies between layers, security risks. Each one with evidence (file:line)
+and a severity (🔴 high / 🟡 medium / 🟢 low). If you found nothing, say so.
 
-## Cosas que sería bueno incluir
-Mejoras opcionales que aportarían valor (tests, logs, métricas, UX, documentación,
-refactors, funcionalidades vecinas). Esto es lo deseable; lo que está roto va arriba.
+## Nice to have
+Optional improvements that would add value (tests, logging, metrics, UX, documentation,
+refactors, neighboring features). These are wishes; what is broken goes above.
 
-## Qué haría diferente
-Cómo lo habría diseñado desde cero con lo que ahora sabes del flujo, buscando lo correcto
-y no lo rápido. Cada punto con tres partes:
-- **Hoy:** cómo está hecho (con evidencia).
-- **Lo haría así:** el diseño concreto (patrón, estructura, contrato, modelo de datos).
-- **Por qué:** el principio o la consecuencia que lo justifica, y el costo de cambiarlo.
+## What I would do differently
+How you would have designed it from scratch with what you now know about the flow, aiming for
+what is right and not what is quick. Each point in three parts:
+- **Today:** how it is built (with evidence).
+- **I would do it like this:** the concrete design (pattern, structure, contract, data model).
+- **Why:** the principle or consequence that justifies it, and the cost of changing it.
 
-## Relacionados
-| Elemento | Tipo | Relación | Ubicación |
-(módulo, función, endpoint, pantalla, tabla, job, servicio externo…; relación: "lo llama",
-"es llamado por", "escribe en", "comparte entidad", "flujo hermano"…)
+## Related
+| Item | Type | Relationship | Location |
+(module, function, endpoint, screen, table, job, external service…; relationship: "calls it",
+"is called by", "writes to", "shares entity", "sibling flow"…)
 ```
 
-- **"Features requeridas" describe lo que el flujo necesita, no un wishlist**: deriva de lo que el código hace y exige (validaciones, config, permisos). Las ideas nuevas van en "Sería bueno incluir".
-- **"Qué haría diferente" en `as-technical`** piensa en ejes como estos (usa los que apliquen):
-  - Seguridad por diseño: denegar por defecto, autorización en el servidor por rol y por dueño del registro, secretos fuera del código, mínimo privilegio.
-  - Capas y responsabilidades: controladores delgados, lógica de negocio en un solo lugar, sin reglas duplicadas entre front y back.
-  - Contratos: DTOs validados, errores con el código HTTP correcto, idempotencia, versionado.
-  - Datos: integridad en la base (claves, restricciones, transacciones), identificadores no adivinables, sin estado partido entre sistemas.
-  - Operación: pruebas automatizadas del flujo, logs estructurados sin datos sensibles, observabilidad.
-  - Consistencia entre canales: un solo lugar para la lógica que hoy está copiada en web y móvil.
+- **"Required features" describes what the flow needs, not a wishlist**: it comes from what the code does and requires (validations, config, permissions). New ideas go in "Nice to have".
+- **"What I would do differently" in `as-technical`** considers axes like these (use the ones that apply):
+  - Security by design: deny by default, server-side authorization by role and by record owner, secrets out of the code, least privilege.
+  - Layers and responsibilities: thin controllers, business logic in one place, no rules duplicated between frontend and backend.
+  - Contracts: validated DTOs, errors with the right HTTP status, idempotency, versioning.
+  - Data: integrity in the database (keys, constraints, transactions), non-guessable identifiers, no state split across systems.
+  - Operations: automated tests for the flow, structured logs without sensitive data, observability.
+  - Consistency across channels: one place for the logic that today is copied in web and mobile.

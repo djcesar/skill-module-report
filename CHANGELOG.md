@@ -2,6 +2,13 @@
 
 All notable changes to this skill. The version lives in `SKILL.md` (`metadata.version`) and follows [semantic versioning](https://semver.org/): a new mode or section is a minor change; renaming modes or changing where the report goes is a major one.
 
+## 1.2.0 — 2026-11-12
+
+- **English is the source language.** `SKILL.md`, the references and the tests are now in English; reports keep following the language of the request (Spanish heading mapping included). A Spanish translation of the instructions is kept in `docs/es/` for reading only.
+- **Tests reorganized in English**: `booking-as-technical`, `booking-as-business`, `booking-as-new-spec`, `booking-git-local` and a new `booking-spanish` case that checks a Spanish request produces a fully Spanish report. The sample project moves to `evals/fixtures/club-bookings/` and its answer key to `club-bookings.answer-key.md`.
+
+- **Reports stay out of git unless you say otherwise.** The first time the skill writes a report in a git repository, it asks whether reports should travel with the repo or stay local, because they can contain security findings with exact code locations. Local (recommended) adds `docs/reports/` to `.gitignore`, or to `.git/info/exclude` for this machine only. If reports go to the repo, traceability files are still ignored and it warns before writing security findings into a public repository. It warns when reports were already committed and gives the command to untrack them, but never commits or untracks anything itself. Without a way to ask, it defaults to `.gitignore`.
+
 ## 1.1.0 — 2026-11-12
 
 - **Traceability file in `as-new-spec`.** Next to the clean specification it now always writes an internal `<topic>-as-new-spec-traceability.md` that maps every requirement and design decision to its origin (defect it prevents, current case it keeps, missing today, or domain practice) with `file:line` evidence, and records the current system's critical risks and other defects. Before, the reason behind each requirement was not written anywhere and the risks only appeared in the chat, so they were lost when the conversation ended.

@@ -1,6 +1,0 @@
-schema_version: "1.1"
-name: reservas-as-technical
-expected_outcome: |
-  Ficha as-technical del flujo de reservas guardada en docs/reports, con resumen en el chat, que detecta las fallas plantadas con evidencia y certeza.
-context:
-  scaffold_script: place-files.sh

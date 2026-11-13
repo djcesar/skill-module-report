@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: booking-as-new-spec
+expected_outcome: |
+  Clean as-new-spec specification in docs/reports, anonymized, with state machine, data model, requirements that prevent the flaws, and a traceability file.
+context:
+  scaffold_script: place-files.sh

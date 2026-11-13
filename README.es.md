@@ -12,6 +12,7 @@ La ficha completa siempre se guarda como archivo Markdown en `docs/reports/`, en
 
 - Si ya existe un archivo con ese nombre, se conserva y el nuevo lleva la fecha (`…-AAAA-MM-DD.md`).
 - El archivo no se sube a git; eso lo decides tú.
+- **¿Al repo o solo local?** Las fichas pueden contener hallazgos de seguridad con su ubicación exacta en el código, así que la primera vez que el skill escribe una ficha en un repositorio git pregunta si deben viajar con el repo o quedar locales. Quedar locales (lo recomendado) agrega `docs/reports/` al `.gitignore`, o a `.git/info/exclude` si prefieres no tocar archivos versionados. Si eliges el repo, los archivos de trazabilidad se ignoran igual, y avisa antes de escribir hallazgos de seguridad en un repositorio público. Nunca hace commit ni saca nada de git por su cuenta.
 - `as-new-spec` escribe además un archivo interno de trazabilidad junto a la especificación (ver abajo).
 - Si la herramienta no puede escribir archivos (p. ej. un chat normal), la ficha completa se entrega en el chat.
 
@@ -99,12 +100,12 @@ El skill son instrucciones en Markdown; lo que necesita es un asistente que pued
 |---|---|
 | **Acceso de lectura al repositorio** (buscar archivos, abrirlos, listar carpetas) | Toda la ficha se arma con el código real: puntos de entrada, validaciones, datos, permisos y textos de pantalla. Sin esto solo puede analizar lo que pegues en el chat. |
 | **Todos los repos relacionados al alcance** (p. ej. backend y fronts en carpetas hermanas) | Un flujo suele cruzar repos: el endpoint vive en el API y la pantalla que lo llama en un front. La trazabilidad entre repos y la sección "Relacionados" dependen de esto. |
-| **Permiso de escritura en `docs/reports/`** *(recomendado)* | Para guardar la ficha como archivo. Sin esto, la ficha completa se entrega en el chat. |
+| **Permiso de escritura en `docs/reports/`** *(recomendado)* | Para guardar la ficha como archivo y, la primera vez en un proyecto, agregar la regla para ignorarla si eliges dejar las fichas locales. Sin esto, la ficha completa se entrega en el chat. |
 | **Poder correr comandos de solo lectura** *(recomendado)* | Se usa para `git log` de los archivos clave, para entender por qué algo está como está. Opcional. |
 | **Soporte del formato Agent Skills** *(recomendado)* | Permite que el asistente active el skill solo cuando pides explicar o analizar algo, y que cargue los archivos de referencia solo cuando hacen falta. Sin esto, hay que pasarle las instrucciones a mano (ver abajo). |
 | **Un modelo capaz y con ventana de contexto amplia** | Analizar un módulo completo implica leer muchos archivos en varios repos y escribir una ficha larga y estructurada. |
 
-Nunca escribe código, corre migraciones ni despliega nada. El único archivo que escribe es la ficha en `docs/reports/`, y no necesita acceso a la red.
+Nunca escribe código, corre migraciones ni despliega nada. Lo único que escribe son las fichas en `docs/reports/` y, una vez por proyecto y solo si lo eliges, una regla para ignorarlas. No necesita acceso a la red.
 
 ## Instalación
 
@@ -121,19 +122,33 @@ Rinde mejor en herramientas tipo agente que trabajan directamente dentro del rep
 
 ## Pruebas
 
-`evals/` contiene casos de prueba sobre un proyecto ficticio (`evals/fixtures/club-reservas/`: un sistema de reservas de canchas de un club deportivo, con API y portal web) que tiene diez fallas plantadas a propósito. La clave de respuestas está en `evals/fixtures/club-reservas.clave.md`, fuera de la carpeta que ve el agente. Cada caso prueba un modo: dónde queda la ficha, las secciones, qué fallas detecta, las marcas de certeza, los diagramas, la anonimización en `as-new-spec` y los encabezados en inglés.
+`evals/` contiene casos de prueba sobre un proyecto ficticio, `evals/fixtures/club-bookings/`: un sistema de reservas de canchas de un club deportivo, con API y portal web, que tiene diez fallas plantadas a propósito. La app de ejemplo está en español a propósito, así las pruebas también verifican que los textos de pantalla se citen tal como aparecen aunque la ficha esté en inglés. La clave de respuestas está en `evals/fixtures/club-bookings.answer-key.md`, fuera de la carpeta que ve el agente.
+
+| Caso | Qué prueba |
+|---|---|
+| `booking-as-technical` | Dónde queda la ficha y el resumen, secciones, qué fallas detecta, marcas de certeza, diagrama de secuencia |
+| `booking-as-business` | Historias de usuario, textos literales de pantalla, riesgos por impacto, diagrama de flujo, sin jerga, encabezados en inglés |
+| `booking-as-new-spec` | Anonimización, máquina de estados y modelo de datos, requisitos que previenen las fallas, archivo de trazabilidad |
+| `booking-git-local` | Primera ficha en un repo git: pregunta repo o local, agrega la regla sin tocar las existentes y no hace commit |
+| `booking-spanish` | Un pedido en español produce una ficha completamente en español |
 
 Los casos siguen el formato de `claude plugin eval` (`prompt.md`, `case.yaml`, `graders/`), pero los criterios son frases simples, así que cualquier agente o persona puede calificar una corrida leyéndolos.
+
+## Idiomas
+
+Las instrucciones del skill están en inglés. Las fichas se escriben en el idioma del pedido, con todos los encabezados traducidos; los nombres de los modos nunca se traducen. En [`docs/es/`](docs/es/) hay una traducción al español de las instrucciones, solo para leer; si difiere de la versión en inglés, manda la inglesa.
 
 ## Estructura
 
 ```
-SKILL.md                    flujo de trabajo y elección de modo
-CHANGELOG.md                historial de versiones
-evals/                      casos de prueba y el proyecto ficticio de ejemplo
+SKILL.md                    flujo de trabajo y elección de modo (lo que lee el agente)
 references/as-technical.md  plantilla as-technical
 references/as-business.md   plantilla as-business y cómo sacar la vista de usuario del código
 references/as-new-spec.md   cómo transformar el análisis en especificación para un proyecto nuevo
+evals/                      casos de prueba y el proyecto ficticio de ejemplo
+docs/es/                    traducción al español de SKILL.md y las referencias, solo para leer
+CHANGELOG.md                historial de versiones
+README.es.md                este README
 ```
 
-No modifica código ni despliega nada; lo único que escribe es la ficha en `docs/reports/`.
+No modifica código ni despliega nada. Lo único que escribe son las fichas en `docs/reports/` y, una vez por proyecto y solo si lo eliges, una regla para ignorarlas.

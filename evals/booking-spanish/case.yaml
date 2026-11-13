@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: booking-spanish
+expected_outcome: |
+  as-business report fully in Spanish because the request is in Spanish: Spanish headings and labels, untranslated mode name.
+context:
+  scaffold_script: place-files.sh

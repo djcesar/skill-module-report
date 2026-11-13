@@ -1,126 +1,127 @@
-# Modo `as-new-spec`: especificación para construirlo nuevo
+# Mode `as-new-spec`: specification to build it anew
 
-El usuario no quiere saber cómo está hecho hoy: quiere la **documentación base para construir este módulo, flujo o función en un proyecto nuevo, bien hecho desde el principio**. El sistema actual es tu fuente de conocimiento del dominio (qué hace, para quién, qué reglas tiene, qué salió mal), pero el documento final describe **lo que debe construirse**, no lo que existe.
+The user does not want to know how it is built today: they want the **baseline documentation to build this module, flow or function in a new project, done right from the start**. The current system is your source of domain knowledge (what it does, for whom, what rules it has, what went wrong), but the final document describes **what must be built**, not what exists.
 
-Piensa en quien lo va a leer: un equipo que arranca un proyecto limpio y va a usar este documento como punto de partida para estimar, diseñar y construir. No conoce el sistema viejo y no le sirve que se lo cuenten; le sirve saber qué construir, cómo y por qué.
+Think of who will read it: a team starting a clean project that will use this document as the starting point to estimate, design and build. They do not know the old system and gain nothing from hearing about it; they need to know what to build, how and why.
 
-## Cómo se transforma lo que encontraste
+## How what you found is transformed
 
-- **"Qué haría diferente" deja de ser una opinión y pasa a ser el diseño.** Los rediseños que propondrías se vuelven la arquitectura, el flujo y las reglas de la especificación.
-- **Los defectos no se describen, se previenen.** Cada bug o riesgo que viste en el sistema actual se convierte en un requisito, una regla o un criterio de aceptación que lo hace imposible. Por ejemplo, "el endpoint de actualizar usuario era público y aceptaba el rol" se convierte en "RNF-SEG-2: ningún endpoint acepta campos de rol o estado desde el cliente; el cambio de rol es una acción de administración auditada". No cuentes la historia del error.
-- **Los casos de uso son los que debe tener, no solo los que tiene.** Si al sistema actual le falta un caso evidente (corregir un dato, reenviar un enlace, ver el historial), inclúyelo. Si un caso actual existe solo por un parche, déjalo fuera.
-- **Lo que no puedes decidir tú va como decisión abierta**, con opciones y tu recomendación. No inventes reglas legales o de negocio que el código no sostenga.
+- **"What I would do differently" stops being an opinion and becomes the design.** The redesigns you would propose become the architecture, the flow and the rules of the specification.
+- **Defects are not described, they are prevented.** Every bug or risk you saw in the current system becomes a requirement, rule or acceptance criterion that makes it impossible. For example, "the update-user endpoint was public and accepted the role" becomes "RNF-SEC-2: no endpoint accepts role or status fields from the client; changing a role is an audited admin action". Do not tell the story of the bug.
+- **Use cases are the ones it should have, not only the ones it has.** If the current system lacks an obvious case (correcting data, resending a link, viewing history), include it. If a current case exists only because of a workaround, leave it out.
+- **What you cannot decide goes in as an open decision**, with options and your recommendation. Do not invent legal or business rules the code does not support.
 
-## Limpieza del documento
+## Keeping the document clean
 
-La especificación tiene que poder entregarse a otra organización o a otro equipo sin modificarla (el archivo de trazabilidad, más abajo, es la excepción):
+The specification must be deliverable to another organization or team without changes (the traceability file, below, is the exception):
 
-- **Sin referencias al código actual.** Nada de rutas de archivos, nombres de clases o endpoints viejos, ni números de línea. Tampoco va la línea de "Referencias técnicas" al final.
-- **Sin nombres propios de la organización.** Reemplaza el nombre de la organización por su rol genérico, y haz lo mismo con sus derivados: siglas, dominios, nombres de apps y repositorios, correos.
-  - Un partido político ("Partido Ejemplo", su sigla "PE") → "el Partido"; una clínica → "la Clínica"; una empresa → "la Empresa"; una universidad → "la Universidad".
-  - Dominios y correos (`partidoejemplo.org`, `pe+…@…`) → `<dominio>`, `<correo-de-sistema>`.
-  - Apps y repositorios → por su función: portal del usuario, panel de administración, app móvil, API.
-  - Busca el nombre de la organización en el código (textos de UI, plantillas de correo, dominios, nombres de repos) para saber exactamente qué reemplazar.
-- **Sin datos reales**: ni nombres de personas, ni documentos, ni correos, ni ids que aparezcan en el código, en semillas o en ejemplos.
-- **La tecnología es una recomendación, no una herencia.** Si el proyecto tiene una propuesta de arquitectura o un stack definido, alinéate con eso y dilo. Si no, recomienda con justificación y deja el diseño expresado en conceptos (estados, contratos, permisos) que sobrevivan a un cambio de stack.
+- **No references to the current code.** No file paths, old class or endpoint names, or line numbers. The "Technical references" line at the end is left out too.
+- **No proper names of the organization.** Replace the organization's name with its generic role, and do the same with everything derived from it: acronyms, domains, app and repository names, email addresses.
+  - A political party ("Example Party", acronym "EP") → "the Party"; a clinic → "the Clinic"; a company → "the Company"; a university → "the University". In Spanish: "el Partido", "la Clínica", "la Empresa", "la Universidad".
+  - Domains and email addresses (`exampleparty.org`, `ep+…@…`) → `<domain>`, `<system-email>`.
+  - Apps and repositories → by their function: user portal, admin panel, mobile app, API.
+  - Search the code for the organization's name (UI texts, email templates, domains, repository names) to know exactly what to replace.
+- **No real data**: no people's names, ID numbers, emails or ids that appear in the code, seeds or examples.
+- **Technology is a recommendation, not an inheritance.** If the project has an architecture proposal or a defined stack, align with it and say so. If not, recommend one with its justification and express the design in concepts (states, contracts, permissions) that survive a change of stack.
 
-## Las ocho secciones en este modo
+## The eight sections in this mode
 
-Mantén los mismos encabezados para que se pueda comparar con la ficha de análisis, pero llénalos así:
+Keep the same headings so it can be compared with the analysis report, but fill them like this:
 
 ```markdown
-# <Nombre del módulo> — Especificación base
+# <Module name> — Baseline specification
 
-> **Propósito del documento:** qué se va a construir y para quién, en una o dos líneas.
-> **Fuera de alcance:** lo que este módulo no hace (y qué módulo sí lo hace).
+> **Purpose of this document:** what will be built and for whom, in one or two lines.
+> **Out of scope:** what this module does not do (and which module does).
 
-## Resumen
-5–8 líneas: qué se construye, las 3–4 decisiones de diseño que lo definen y las decisiones
-abiertas que bloquean el arranque. Es lo mismo que se muestra en el chat.
+## Summary
+5–8 lines: what is being built, the 3–4 design decisions that define it and the open decisions
+that block the start. It is the same text shown in the chat.
 
-## Descripción
-Qué problema resuelve, actores, y un **glosario** de los términos y estados del dominio
-(p. ej. "Afiliado", "Desafiliado", "Reafiliación"). Incluye el **ciclo de vida** del objeto
-principal como máquina de estados: estados, transiciones, quién dispara cada una.
-Dibújala siempre como `stateDiagram-v2` de Mermaid: en este modo es la pieza central del
-diseño y la que el equipo va a implementar.
+## Description
+What problem it solves, actors, and a **glossary** of the domain's terms and states
+(e.g. "Member", "Former member", "Re-enrollment"). Include the main object's **lifecycle**
+as a state machine: states, transitions, who triggers each one.
+Always draw it as a Mermaid `stateDiagram-v2`: in this mode it is the core of the design
+and the piece the team will implement.
 
-## Casos de uso
-Completos y correctos (ver arriba). Con `as-business`: historias con criterios Dado/cuando/entonces.
-Con `as-technical`: caso, actor, precondiciones, flujo principal, alternos y errores, postcondiciones.
+## Use cases
+Complete and correct (see above). With `as-business`: stories with Given/when/then criteria.
+With `as-technical`: case, actor, preconditions, main flow, alternate and error paths, postconditions.
 
-## Features o características requeridas
-- **Requisitos funcionales** numerados (RF-1…), cada uno trazable a un caso de uso.
-- **Requisitos no funcionales** (RNF-SEG, RNF-PRIV, RNF-AUD, RNF-REND, RNF-ACC…):
-  seguridad, privacidad y datos personales, auditoría, rendimiento, accesibilidad, disponibilidad.
-- Con `as-business`: pantallas con sus campos y botones (tabla), mensajes y comunicaciones.
-- Con `as-technical`: modelo de datos (entidades, campos clave, restricciones; con un
-  `erDiagram` de Mermaid), un `sequenceDiagram` del caso de uso principal, contratos de API
-  por caso de uso (método, ruta, quién puede, entrada, salida, errores), **matriz de permisos**
-  (rol × acción, por dueño del registro), eventos e integraciones.
+## Required features
+- **Functional requirements** numbered (RF-1…), each traceable to a use case.
+- **Non-functional requirements** (RNF-SEC, RNF-PRIV, RNF-AUD, RNF-PERF, RNF-ACC…):
+  security, privacy and personal data, auditing, performance, accessibility, availability.
+- With `as-business`: screens with their fields and buttons (table), messages and communications.
+- With `as-technical`: data model (entities, key fields, constraints; with a Mermaid
+  `erDiagram`), a `sequenceDiagram` of the main use case, API contracts per use case
+  (method, route, who may call it, input, output, errors), **permission matrix**
+  (role × action, by record owner), events and integrations.
 
-## Cosas importantes a tener en cuenta
-Reglas de negocio e invariantes (lo que nunca puede pasar), restricciones legales o normativas,
-orden obligatorio de pasos, consistencia entre canales, migración de datos si se reemplaza un
-sistema existente.
+## Things to keep in mind
+Business rules and invariants (what must never happen), legal or regulatory constraints,
+mandatory order of steps, consistency across channels, data migration if an existing system
+is being replaced.
 
-## Cosas a resolver
-**Decisiones abiertas** antes de construir: preguntas para negocio, jurídica u operación.
-Cada una con opciones, impacto y tu recomendación. No son bugs: aquí no hay sistema todavía.
+## Issues to fix
+**Open decisions** before building: questions for business, legal or operations.
+Each one with options, impact and your recommendation. They are not bugs: there is no system yet.
 
-## Cosas que sería bueno incluir
-Lo que queda para una **fase posterior** (v2): valioso pero no necesario para la primera entrega.
-Di por qué puede esperar.
+## Nice to have
+What is left for a **later phase** (v2): valuable but not needed for the first delivery.
+Say why it can wait.
 
-## Qué haría diferente
-Aquí se convierte en las **decisiones de diseño** clave, en formato corto de ADR:
-- **Decisión:** lo que se hace.
-- **Alternativas descartadas:** las otras formas razonables, incluida la que tenía el sistema
-  anterior, descrita de forma genérica ("estado repartido en varias banderas"), sin nombrarlo.
-- **Por qué:** el principio, el riesgo que evita y el costo que se acepta.
+## What I would do differently
+Here it becomes the key **design decisions**, in a short ADR format:
+- **Decision:** what is done.
+- **Rejected alternatives:** the other reasonable options, including the one the previous
+  system used, described generically ("state split across several flags"), without naming it.
+- **Why:** the principle, the risk it avoids and the cost that is accepted.
 
-## Relacionados
-Módulos e integraciones que el nuevo módulo necesita o alimenta, con el contrato entre ellos
-(qué le pide o qué le entrega a cada uno). Nombres genéricos, no los del sistema actual.
+## Related
+Modules and integrations the new module needs or feeds, with the contract between them
+(what it asks of or delivers to each one). Generic names, not those of the current system.
 ```
 
-## Combinación con `as-technical` y `as-business`
+## Combining with `as-technical` and `as-business`
 
-- **`as-new-spec as-business`**: especificación funcional (historias, pantallas, reglas, decisiones abiertas para negocio).
-- **`as-new-spec as-technical`**: especificación técnica (modelo, contratos, permisos, decisiones de arquitectura).
-- **`as-new-spec` solo**: entrega ambas, primero la funcional y luego la técnica, porque una documentación base de proyecto necesita las dos. Que no se contradigan: los RF y las historias deben usar la misma numeración o una tabla de correspondencia.
+- **`as-new-spec as-business`**: functional specification (stories, screens, rules, open decisions for the business).
+- **`as-new-spec as-technical`**: technical specification (model, contracts, permissions, architecture decisions).
+- **`as-new-spec` alone**: deliver both, functional first and then technical, because baseline project documentation needs both. They must not contradict each other: RFs and stories should share the same numbering or a correspondence table.
 
-## Archivo de trazabilidad
+## Traceability file
 
-Además de la especificación, escribe siempre un segundo archivo, interno: `<tema>-as-new-spec-traceability.md`, en la misma carpeta. Uno solo, aunque la especificación salga en dos archivos (funcional y técnica).
+Besides the specification, always write a second, internal file: `<topic>-as-new-spec-traceability.md`, in the same folder. Only one, even if the specification comes in two files (functional and technical).
 
-Por qué existe: la especificación está limpia a propósito, así que por sí sola no dice **de dónde salió cada requisito**. Cuando alguien pregunte "¿por qué está este RNF-SEG?" o "¿esta regla es necesaria?", la respuesta tiene que estar escrita en algún lado. Y los riesgos del sistema actual no pueden quedar solo en el chat, porque se pierden al cerrar la conversación. Ya tienes toda esta información cuando escribes la especificación; aquí solo la anotas.
+Why it exists: the specification is clean on purpose, so on its own it does not say **where each requirement came from**. When someone asks "why is this RNF-SEC here?" or "is this rule necessary?", the answer has to be written somewhere. And the current system's risks cannot live only in the chat, because they are lost when the conversation ends. You already have all this information when you write the specification; here you just record it.
 
-Este archivo **no se entrega** con la especificación y es la excepción a las reglas de limpieza: aquí sí van rutas de archivos, endpoints y el nombre real de la organización.
+This file is **not delivered** with the specification and is the exception to the cleanliness rules: file paths, endpoints and the organization's real name do go here.
 
 ```markdown
-# <Tema> — as-new-spec · trazabilidad
+# <Topic> — as-new-spec · traceability
 
-> **Documento interno.** Explica de dónde sale cada requisito y decisión de la especificación
-> `<archivo(s) de la especificación>`. Contiene referencias al sistema actual: no se entrega con ella.
+> **Internal document.** Explains where each requirement and decision in the specification
+> `<specification file(s)>` comes from. It contains references to the current system: it is not
+> delivered with it.
 
-## Requisitos y decisiones → origen
-| Requisito o decisión | Qué lo motivó | Evidencia en el sistema actual |
+## Requirements and decisions → origin
+| Requirement or decision | What motivated it | Evidence in the current system |
 |---|---|---|
-| RNF-SEG-4 Contratos estrictos | Hoy el cliente puede fijar estado, pago y dueño | `reservas.controller.ts:29`, `reserva.dto.ts:10` |
-| RF-3 Cancelar reserva | Caso actual, se conserva | `mis-reservas.page.html:9` |
-| RF-9 Reenviar enlace | Falta hoy (dominio) | — |
+| RNF-SEC-4 Strict contracts | Today the client can set status, payment and owner | `bookings.controller.ts:29`, `booking.dto.ts:10` |
+| RF-3 Cancel booking | Current case, kept | `my-bookings.page.html:9` |
+| RF-9 Resend link | Missing today (domain) | — |
 
-Clasifica cada fila por su origen: **defecto que previene** (con evidencia), **caso actual que se
-conserva** (con evidencia), **falta hoy** o **práctica de dominio** (sin evidencia de código; di de
-dónde lo tomas). No hace falta que todo tenga origen en el código, pero todo tiene que tener origen.
+Classify each row by its origin: **defect it prevents** (with evidence), **current case that is
+kept** (with evidence), **missing today** or **domain practice** (no code evidence; say where you
+take it from). Not everything needs an origin in the code, but everything needs an origin.
 
-## Riesgos críticos del sistema actual
-Los 🔴 que viste, con su marca de certeza y evidencia, como en `as-technical`. Son los que la
-especificación previene, pero siguen abiertos en producción y no deben esperar al proyecto nuevo.
+## Critical risks in the current system
+The 🔴 you saw, with their certainty label and evidence, as in `as-technical`. They are what the
+specification prevents, but they are still open in production and should not wait for the new project.
 
-## Otros defectos del sistema actual
-Los de severidad media o baja, en una línea cada uno.
+## Other defects in the current system
+Medium or low severity ones, one line each.
 ```
 
-Antes de entregar, revisa la especificación (no la trazabilidad) buscando el nombre de la organización, rutas de archivos y nombres de clases o endpoints actuales. Si encuentras alguno, reemplázalo.
+Before delivering, check the specification (not the traceability file) for the organization's name, file paths and current class or endpoint names. If you find any, replace them.

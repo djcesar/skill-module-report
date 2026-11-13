@@ -1,118 +1,118 @@
-# Modo `as-business`
+# Mode `as-business`
 
-Para producto, negocio, QA, soporte o el cliente: gente que conoce el proceso pero no el código. La ficha cuenta **qué ve y qué hace cada persona**: pantallas, botones, campos, mensajes, correos y reglas. El código se usa para averiguar todo eso con precisión, pero casi no aparece en la ficha.
+For product, business, QA, support or the client: people who know the process but not the code. The report tells **what each person sees and does**: screens, buttons, fields, messages, emails and rules. The code is used to find all of that precisely, but it barely appears in the report.
 
-## Cómo sacar la vista de usuario del código
+## How to get the user's view from the code
 
-Lo que el usuario ve está en los fronts, no en el backend. Busca:
+What the user sees lives in the frontends, not in the backend. Look for:
 
-- **Pantallas**: rutas y el título visible de cada página (no el nombre del componente).
-- **Botones, enlaces y campos**: el texto literal de las plantillas (HTML/JSX), `label`, `placeholder`, opciones de selects, archivos de traducción.
-- **Validaciones visibles**: `required`, `pattern`, `minlength`/`maxlength`, validadores del formulario, botones deshabilitados y la condición que los habilita.
-- **Mensajes**: textos de toasts, alerts, errores debajo de los campos, pantallas vacías; y los que vienen del backend y se muestran tal cual.
-- **Lo que pasa fuera de la pantalla**: correos, SMS, notificaciones, PDFs generados, y su contenido y destinatario.
-- **Quién puede hacer qué**: roles, menús que aparecen o no, apps distintas (web, móvil, administración).
+- **Screens**: routes and the visible title of each page (not the component name).
+- **Buttons, links and fields**: the literal text in the templates (HTML/JSX), `label`, `placeholder`, select options, translation files.
+- **Visible validations**: `required`, `pattern`, `minlength`/`maxlength`, form validators, disabled buttons and the condition that enables them.
+- **Messages**: texts of toasts, alerts, errors under fields, empty screens; and those that come from the backend and are shown as they are.
+- **What happens off screen**: emails, SMS, notifications, generated PDFs, with their content and recipient.
+- **Who can do what**: roles, menus that appear or not, separate apps (web, mobile, admin).
 
-Antes de escribir, aplica en el backend la **revisión de riesgos** de SKILL.md a las acciones clave del proceso (ver, descargar, crear, cambiar). Que la pantalla esconda un botón no significa que el sistema lo impida. Es el riesgo crítico que más se escapa cuando se miran solo pantallas, y justamente el que el negocio necesita conocer.
+Before writing, run the **risk review** from SKILL.md on the backend for the process's key actions (view, download, create, change). A screen hiding a button does not mean the system prevents the action. It is the critical risk most often missed when looking only at screens, and exactly the one the business needs to know about.
 
-Escribe los textos de la interfaz tal como aparecen, en negrita (**Guardar**, **¿Olvidaste tu contraseña?**). Así quien lea la ficha los reconoce en la pantalla. Si un texto se arma dinámicamente o no lo pudiste confirmar, dilo.
+Quote UI texts exactly as they appear, in bold and in their original language (**Guardar**, **Forgot your password?**), even if the report is in another language. That way readers recognize them on screen. If a text is built dynamically or you could not confirm it, say so.
 
-## Lenguaje
+## Language
 
-Escribe para alguien que no programa. Términos como endpoint, servicio, DTO, guard, token, query, Firestore o S3 se traducen a lo que significan para el negocio ("el sistema verifica que…", "el archivo queda guardado en la nube") o se omiten. Una regla práctica: si un líder de producto no entendería la palabra, tradúcela.
+Write for someone who does not code. Terms like endpoint, service, DTO, guard, token, query, Firestore or S3 are translated into what they mean for the business ("the system checks that…", "the file is stored in the cloud") or left out. A practical rule: if a product lead would not understand the word, translate it.
 
-**Lo técnico entra solo si es crítico**, es decir, si afecta:
-- la seguridad o privacidad de datos personales (habeas data, datos de otros afiliados expuestos);
-- pérdida o corrupción de información;
-- cumplimiento legal o normativo, o dinero;
-- que el proceso quede bloqueado o no funcione para un grupo de usuarios.
+**Technical details come in only when critical**, that is, when they affect:
+- the security or privacy of personal data (data protection law, other people's data exposed);
+- loss or corruption of information;
+- legal or regulatory compliance, or money;
+- the process being blocked or not working for a group of users.
 
-Aun así, se cuenta por su **impacto** ("⚠️ cualquiera que tenga el enlace puede descargar el formato de otro afiliado, sin iniciar sesión"), no por su mecanismo (`@Public()` en el controlador). Lo técnico no crítico (refactors, código muerto, logs) se deja fuera: no es para este público.
+Even then, describe them by their **impact** ("⚠️ anyone with the link can download another member's form without signing in"), not by their mechanism (`@Public()` on the controller). Non-critical technical details (refactors, dead code, logging) are left out: they are not for this audience.
 
-## Plantilla
+## Template
 
 ```markdown
-# <Nombre del proceso, como lo llamaría el negocio>
+# <Name of the process, as the business would call it>
 
-> **Alcance:** qué apps/pantallas se revisaron y qué no se pudo confirmar.
-> **Quiénes participan:** roles (afiliado, ciudadano sin cuenta, administrador, operador…).
+> **Scope:** which apps/screens were reviewed and what could not be confirmed.
+> **Who takes part:** roles (member, visitor without an account, administrator, operator…).
 
-## Resumen
-5–8 líneas sin jerga: qué necesidad resuelve y para quién, los problemas 🔴 por su impacto,
-y la mejora de fondo más importante. Es lo mismo que se muestra en el chat.
+## Summary
+5–8 lines without jargon: what need it meets and for whom, the 🔴 problems by their impact,
+and the most important deep improvement. It is the same text shown in the chat.
 
-## Descripción
-Qué necesidad resuelve y para quién, en 1–2 párrafos sin jerga. Luego el recorrido típico
-como pasos de usuario:
-1. En la pantalla **<Título>** (<app>), el <rol> toca **<Botón>**.
-2. Escribe <dato> en el campo **<Campo>** y toca **<Botón>**.
-3. Recibe <correo/SMS/mensaje> con…
+## Description
+What need it meets and for whom, in 1–2 paragraphs without jargon. Then the typical walkthrough
+as user steps:
+1. On the **<Title>** screen (<app>), the <role> taps **<Button>**.
+2. They type <data> in the **<Field>** field and tap **<Button>**.
+3. They receive <email/SMS/message> with…
 
-Si el proceso tiene decisiones o caminos alternos (aprobado/rechazado, con o sin cuenta),
-agrega un `flowchart` de Mermaid con los pasos del usuario y esas bifurcaciones, usando los
-nombres de las pantallas y botones, sin nombres técnicos.
+If the process has decisions or alternate paths (approved/rejected, with or without an account),
+add a Mermaid `flowchart` with the user's steps and those branches, using the names of the
+screens and buttons, with no technical names.
 
-## Casos de uso
-Una historia por objetivo distinto del usuario, incluidas las de otros roles (p. ej. el admin).
+## Use cases
+One story per distinct user goal, including those of other roles (e.g. the admin).
 
-### HU-1 · <Título corto>
-**Como** <rol> **quiero** <acción> **para** <beneficio>.
-**Dónde:** <app> → <pantalla> → **<botón o menú>**
-**Criterios de aceptación:**
-- **Dado** <situación> **cuando** <acción> **entonces** <resultado visible>.
-- Caminos alternos y de error con el mensaje que ve el usuario
-  (dato inválido, no existe, sin permiso, sin conexión…).
+### US-1 · <Short title>
+**As a** <role> **I want** <action> **so that** <benefit>.
+**Where:** <app> → <screen> → **<button or menu>**
+**Acceptance criteria:**
+- **Given** <situation> **when** <action> **then** <visible result>.
+- Alternate and error paths with the message the user sees
+  (invalid data, does not exist, no permission, no connection…).
 
-## Features o características requeridas
-Lo que el proceso debe tener para funcionar, por pantalla:
+## Required features
+What the process must have in order to work, per screen:
 
-**Pantalla: <Título>** (<app>)
-| Elemento | Tipo | Obligatorio | Reglas visibles | Mensaje si falla |
+**Screen: <Title>** (<app>)
+| Element | Type | Required | Visible rules | Message on failure |
 |---|---|---|---|---|
-| **<Campo>** | Texto / número / lista / archivo / botón… | Sí/No | p. ej. "solo números, 6–10 dígitos" | "<texto literal>" |
+| **<Field>** | Text / number / list / file / button… | Yes/No | e.g. "digits only, 6–10" | "<literal text>" |
 
-**Reglas de negocio**
-- RN-1: <regla> (p. ej. "el enlace para cambiar la clave vence en 1 hora").
-- **Comunicaciones**: qué correo/SMS/PDF se envía, a quién y qué contiene.
+**Business rules**
+- BR-1: <rule> (e.g. "the link to change the password expires in 1 hour").
+- **Communications**: which email/SMS/PDF is sent, to whom and what it contains.
 
-## Cosas importantes a tener en cuenta
-Reglas que no se ven a simple vista, diferencias entre canales (web, app móvil, administración),
-dependencias con otros procesos, tiempos y vencimientos, datos que se sobrescriben,
-y lo que el usuario no ve pero le afecta.
+## Things to keep in mind
+Rules that are not obvious, differences between channels (web, mobile app, admin),
+dependencies on other processes, timings and expirations, data that gets overwritten,
+and what the user does not see but affects them.
 
-## Cosas a resolver
-Problemas desde la experiencia del usuario o el riesgo para la organización: pasos confusos,
-mensajes engañosos o ausentes, callejones sin salida, reglas incoherentes entre canales,
-más lo técnico crítico contado por su impacto. Cada uno con severidad
-(🔴 alta / 🟡 media / 🟢 baja) y dónde se ve (pantalla/botón). Si no hallaste nada, dilo.
+## Issues to fix
+Problems from the user's experience or the risk to the organization: confusing steps,
+misleading or missing messages, dead ends, rules that differ between channels,
+plus critical technical issues described by their impact. Each with a severity
+(🔴 high / 🟡 medium / 🟢 low) and where it shows (screen/button). If you found nothing, say so.
 
-## Cosas que sería bueno incluir
-Mejoras de producto y experiencia: confirmaciones, mensajes más claros, atajos, accesibilidad,
-información útil para el usuario o para quien lo atiende, reportes.
+## Nice to have
+Product and experience improvements: confirmations, clearer messages, shortcuts, accessibility,
+useful information for the user or for whoever supports them, reports.
 
-## Qué haría diferente
-Cómo habría diseñado la experiencia y el proceso desde cero, buscando lo correcto y no lo rápido.
-Cada punto con tres partes:
-- **Hoy:** cómo lo vive el usuario (pantalla, pasos, mensajes).
-- **Lo haría así:** el rediseño concreto (pasos, pantallas, textos, reglas).
-- **Por qué:** el beneficio para el usuario o la organización (menos errores, menos soporte,
-  más confianza, cumplimiento), en lenguaje de negocio.
+## What I would do differently
+How you would have designed the experience and the process from scratch, aiming for what is
+right and not what is quick. Each point in three parts:
+- **Today:** how the user experiences it (screen, steps, messages).
+- **I would do it like this:** the concrete redesign (steps, screens, texts, rules).
+- **Why:** the benefit for the user or the organization (fewer errors, less support,
+  more trust, compliance), in business language.
 
-## Relacionados
-| Proceso o pantalla | Relación | Quién lo usa |
+## Related
+| Process or screen | Relationship | Who uses it |
 |---|---|---|
-| <p. ej. Inicio de sesión> | Desde aquí se entra al proceso | Afiliado |
+| <e.g. Sign in> | The process starts here | Member |
 
 ---
-<sub>**Referencias técnicas** (para ubicarlo en el código): 3–6 archivos clave como enlaces.</sub>
+<sub>**Technical references** (to locate it in the code): 3–6 key files as links.</sub>
 ```
 
-- La última línea de referencias existe para que alguien técnico pueda rastrear la ficha sin que el resto tenga que leer código. Mantenla corta.
-- **"Qué haría diferente" en `as-business`** piensa en ejes como estos (usa los que apliquen):
-  - Flujo: menos pasos, sin callejones sin salida, que el usuario siempre sepa en qué estado está y qué sigue.
-  - Prevención de errores: validar mientras escribe, confirmar acciones irreversibles, permitir deshacer o corregir.
-  - Mensajes: que digan qué pasó y qué hacer, sin culpar ni revelar datos de otros.
-  - Consistencia: el mismo proceso y los mismos textos en web, app y administración.
-  - Accesibilidad y móvil: contraste, tamaños táctiles, lectores de pantalla, teclados adecuados por tipo de campo.
-  - Confianza y privacidad: pedir solo lo necesario, explicar para qué se usa el dato, dejar constancia de quién hizo qué.
-- "Features requeridas" sale de lo que la pantalla realmente pide y valida hoy. Lo que debería pedir y no pide va en "Cosas a resolver" (si es un defecto) o en "Sería bueno incluir" (si es una mejora).
+- The final references line exists so a technical person can trace the report without everyone else having to read code. Keep it short.
+- **"What I would do differently" in `as-business`** considers axes like these (use the ones that apply):
+  - Flow: fewer steps, no dead ends, the user always knows what state they are in and what comes next.
+  - Error prevention: validate while typing, confirm irreversible actions, allow undoing or correcting.
+  - Messages: say what happened and what to do, without blaming or revealing other people's data.
+  - Consistency: the same process and the same texts on web, app and admin.
+  - Accessibility and mobile: contrast, touch target sizes, screen readers, the right keyboard for each field type.
+  - Trust and privacy: ask only for what is needed, explain what the data is used for, keep a record of who did what.
+- "Required features" comes from what the screen actually asks for and validates today. What it should ask for and does not goes in "Issues to fix" (if it is a defect) or "Nice to have" (if it is an improvement).

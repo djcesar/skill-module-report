@@ -1,6 +1,0 @@
-schema_version: "1.1"
-name: reservas-english
-expected_outcome: |
-  as-business report in English: translated headings, untranslated mode name, literal Spanish UI texts.
-context:
-  scaffold_script: place-files.sh
