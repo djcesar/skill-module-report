@@ -1,2 +1,3 @@
-evals/
+evals-privados/
+evals/*/results/
 .DS_Store

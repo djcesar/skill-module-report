@@ -1,0 +1,12 @@
+<ion-header><ion-toolbar><ion-title>Administrar reservas</ion-title></ion-toolbar></ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let r of pendientes">
+      <ion-label>
+        <h2>#{{ r.id }} · {{ r.socioNombre }}</h2>
+        <p>Cancha {{ r.canchaId }} — {{ r.fecha }} {{ r.hora }}</p>
+      </ion-label>
+      <ion-button slot="end" *ngIf="sesion.rol === 'admin'" (click)="confirmar(r)">Confirmar</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

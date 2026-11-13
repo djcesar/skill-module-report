@@ -1,6 +1,9 @@
 ---
 name: skill-analizar-modulo
-description: Produce una ficha de análisis de un flujo, módulo, función, endpoint, pantalla o proceso del proyecto actual, investigando el código real, con ocho secciones fijas (Descripción, Casos de uso, Features requeridas, Cosas importantes a tener en cuenta, Cosas a resolver, Cosas que sería bueno incluir, Qué haría diferente, Relacionados). Tiene tres modos combinables - as-technical (archivos, servicios, datos, para quien va a tocar el código), as-business (historias de usuario, pantallas, botones, campos y mensajes, sin jerga, para producto/QA/cliente) y as-new-spec (especificación base para construir ese módulo limpio en un proyecto nuevo, con el diseño correcto, sin bugs ni nombres de la organización). Úsalo siempre que el usuario pida explicar, analizar, documentar, entender, auditar o "hacer la ficha" de cómo funciona algo, o nombre un modo: "¿cómo funciona el flujo de X?", "analízame el módulo Y", "dame el panorama de Z antes de tocarlo", "qué falta en el módulo de pagos", "qué está relacionado con esta función", "dame las historias de usuario de X", "qué harías diferente en X", "explícame X en forma de negocio / funcional / para el PO", "qué botones y campos tiene el proceso de X", "X desde cero", "como documentación base para un proyecto nuevo", "especificación de X", "X as-business", "as-new-spec". Actívalo aunque no mencione las secciones ni la palabra "ficha". También en inglés ("walk me through the X flow", "user stories for Y", "spec to rebuild Z from scratch").
+description: 'Ficha de análisis de un flujo, módulo, función, endpoint, pantalla o proceso del proyecto actual, investigando el código real, con ocho secciones (descripción, casos de uso, features requeridas, cosas importantes, cosas a resolver, sería bueno incluir, qué haría diferente, relacionados). Tres modos combinables - as-technical (para quien toca el código), as-business (historias de usuario, pantallas, campos y mensajes, sin jerga) y as-new-spec (especificación limpia para construirlo en un proyecto nuevo). Úsalo siempre que pidan explicar, analizar, documentar o auditar cómo funciona algo, aunque no digan ficha - cómo funciona el flujo de X, analízame el módulo Y, panorama antes de tocarlo, qué le falta, qué harías diferente, historias de usuario de X, en forma de negocio o para el PO, qué botones y campos tiene, X desde cero o como documentación base para un proyecto nuevo, o un modo por nombre. También en inglés (walk me through X, user stories for Y, spec to rebuild Z).'
+compatibility: 'Requiere un agente con acceso de lectura al repositorio (buscar y abrir archivos). Recomendado - escritura en docs/reports/, comandos de solo lectura (git log) y subagentes para módulos grandes.'
+metadata:
+  version: "1.0.0"
 ---
 
 # Analizar módulo
@@ -68,6 +71,16 @@ Revisa siempre esta lista sobre las acciones del flujo, aunque el modo sea `as-b
 
 Cómo se reporta cada riesgo depende del modo: en `as-technical` con su mecanismo y evidencia; en `as-business` por su impacto; en `as-new-spec` como requisito que lo previene (RNF-SEG) y, si existe en el sistema actual, en la nota del chat. Si un punto no aplica al flujo, no lo menciones.
 
+### Repartir la investigación (si tu herramienta lo permite)
+
+Un módulo completo en varios repos puede llevar muchos minutos si lo recorres solo. Si tu herramienta permite delegar en subagentes y el objetivo abarca dos o más repos o componentes grandes, reparte la exploración: un subagente por repo o componente (p. ej. API, portal web, app móvil), todos a la vez.
+
+- Dale a cada uno un encargo concreto: qué flujo seguir, qué buscar (entradas, validaciones, datos, permisos, textos de pantalla según el modo) y que devuelva **hechos con `archivo:línea`**, no prosa ni conclusiones.
+- Incluye la revisión de riesgos en el encargo del backend.
+- Tú unes los resultados, cruzas los repos (qué pantalla llama a qué endpoint), **verificas tú mismo cada 🔴** (ver paso 3) y escribes la ficha. La verificación y la escritura no se delegan: son las que dan coherencia y confianza.
+
+Para una función o un flujo pequeño, hazlo tú directamente: repartir cuesta más de lo que ahorra.
+
 Dosifica la profundidad según el tamaño del objetivo: una función pide unos pocos archivos; un módulo completo pide recorrer sus entradas principales. Si algo quedó fuera (por tamaño o porque vive en otro sistema que no puedes ver), dilo en el alcance en vez de rellenar.
 
 ## 3. Distinguir hecho de inferencia
@@ -84,11 +97,27 @@ Y salvo que lo hayas ejecutado, agrega **"no probado en vivo"**: leer el código
 
 ## 4. Entregar la ficha
 
-Escribe la ficha en el idioma del usuario (por defecto español), con la plantilla de la referencia elegida. El título debe nombrar lo que se pidió y el modo (p. ej. "Afiliaciones y afiliados — as-business"), para que se reconozca entre varias.
+Escribe la ficha en el idioma del usuario (por defecto español), con la plantilla de la referencia elegida. Las plantillas están en español; si la ficha va en otro idioma, traduce **todos** los encabezados y etiquetas para que no quede una mezcla. Los nombres de los modos (`as-technical`, `as-business`, `as-new-spec`) no se traducen nunca. En inglés usa estos:
+
+| Español | English |
+|---|---|
+| Alcance / Resumen | Scope / Summary |
+| Descripción | Description |
+| Casos de uso | Use cases |
+| Features o características requeridas | Required features |
+| Cosas importantes a tener en cuenta | Things to keep in mind |
+| Cosas a resolver | Issues to fix |
+| Cosas que sería bueno incluir | Nice to have |
+| Qué haría diferente (Hoy / Lo haría así / Por qué) | What I would do differently (Today / I would do it like this / Why) |
+| Relacionados | Related |
+| Como… quiero… para… / Dado… cuando… entonces… | As a… I want… so that… / Given… when… then… |
+| (verificado en código) / (inferido) / no probado en vivo | (verified in code) / (inferred) / not tested live |
+
+Para otro idioma, traduce con el mismo criterio. El título debe nombrar lo que se pidió y el modo (p. ej. "Afiliaciones y afiliados — as-business"), para que se reconozca entre varias.
 
 **La ficha completa siempre va a un archivo; en el chat va solo el resumen.** Las fichas de un módulo completo pasan fácilmente de 300 líneas: en el chat se cortan, no se pueden compartir y se pierden. En un archivo se leen bien, se versionan y se pueden comparar en el tiempo.
 
-- **Dónde:** `docs/fichas/` en la raíz del directorio de trabajo (créala si no existe). Si el directorio de trabajo agrupa varios repos hermanos, va en esa raíz común, no dentro de uno de ellos.
+- **Dónde:** `docs/reports/` en la raíz del directorio de trabajo (créala si no existe). Si el directorio de trabajo agrupa varios repos hermanos, va en esa raíz común, no dentro de uno de ellos.
 - **Nombre:** `<tema>-<modo>.md` en minúsculas y con guiones, con las palabras del usuario (p. ej. `afiliaciones-as-new-spec.md`, `reset-contrasena-as-business.md`); nunca un nombre genérico como `respuesta.md`. Si pidió varios modos, un archivo por modo.
 - **Si ya existe** un archivo con ese nombre, no lo sobrescribas: es la ficha anterior y sirve para comparar. Usa `<tema>-<modo>-AAAA-MM-DD.md`.
 - **No hagas commit** del archivo; avisa que quedó creado y que decide el usuario.

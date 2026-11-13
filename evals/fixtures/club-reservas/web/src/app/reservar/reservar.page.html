@@ -1,0 +1,37 @@
+<ion-header><ion-toolbar><ion-title>Reservar cancha</ion-title></ion-toolbar></ion-header>
+<ion-content>
+  <form [formGroup]="form" (ngSubmit)="reservar()">
+    <ion-item>
+      <ion-label position="stacked">Cancha</ion-label>
+      <ion-select formControlName="canchaId" placeholder="Elige una cancha">
+        <ion-select-option *ngFor="let c of canchas" [value]="c.id">{{ c.nombre }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Fecha</ion-label>
+      <ion-input type="date" formControlName="fecha"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Hora</ion-label>
+      <ion-select formControlName="hora" placeholder="Elige la hora">
+        <ion-select-option *ngFor="let h of horas" [value]="h">{{ h }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Nombre completo</ion-label>
+      <ion-input formControlName="socioNombre"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Número de documento</ion-label>
+      <ion-input formControlName="socioDocumento"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Celular</ion-label>
+      <ion-input type="text" formControlName="socioCelular" placeholder="3001234567"></ion-input>
+    </ion-item>
+    <ion-note color="danger" *ngIf="form.get('socioCelular')?.invalid && form.get('socioCelular')?.touched">
+      Ingresa un celular válido de 10 dígitos.
+    </ion-note>
+    <ion-button type="submit" expand="block" [disabled]="form.invalid">Reservar</ion-button>
+  </form>
+</ion-content>

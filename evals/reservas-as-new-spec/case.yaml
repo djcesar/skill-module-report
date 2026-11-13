@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: reservas-as-new-spec
+expected_outcome: |
+  Especificación as-new-spec limpia en docs/reports, anonimizada, con máquina de estados, modelo de datos, requisitos que previenen las fallas y riesgos actuales solo en el chat.
+context:
+  scaffold_script: place-files.sh

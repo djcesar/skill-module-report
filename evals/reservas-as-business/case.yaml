@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: reservas-as-business
+expected_outcome: |
+  Ficha as-business del proceso de reservar cancha en docs/reports con historias, textos literales de pantalla, flujo Mermaid y riesgos contados por impacto.
+context:
+  scaffold_script: place-files.sh

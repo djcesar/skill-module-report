@@ -1,0 +1,13 @@
+<ion-header><ion-toolbar><ion-title>Mis reservas</ion-title></ion-toolbar></ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let r of reservas">
+      <ion-label>
+        <h2>{{ r.fecha }} · {{ r.hora }}</h2>
+        <p>Cancha {{ r.canchaId }} — {{ r.estado | titlecase }}</p>
+      </ion-label>
+      <ion-button slot="end" color="danger" fill="outline" (click)="cancelar(r)">Cancelar reserva</ion-button>
+    </ion-item>
+  </ion-list>
+  <p *ngIf="reservas.length === 0">No tienes reservas.</p>
+</ion-content>

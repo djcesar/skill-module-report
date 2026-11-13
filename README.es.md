@@ -8,7 +8,7 @@ Sigue el formato abierto [Agent Skills](https://agentskills.io) (una carpeta con
 
 ## Dónde queda la ficha
 
-La ficha completa siempre se guarda como archivo Markdown en `docs/fichas/`, en la raíz del directorio de trabajo, con un nombre que dice qué se pidió y en qué modo (p. ej. `docs/fichas/registro-de-usuarios-as-business.md`; un archivo por modo). En el chat solo aparece un resumen de 5 a 8 líneas y el enlace al archivo, así las fichas largas nunca se cortan y se pueden compartir, versionar y comparar en el tiempo.
+La ficha completa siempre se guarda como archivo Markdown en `docs/reports/`, en la raíz del directorio de trabajo, con un nombre que dice qué se pidió y en qué modo (p. ej. `docs/reports/registro-de-usuarios-as-business.md`; un archivo por modo). En el chat solo aparece un resumen de 5 a 8 líneas y el enlace al archivo, así las fichas largas nunca se cortan y se pueden compartir, versionar y comparar en el tiempo.
 
 - Si ya existe un archivo con ese nombre, se conserva y el nuevo lleva la fecha (`…-AAAA-MM-DD.md`).
 - El archivo no se sube a git; eso lo decides tú.
@@ -95,12 +95,12 @@ El skill son instrucciones en Markdown; lo que necesita es un asistente que pued
 |---|---|
 | **Acceso de lectura al repositorio** (buscar archivos, abrirlos, listar carpetas) | Toda la ficha se arma con el código real: puntos de entrada, validaciones, datos, permisos y textos de pantalla. Sin esto solo puede analizar lo que pegues en el chat. |
 | **Todos los repos relacionados al alcance** (p. ej. backend y fronts en carpetas hermanas) | Un flujo suele cruzar repos: el endpoint vive en el API y la pantalla que lo llama en un front. La trazabilidad entre repos y la sección "Relacionados" dependen de esto. |
-| **Permiso de escritura en `docs/fichas/`** *(recomendado)* | Para guardar la ficha como archivo. Sin esto, la ficha completa se entrega en el chat. |
+| **Permiso de escritura en `docs/reports/`** *(recomendado)* | Para guardar la ficha como archivo. Sin esto, la ficha completa se entrega en el chat. |
 | **Poder correr comandos de solo lectura** *(recomendado)* | Se usa para `git log` de los archivos clave, para entender por qué algo está como está. Opcional. |
 | **Soporte del formato Agent Skills** *(recomendado)* | Permite que el asistente active el skill solo cuando pides explicar o analizar algo, y que cargue los archivos de referencia solo cuando hacen falta. Sin esto, hay que pasarle las instrucciones a mano (ver abajo). |
 | **Un modelo capaz y con ventana de contexto amplia** | Analizar un módulo completo implica leer muchos archivos en varios repos y escribir una ficha larga y estructurada. |
 
-Nunca escribe código, corre migraciones ni despliega nada. El único archivo que escribe es la ficha en `docs/fichas/`, y no necesita acceso a la red.
+Nunca escribe código, corre migraciones ni despliega nada. El único archivo que escribe es la ficha en `docs/reports/`, y no necesita acceso a la red.
 
 ## Instalación
 
@@ -115,13 +115,21 @@ git clone https://github.com/djcesar/skill-analizar-modulo.git <carpeta-de-skill
 
 Rinde mejor en herramientas tipo agente que trabajan directamente dentro del repositorio; en un chat sin acceso a los archivos la ficha pierde las citas `archivo:línea` y la vista entre repos.
 
+## Pruebas
+
+`evals/` contiene casos de prueba sobre un proyecto ficticio (`evals/fixtures/club-reservas/`: un sistema de reservas de canchas de un club deportivo, con API y portal web) que tiene diez fallas plantadas a propósito. La clave de respuestas está en `evals/fixtures/club-reservas.clave.md`, fuera de la carpeta que ve el agente. Cada caso prueba un modo: dónde queda la ficha, las secciones, qué fallas detecta, las marcas de certeza, los diagramas, la anonimización en `as-new-spec` y los encabezados en inglés.
+
+Los casos siguen el formato de `claude plugin eval` (`prompt.md`, `case.yaml`, `graders/`), pero los criterios son frases simples, así que cualquier agente o persona puede calificar una corrida leyéndolos.
+
 ## Estructura
 
 ```
 SKILL.md                    flujo de trabajo y elección de modo
+CHANGELOG.md                historial de versiones
+evals/                      casos de prueba y el proyecto ficticio de ejemplo
 references/as-technical.md  plantilla as-technical
 references/as-business.md   plantilla as-business y cómo sacar la vista de usuario del código
 references/as-new-spec.md   cómo transformar el análisis en especificación para un proyecto nuevo
 ```
 
-No modifica código ni despliega nada; lo único que escribe es la ficha en `docs/fichas/`.
+No modifica código ni despliega nada; lo único que escribe es la ficha en `docs/reports/`.

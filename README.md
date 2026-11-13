@@ -10,7 +10,7 @@ The report is written in the user's language (Spanish by default). The section n
 
 ## Where the report goes
 
-The full report is always saved as a Markdown file in `docs/fichas/` at the root of the working directory, named after the request and the mode (e.g. `docs/fichas/user-registration-as-business.md`, one file per mode). The chat only shows a 5–8 line summary and a link to the file, so long reports are never cut off and can be shared, versioned and compared over time.
+The full report is always saved as a Markdown file in `docs/reports/` at the root of the working directory, named after the request and the mode (e.g. `docs/reports/user-registration-as-business.md`, one file per mode). The chat only shows a 5–8 line summary and a link to the file, so long reports are never cut off and can be shared, versioned and compared over time.
 
 - If a file with that name already exists, it is kept and the new one gets a date suffix (`…-YYYY-MM-DD.md`).
 - The file is not committed; that is up to you.
@@ -97,12 +97,12 @@ The skill is instructions in Markdown; what it needs is an assistant that can wo
 |---|---|
 | **Read access to the repository** (search files, open them, list folders) | The whole report is built from the actual code: entry points, validations, data, permissions and UI texts. Without it, it can only analyze what you paste into the chat. |
 | **All related repositories within reach** (e.g. backend and frontends in sibling folders) | A flow usually crosses repos: the endpoint lives in the API and the screen that calls it in a frontend. Cross-repo traceability and the "Related" section depend on it. |
-| **Write access to `docs/fichas/`** *(recommended)* | To save the report as a file. Without it, the full report is delivered in the chat. |
+| **Write access to `docs/reports/`** *(recommended)* | To save the report as a file. Without it, the full report is delivered in the chat. |
 | **Ability to run read-only commands** *(recommended)* | Used for `git log` on key files, to understand why something is the way it is. Optional. |
 | **Support for the Agent Skills format** *(recommended)* | Lets the assistant activate the skill on its own when you ask to explain or analyze something, and load the reference files only when needed. Without it, you have to provide the instructions manually (see below). |
 | **A capable model with a large context window** | Analyzing a full module means reading many files across repos and writing a long, structured report. |
 
-It never writes code, runs migrations or deploys anything. The only file it writes is the report in `docs/fichas/`, and it needs no network access.
+It never writes code, runs migrations or deploys anything. The only file it writes is the report in `docs/reports/`, and it needs no network access.
 
 ## Installation
 
@@ -117,13 +117,21 @@ git clone https://github.com/djcesar/skill-analizar-modulo.git <skills-folder>/s
 
 Results are best in agent-style tools that work directly inside the repository; in a chat without file access the report loses its `file:line` references and its cross-repo view.
 
+## Tests
+
+`evals/` contains test cases built on a fictional project (`evals/fixtures/club-reservas/`: a court-booking system for a sports club, with an API and a web portal) that has ten deliberate flaws. The answer key is in `evals/fixtures/club-reservas.clave.md`, outside the folder the agent sees. Each case checks one mode: the report location, the sections, which flaws are detected, the certainty labels, the diagrams, anonymization in `as-new-spec`, and English headings.
+
+The cases follow the `claude plugin eval` layout (`prompt.md`, `case.yaml`, `graders/`), but the graders are plain sentences, so any agent or person can grade a run by reading them.
+
 ## Structure
 
 ```
 SKILL.md                    workflow and mode selection
+CHANGELOG.md                version history
+evals/                      test cases and the fictional sample project
 references/as-technical.md  as-technical template
 references/as-business.md   as-business template and how to extract the user's view from the code
 references/as-new-spec.md   how to turn the analysis into a specification for a new project
 ```
 
-It does not modify code or deploy anything; the only thing it writes is the report in `docs/fichas/`.
+It does not modify code or deploy anything; the only thing it writes is the report in `docs/reports/`.
