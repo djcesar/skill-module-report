@@ -8,9 +8,17 @@ It follows the open [Agent Skills](https://agentskills.io) format (a folder with
 
 The report is written in the user's language (Spanish by default). The section names below are given in English with the original Spanish heading in parentheses.
 
+## Where the report goes
+
+The full report is always saved as a Markdown file in `docs/fichas/` at the root of the working directory, named after the request and the mode (e.g. `docs/fichas/user-registration-as-business.md`, one file per mode). The chat only shows a 5–8 line summary and a link to the file, so long reports are never cut off and can be shared, versioned and compared over time.
+
+- If a file with that name already exists, it is kept and the new one gets a date suffix (`…-YYYY-MM-DD.md`).
+- The file is not committed; that is up to you.
+- If the tool cannot write files (e.g. a plain chat), the full report is delivered in the chat instead.
+
 ## What the report contains
 
-Every report opens with a **Scope** line: what was reviewed and what was left out, so you know how far the analysis goes. The eight sections follow, always in this order. If one does not apply, the report says so in one line; none is skipped.
+Every report opens with a **Scope** line (what was reviewed and what was left out, so you know how far the analysis goes) and a **Summary** of 5–8 lines (what it is, the high-severity findings and the most important change). The eight sections follow, always in this order. If one does not apply, the report says so in one line; none is skipped.
 
 ### 1. Description *(Descripción)*
 What it is, why it exists and how it works, in one or two paragraphs, followed by the end-to-end walkthrough step by step.
@@ -58,7 +66,7 @@ A table of what this flow touches or what touches it, and how they relate.
 - **`as-new-spec`:** modules and integrations the new module needs or feeds, with the contract between them.
 
 ### Closing
-If something is urgent, a final line points it out. In `as-new-spec`, critical risks found in the current system are reported in the chat, never inside the document, so the document can be handed over as is.
+If something is urgent, a final line points it out. In `as-new-spec`, critical risks found in the current system are reported in the chat, never inside the document or its file, so the document can be handed over as is.
 
 ## Modes
 
@@ -82,11 +90,12 @@ The skill is instructions in Markdown; what it needs is an assistant that can wo
 |---|---|
 | **Read access to the repository** (search files, open them, list folders) | The whole report is built from the actual code: entry points, validations, data, permissions and UI texts. Without it, it can only analyze what you paste into the chat. |
 | **All related repositories within reach** (e.g. backend and frontends in sibling folders) | A flow usually crosses repos: the endpoint lives in the API and the screen that calls it in a frontend. Cross-repo traceability and the "Related" section depend on it. |
+| **Write access to `docs/fichas/`** *(recommended)* | To save the report as a file. Without it, the full report is delivered in the chat. |
 | **Ability to run read-only commands** *(recommended)* | Used for `git log` on key files, to understand why something is the way it is. Optional. |
 | **Support for the Agent Skills format** *(recommended)* | Lets the assistant activate the skill on its own when you ask to explain or analyze something, and load the reference files only when needed. Without it, you have to provide the instructions manually (see below). |
 | **A capable model with a large context window** | Analyzing a full module means reading many files across repos and writing a long, structured report. |
 
-It never writes code, runs migrations or deploys anything, so it does not need write or network permissions.
+It never writes code, runs migrations or deploys anything. The only file it writes is the report in `docs/fichas/`, and it needs no network access.
 
 ## Installation
 
@@ -110,4 +119,4 @@ references/as-business.md   as-business template and how to extract the user's v
 references/as-new-spec.md   how to turn the analysis into a specification for a new project
 ```
 
-It is read-only: it does not modify code or deploy anything.
+It does not modify code or deploy anything; the only thing it writes is the report in `docs/fichas/`.

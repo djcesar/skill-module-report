@@ -6,9 +6,17 @@ Skill para agentes de IA que analiza un flujo, módulo, función o proceso del p
 
 Sigue el formato abierto [Agent Skills](https://agentskills.io) (una carpeta con un `SKILL.md` y archivos de referencia), así que no depende de una sola herramienta ni de un modelo en particular. Ver [Requisitos](#requisitos) e [Instalación](#instalación).
 
+## Dónde queda la ficha
+
+La ficha completa siempre se guarda como archivo Markdown en `docs/fichas/`, en la raíz del directorio de trabajo, con un nombre que dice qué se pidió y en qué modo (p. ej. `docs/fichas/registro-de-usuarios-as-business.md`; un archivo por modo). En el chat solo aparece un resumen de 5 a 8 líneas y el enlace al archivo, así las fichas largas nunca se cortan y se pueden compartir, versionar y comparar en el tiempo.
+
+- Si ya existe un archivo con ese nombre, se conserva y el nuevo lleva la fecha (`…-AAAA-MM-DD.md`).
+- El archivo no se sube a git; eso lo decides tú.
+- Si la herramienta no puede escribir archivos (p. ej. un chat normal), la ficha completa se entrega en el chat.
+
 ## Qué trae la ficha
 
-Toda ficha abre con una línea de **Alcance**: qué se revisó y qué quedó fuera, para saber hasta dónde llega el análisis. Después vienen las ocho secciones, siempre en este orden. Si una no aplica, la ficha lo dice en una línea; ninguna se omite.
+Toda ficha abre con una línea de **Alcance** (qué se revisó y qué quedó fuera, para saber hasta dónde llega el análisis) y un **Resumen** de 5 a 8 líneas (qué es, los hallazgos de severidad alta y el cambio más importante). Después vienen las ocho secciones, siempre en este orden. Si una no aplica, la ficha lo dice en una línea; ninguna se omite.
 
 ### 1. Descripción
 Qué es, para qué existe y cómo funciona, en uno o dos párrafos, seguidos del recorrido paso a paso de punta a punta.
@@ -56,7 +64,7 @@ Tabla con lo que este flujo toca o lo que lo toca, y cómo se relacionan.
 - **`as-new-spec`:** módulos e integraciones que el nuevo módulo necesita o alimenta, con el contrato entre ellos.
 
 ### Cierre
-Si hay algo urgente, una línea final lo señala. En `as-new-spec`, los riesgos críticos del sistema actual se avisan en el chat, nunca dentro del documento, para que este se pueda entregar tal cual.
+Si hay algo urgente, una línea final lo señala. En `as-new-spec`, los riesgos críticos del sistema actual se avisan en el chat, nunca dentro del documento ni en su archivo, para que este se pueda entregar tal cual.
 
 ## Modos
 
@@ -80,11 +88,12 @@ El skill son instrucciones en Markdown; lo que necesita es un asistente que pued
 |---|---|
 | **Acceso de lectura al repositorio** (buscar archivos, abrirlos, listar carpetas) | Toda la ficha se arma con el código real: puntos de entrada, validaciones, datos, permisos y textos de pantalla. Sin esto solo puede analizar lo que pegues en el chat. |
 | **Todos los repos relacionados al alcance** (p. ej. backend y fronts en carpetas hermanas) | Un flujo suele cruzar repos: el endpoint vive en el API y la pantalla que lo llama en un front. La trazabilidad entre repos y la sección "Relacionados" dependen de esto. |
+| **Permiso de escritura en `docs/fichas/`** *(recomendado)* | Para guardar la ficha como archivo. Sin esto, la ficha completa se entrega en el chat. |
 | **Poder correr comandos de solo lectura** *(recomendado)* | Se usa para `git log` de los archivos clave, para entender por qué algo está como está. Opcional. |
 | **Soporte del formato Agent Skills** *(recomendado)* | Permite que el asistente active el skill solo cuando pides explicar o analizar algo, y que cargue los archivos de referencia solo cuando hacen falta. Sin esto, hay que pasarle las instrucciones a mano (ver abajo). |
 | **Un modelo capaz y con ventana de contexto amplia** | Analizar un módulo completo implica leer muchos archivos en varios repos y escribir una ficha larga y estructurada. |
 
-Nunca escribe código, corre migraciones ni despliega nada, así que no necesita permisos de escritura ni de red.
+Nunca escribe código, corre migraciones ni despliega nada. El único archivo que escribe es la ficha en `docs/fichas/`, y no necesita acceso a la red.
 
 ## Instalación
 
@@ -108,4 +117,4 @@ references/as-business.md   plantilla as-business y cómo sacar la vista de usua
 references/as-new-spec.md   cómo transformar el análisis en especificación para un proyecto nuevo
 ```
 
-Es de solo lectura: no modifica código ni despliega nada.
+No modifica código ni despliega nada; lo único que escribe es la ficha en `docs/fichas/`.

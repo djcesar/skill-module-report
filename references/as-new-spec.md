@@ -34,6 +34,10 @@ Mantén los mismos encabezados para que se pueda comparar con la ficha de análi
 > **Propósito del documento:** qué se va a construir y para quién, en una o dos líneas.
 > **Fuera de alcance:** lo que este módulo no hace (y qué módulo sí lo hace).
 
+## Resumen
+5–8 líneas: qué se construye, las 3–4 decisiones de diseño que lo definen y las decisiones
+abiertas que bloquean el arranque. Es lo mismo que se muestra en el chat.
+
 ## Descripción
 Qué problema resuelve, actores, y un **glosario** de los términos y estados del dominio
 (p. ej. "Afiliado", "Desafiliado", "Reafiliación"). Incluye el **ciclo de vida** del objeto
@@ -83,6 +87,6 @@ Módulos e integraciones que el nuevo módulo necesita o alimenta, con el contra
 - **`as-new-spec as-technical`**: especificación técnica (modelo, contratos, permisos, decisiones de arquitectura).
 - **`as-new-spec` solo**: entrega ambas, primero la funcional y luego la técnica, porque una documentación base de proyecto necesita las dos. Que no se contradigan: los RF y las historias deben usar la misma numeración o una tabla de trazabilidad.
 
-Si viste riesgos críticos en el sistema actual, avísalos **fuera de la especificación**: en el chat, después del documento, nunca dentro de él ni en su archivo. Así el documento se puede entregar tal cual sin arrastrar detalles del sistema viejo.
+Si viste riesgos críticos en el sistema actual, avísalos **fuera de la especificación**: en el chat, después del resumen, nunca dentro del documento ni en su archivo. Así el documento se puede entregar tal cual sin arrastrar detalles del sistema viejo.
 
 Antes de entregar, revisa el documento buscando el nombre de la organización, rutas de archivos y nombres de clases o endpoints actuales. Si encuentras alguno, reemplázalo.

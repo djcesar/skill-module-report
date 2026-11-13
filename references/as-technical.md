@@ -7,6 +7,11 @@ Para quien va a desarrollar, revisar o tocar el código. Cita archivos como enla
 
 > **Alcance:** qué revisaste (repos/carpetas/archivos clave) y qué quedó fuera.
 
+## Resumen
+5–8 líneas para quien solo lea esto: qué es y cómo funciona en una frase, los hallazgos 🔴
+con una línea cada uno, y el cambio de fondo más importante de "Qué haría diferente".
+Es lo mismo que se muestra en el chat.
+
 ## Descripción
 Qué es, para qué existe y cómo funciona, en 1–2 párrafos. Luego el recorrido en pasos numerados
 (entrada → validación → lógica → datos → respuesta/efectos), con enlaces a los archivos.

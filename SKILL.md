@@ -7,7 +7,7 @@ description: Produce una ficha de análisis de un flujo, módulo, función, endp
 
 El objetivo es que quien lo pidió termine entendiendo **qué es, cómo funciona, qué le falta y qué toca** una parte del sistema, sin tener que leer el código. Por eso la ficha se basa en el código real del proyecto, no en suposiciones: cada afirmación importante debería poder rastrearse a un archivo. (En `as-new-spec` el código se usa igual para entender el dominio, pero el documento final no lo cita.)
 
-Es un trabajo de lectura. No modifiques código, no corras migraciones ni despliegues; si algo merece arreglarse, va en "Cosas a resolver".
+Es un trabajo de lectura. No modifiques código, no corras migraciones ni despliegues; si algo merece arreglarse, va en "Cosas a resolver". Lo único que escribes es el archivo de la ficha (ver paso 4).
 
 ## 0. Elegir el modo
 
@@ -61,10 +61,26 @@ La ficha es útil en la medida en que se pueda confiar en ella. Lo que viste en 
 
 ## 4. Entregar la ficha
 
-Responde en el chat, en el idioma del usuario (por defecto español), con la plantilla de la referencia elegida. El título de la ficha debe nombrar lo que se pidió y el modo (p. ej. "Afiliaciones y afiliados — as-business"), para que se reconozca entre varias. Si además la guardas en un archivo (porque lo pidieron o porque la entrega lo requiere), nómbralo igual en minúsculas y con guiones: `<tema>-<modo>.md` (p. ej. `afiliaciones-as-new-spec.md`, `reset-contrasena-as-business.md`), nunca un nombre genérico como `respuesta.md`. Comunes a todos los modos:
+Escribe la ficha en el idioma del usuario (por defecto español), con la plantilla de la referencia elegida. El título debe nombrar lo que se pidió y el modo (p. ej. "Afiliaciones y afiliados — as-business"), para que se reconozca entre varias.
+
+**La ficha completa siempre va a un archivo; en el chat va solo el resumen.** Las fichas de un módulo completo pasan fácilmente de 300 líneas: en el chat se cortan, no se pueden compartir y se pierden. En un archivo se leen bien, se versionan y se pueden comparar en el tiempo.
+
+- **Dónde:** `docs/fichas/` en la raíz del directorio de trabajo (créala si no existe). Si el directorio de trabajo agrupa varios repos hermanos, va en esa raíz común, no dentro de uno de ellos.
+- **Nombre:** `<tema>-<modo>.md` en minúsculas y con guiones, con las palabras del usuario (p. ej. `afiliaciones-as-new-spec.md`, `reset-contrasena-as-business.md`); nunca un nombre genérico como `respuesta.md`. Si pidió varios modos, un archivo por modo.
+- **Si ya existe** un archivo con ese nombre, no lo sobrescribas: es la ficha anterior y sirve para comparar. Usa `<tema>-<modo>-AAAA-MM-DD.md`.
+- **No hagas commit** del archivo; avisa que quedó creado y que decide el usuario.
+- **Si no puedes escribir archivos** (herramienta sin acceso de escritura, chat sin sistema de archivos), entrega la ficha completa en el chat, como única excepción.
+
+En el chat responde con:
+1. El **resumen** de la ficha (el mismo que la abre, ver plantillas): 5–8 líneas.
+2. El enlace a cada archivo creado.
+3. La línea de cierre (abajo), si aplica.
+
+Comunes a todos los modos:
 
 - **"A resolver", "Sería bueno incluir" y "Qué haría diferente" responden preguntas distintas.** "A resolver": ¿qué está mal hoy? (defectos). "Sería bueno incluir": ¿qué le agregaría a lo que existe? (mejoras sobre el diseño actual). "Qué haría diferente": ¿cómo debió diseñarse? (otro enfoque, desde cero). Mezclarlas esconde los problemas reales entre sugerencias. Si un defecto nace de una decisión de diseño, va en "A resolver" con su arreglo puntual, y en "Qué haría diferente" se explica el diseño que lo habría evitado de raíz, sin volver a describir el defecto.
 - **"Qué haría diferente" busca lo correcto, no lo fácil.** Propón el diseño bien hecho aunque cueste más o implique rehacer partes, y dilo claramente (costo, qué toca). No lo rebajes a un parche por ser más rápido; el parche ya está en "A resolver". Que cada punto salga de lo que viste en este flujo y no de una lista genérica de buenas prácticas: si no puedes señalar el "Hoy" concreto, el punto sobra. Prioriza: pocos cambios de fondo valen más que muchos cosméticos.
 - **Proporción**: una función pequeña puede tener secciones de dos líneas; no infles. Ninguna sección se omite: si no aplica, escribe una línea diciendo por qué.
+- **El resumen se escribe al final**, cuando ya conoces todo el análisis, aunque vaya arriba en el archivo.
 
-Cierra con una línea opcional de siguiente paso si hay algo claramente urgente en "Cosas a resolver", sin volver a resumir la ficha. En `as-new-spec` esa línea va fuera del documento y avisa si viste riesgos críticos en el sistema actual, porque la especificación los omite a propósito y no deben perderse. Si elegiste el modo sin que el usuario lo nombrara, menciona en esa línea que existen los otros y cómo pedirlos (`as-technical`, `as-business`, `as-new-spec`).
+Cierra en el chat con una línea opcional de siguiente paso si hay algo claramente urgente en "Cosas a resolver", sin volver a resumir la ficha. En `as-new-spec` esa línea va solo en el chat, nunca en el archivo, y avisa si viste riesgos críticos en el sistema actual, porque la especificación los omite a propósito y no deben perderse. Si elegiste el modo sin que el usuario lo nombrara, menciona en esa línea que existen los otros y cómo pedirlos (`as-technical`, `as-business`, `as-new-spec`).

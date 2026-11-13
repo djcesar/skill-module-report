@@ -37,6 +37,10 @@ Aun así, se cuenta por su **impacto** ("⚠️ cualquiera que tenga el enlace p
 > **Alcance:** qué apps/pantallas se revisaron y qué no se pudo confirmar.
 > **Quiénes participan:** roles (afiliado, ciudadano sin cuenta, administrador, operador…).
 
+## Resumen
+5–8 líneas sin jerga: qué necesidad resuelve y para quién, los problemas 🔴 por su impacto,
+y la mejora de fondo más importante. Es lo mismo que se muestra en el chat.
+
 ## Descripción
 Qué necesidad resuelve y para quién, en 1–2 párrafos sin jerga. Luego el recorrido típico
 como pasos de usuario:
