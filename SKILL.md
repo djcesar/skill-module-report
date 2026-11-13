@@ -27,7 +27,7 @@ Lee la referencia que corresponda antes de escribir; trae la plantilla y cómo l
 
 ## 1. Ubicar el objetivo
 
-Interpreta la solicitud (puede venir como nombre de negocio — "el reset de contraseña" — o técnico — `UsersService.update`). Busca con Grep/Glob por nombres, rutas, textos de UI, nombres de tablas y sinónimos en ambos idiomas (p. ej. "afiliación", "affiliation", "affiliate").
+Interpreta la solicitud (puede venir como nombre de negocio — "el reset de contraseña" — o técnico — `UsersService.update`). Busca en el código por nombres, rutas, textos de UI, nombres de tablas y sinónimos en ambos idiomas (p. ej. "afiliación", "affiliation", "affiliate").
 
 - Si hay varios candidatos y uno es claramente el más probable, tómalo y dilo en la línea de alcance.
 - Pregunta solo si la ambigüedad cambia por completo el análisis (dos módulos distintos con el mismo nombre).
@@ -43,7 +43,7 @@ Sigue el flujo de punta a punta en vez de leer archivos sueltos. En general:
 4. **Integraciones**: APIs externas, almacenamiento, correo/SMS, colas, otras bases.
 5. **Configuración**: variables de entorno, flags, secretos que necesita, diferencias por ambiente.
 6. **Permisos**: quién puede ejecutarlo (roles, guards, reglas de seguridad).
-7. **Contexto**: tests existentes, README/CLAUDE.md/docs, comentarios TODO/FIXME/HACK, y si hay git, `git log` reciente de los archivos clave (sirve para entender por qué está como está).
+7. **Contexto**: tests existentes, README, AGENTS.md/CLAUDE.md u otras notas para agentes, docs, comentarios TODO/FIXME/HACK, y si hay git, `git log` reciente de los archivos clave (sirve para entender por qué está como está).
 
 En la versión de negocio el peso se corre hacia los fronts (plantillas, textos, validaciones de formulario, mensajes); el backend sirve para confirmar reglas, comunicaciones y riesgos. La referencia de negocio dice qué buscar.
 

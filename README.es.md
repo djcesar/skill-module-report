@@ -2,7 +2,9 @@
 
 [English](README.md) · **Español**
 
-Skill para Claude Code que analiza un flujo, módulo, función o proceso del proyecto donde estés trabajando, leyendo el código real, y entrega una ficha con ocho secciones.
+Skill para agentes de IA que analiza un flujo, módulo, función o proceso del proyecto donde estés trabajando, leyendo el código real, y entrega una ficha con ocho secciones.
+
+Sigue el formato abierto [Agent Skills](https://agentskills.io) (una carpeta con un `SKILL.md` y archivos de referencia), así que no depende de una sola herramienta ni de un modelo en particular. Ver [Requisitos](#requisitos) e [Instalación](#instalación).
 
 ## Qué trae la ficha
 
@@ -66,13 +68,32 @@ Si hay algo urgente, una línea final lo señala. En "desde cero", los riesgos c
 
 Se pueden combinar: "explícame X en modo técnico y negocio", "X desde cero, solo la parte funcional".
 
+## Requisitos
+
+El skill son instrucciones en Markdown; lo que necesita es un asistente que pueda trabajar dentro de tu proyecto:
+
+| Requisito | Por qué |
+|---|---|
+| **Acceso de lectura al repositorio** (buscar archivos, abrirlos, listar carpetas) | Toda la ficha se arma con el código real: puntos de entrada, validaciones, datos, permisos y textos de pantalla. Sin esto solo puede analizar lo que pegues en el chat. |
+| **Todos los repos relacionados al alcance** (p. ej. backend y fronts en carpetas hermanas) | Un flujo suele cruzar repos: el endpoint vive en el API y la pantalla que lo llama en un front. La trazabilidad entre repos y la sección "Relacionados" dependen de esto. |
+| **Poder correr comandos de solo lectura** *(recomendado)* | Se usa para `git log` de los archivos clave, para entender por qué algo está como está. Opcional. |
+| **Soporte del formato Agent Skills** *(recomendado)* | Permite que el asistente active el skill solo cuando pides explicar o analizar algo, y que cargue los archivos de referencia solo cuando hacen falta. Sin esto, hay que pasarle las instrucciones a mano (ver abajo). |
+| **Un modelo capaz y con ventana de contexto amplia** | Analizar un módulo completo implica leer muchos archivos en varios repos y escribir una ficha larga y estructurada. |
+
+Nunca escribe código, corre migraciones ni despliega nada, así que no necesita permisos de escritura ni de red.
+
 ## Instalación
 
+Clona el repositorio en la carpeta de skills de la herramienta que uses:
+
 ```bash
-git clone https://github.com/djcesar/skill-analizar-modulo.git ~/.claude/skills/skill-analizar-modulo
+git clone https://github.com/djcesar/skill-analizar-modulo.git <carpeta-de-skills>/skill-analizar-modulo
 ```
 
-Claude Code lo carga automáticamente. Se activa al pedir que explique, analice o documente algo del código, sin necesidad de nombrarlo. También se puede invocar directamente con `/skill-analizar-modulo`.
+- **Herramientas que soportan Agent Skills** (asistentes de código tipo agente y agentes de IDE): cada una busca los skills en su propia carpeta, por usuario o por proyecto. Revisa la documentación de tu herramienta para la ruta exacta. Una vez instalado, se activa al pedir que explique, analice o documente algo del código, sin necesidad de nombrarlo; en las que tienen comandos con barra también se puede invocar como `/skill-analizar-modulo`.
+- **Herramientas sin soporte de skills** (o un chat normal): pásale al asistente el contenido de `SKILL.md` como instrucciones, más la referencia de la versión que quieras (`references/tecnico.md`, `references/negocio.md`, y además `references/desde-cero.md` para una especificación desde cero). Después pide el análisis normalmente.
+
+Rinde mejor en herramientas tipo agente que trabajan directamente dentro del repositorio; en un chat sin acceso a los archivos la ficha pierde las citas `archivo:línea` y la vista entre repos.
 
 ## Estructura
 

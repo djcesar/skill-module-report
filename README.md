@@ -2,7 +2,9 @@
 
 **English** · [Español](README.es.md)
 
-A Claude Code skill that analyzes a flow, module, function or process in the project you are working on by reading the actual code, and delivers a report with eight sections.
+An agent skill that analyzes a flow, module, function or process in the project you are working on by reading the actual code, and delivers a report with eight sections.
+
+It follows the open [Agent Skills](https://agentskills.io) format (a folder with a `SKILL.md` plus reference files), so it is not tied to a single AI tool or model. See [Requirements](#requirements) and [Installation](#installation).
 
 The report is written in the user's language (Spanish by default). The section names below are given in English with the original Spanish heading in parentheses.
 
@@ -68,13 +70,32 @@ If something is urgent, a final line points it out. In "from scratch" mode, crit
 
 They can be combined: "explain X in technical and business mode", "X from scratch, functional part only". Requests also work in Spanish ("explícame el módulo X", "en modo negocio", "desde cero").
 
+## Requirements
+
+The skill is instructions in Markdown; what it needs is an assistant that can work inside your project:
+
+| Requirement | Why |
+|---|---|
+| **Read access to the repository** (search files, open them, list folders) | The whole report is built from the actual code: entry points, validations, data, permissions and UI texts. Without it, it can only analyze what you paste into the chat. |
+| **All related repositories within reach** (e.g. backend and frontends in sibling folders) | A flow usually crosses repos: the endpoint lives in the API and the screen that calls it in a frontend. Cross-repo traceability and the "Related" section depend on it. |
+| **Ability to run read-only commands** *(recommended)* | Used for `git log` on key files, to understand why something is the way it is. Optional. |
+| **Support for the Agent Skills format** *(recommended)* | Lets the assistant activate the skill on its own when you ask to explain or analyze something, and load the reference files only when needed. Without it, you have to provide the instructions manually (see below). |
+| **A capable model with a large context window** | Analyzing a full module means reading many files across repos and writing a long, structured report. |
+
+It never writes code, runs migrations or deploys anything, so it does not need write or network permissions.
+
 ## Installation
 
+Clone the repository into the skills folder of the tool you use:
+
 ```bash
-git clone https://github.com/djcesar/skill-analizar-modulo.git ~/.claude/skills/skill-analizar-modulo
+git clone https://github.com/djcesar/skill-analizar-modulo.git <skills-folder>/skill-analizar-modulo
 ```
 
-Claude Code loads it automatically. It activates when you ask it to explain, analyze or document something in the code, without naming it. You can also invoke it directly with `/skill-analizar-modulo`.
+- **Tools that support Agent Skills** (agentic coding assistants and IDE agents): each one looks for skills in its own folder, either per user or per project. Check your tool's documentation for the exact path. Once installed, it activates when you ask to explain, analyze or document something in the code, without naming it; tools with slash commands also let you invoke it as `/skill-analizar-modulo`.
+- **Tools without skill support** (or a plain chat): give the assistant the contents of `SKILL.md` as instructions, plus the reference file for the version you want (`references/tecnico.md`, `references/negocio.md`, and also `references/desde-cero.md` for a from-scratch spec). Then ask for the analysis normally.
+
+Results are best in agent-style tools that work directly inside the repository; in a chat without file access the report loses its `file:line` references and its cross-repo view.
 
 ## Structure
 
