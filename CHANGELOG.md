@@ -2,6 +2,11 @@
 
 All notable changes to this skill. The version lives in `SKILL.md` (`metadata.version`) and follows [semantic versioning](https://semver.org/): a new mode or section is a minor change; renaming modes or changing where the report goes is a major one.
 
+## 3.0.0 — 2026-11-13
+
+- **Reports now go to `docs/module-reports/`** (was `docs/reports/`). `docs/reports/` is a common name that many projects already use for coverage or test reports, so the skill could mix its files with theirs or inherit an unrelated ignore rule; the new name says whose files they are. The ignore rules the skill writes, the traceability rule, the READMEs and the tests use the new path.
+- **Upgrading:** this is a major version because reports change location. If you already have reports in `docs/reports/`, move them to `docs/module-reports/` and update the ignore rule you chose (`.gitignore` or `.git/info/exclude`); otherwise the skill will ask again the first time.
+
 ## 2.1.1 — 2026-11-13
 
 - **Licensed under Apache 2.0.** Adds the official `LICENSE` text, a `NOTICE` file with the attribution, the `license: Apache-2.0` field in the `SKILL.md` frontmatter, and a License section in both READMEs. Before, the repository had no license, which legally meant all rights reserved.

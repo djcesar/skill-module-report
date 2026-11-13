@@ -1,6 +1,6 @@
 schema_version: "1.1"
 name: booking-git-local
 expected_outcome: |
-  First report in a git repository: asks whether reports go to the repository or stay local, recommends local, adds docs/reports/ to .gitignore without touching existing rules, and does not commit.
+  First report in a git repository: asks whether reports go to the repository or stay local, recommends local, adds docs/module-reports/ to .gitignore without touching existing rules, and does not commit.
 context:
   scaffold_script: place-files.sh

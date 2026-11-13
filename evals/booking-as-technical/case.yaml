@@ -1,6 +1,6 @@
 schema_version: "1.1"
 name: booking-as-technical
 expected_outcome: |
-  as-technical report on the booking flow saved in docs/reports, summary in the chat, detecting the planted flaws with evidence and certainty labels.
+  as-technical report on the booking flow saved in docs/module-reports, summary in the chat, detecting the planted flaws with evidence and certainty labels.
 context:
   scaffold_script: place-files.sh

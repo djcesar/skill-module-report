@@ -10,11 +10,11 @@ Sigue el formato abierto [Agent Skills](https://agentskills.io) (una carpeta con
 
 ## Dónde queda la ficha
 
-La ficha completa siempre se guarda como archivo Markdown en `docs/reports/`, en la raíz del directorio de trabajo, con un nombre que dice qué se pidió y en qué modo (p. ej. `docs/reports/registro-de-usuarios-as-business.md`; un archivo por modo). En el chat solo aparece un resumen de 5 a 8 líneas y el enlace al archivo, así las fichas largas nunca se cortan y se pueden compartir, versionar y comparar en el tiempo.
+La ficha completa siempre se guarda como archivo Markdown en `docs/module-reports/`, en la raíz del directorio de trabajo, con un nombre que dice qué se pidió y en qué modo (p. ej. `docs/module-reports/registro-de-usuarios-as-business.md`; un archivo por modo). En el chat solo aparece un resumen de 5 a 8 líneas y el enlace al archivo, así las fichas largas nunca se cortan y se pueden compartir, versionar y comparar en el tiempo.
 
 - Si ya existe un archivo con ese nombre, se conserva y el nuevo lleva la fecha (`…-AAAA-MM-DD.md`).
 - El archivo no se sube a git; eso lo decides tú.
-- **¿Al repo o solo local?** Las fichas pueden contener hallazgos de seguridad con su ubicación exacta en el código, así que la primera vez que el skill escribe una ficha en un repositorio git pregunta si deben viajar con el repo o quedar locales. Quedar locales (lo recomendado) agrega `docs/reports/` al `.gitignore`, o a `.git/info/exclude` si prefieres no tocar archivos versionados. Si eliges el repo, los archivos de trazabilidad se ignoran igual, y avisa antes de escribir hallazgos de seguridad en un repositorio público. Nunca hace commit ni saca nada de git por su cuenta.
+- **¿Al repo o solo local?** Las fichas pueden contener hallazgos de seguridad con su ubicación exacta en el código, así que la primera vez que el skill escribe una ficha en un repositorio git pregunta si deben viajar con el repo o quedar locales. Quedar locales (lo recomendado) agrega `docs/module-reports/` al `.gitignore`, o a `.git/info/exclude` si prefieres no tocar archivos versionados. Si eliges el repo, los archivos de trazabilidad se ignoran igual, y avisa antes de escribir hallazgos de seguridad en un repositorio público. Nunca hace commit ni saca nada de git por su cuenta.
 - `as-new-spec` escribe además un archivo interno de trazabilidad junto a la especificación (ver abajo).
 - Si la herramienta no puede escribir archivos (p. ej. un chat normal), la ficha completa se entrega en el chat.
 
@@ -113,12 +113,12 @@ El skill son instrucciones en Markdown; lo que necesita es un asistente que pued
 |---|---|
 | **Acceso de lectura al repositorio** (buscar archivos, abrirlos, listar carpetas) | Toda la ficha se arma con el código real: puntos de entrada, validaciones, datos, permisos y textos de pantalla. Sin esto solo puede analizar lo que pegues en el chat. |
 | **Todos los repos relacionados al alcance** (p. ej. backend y fronts en carpetas hermanas) | Un flujo suele cruzar repos: el endpoint vive en el API y la pantalla que lo llama en un front. La trazabilidad entre repos y la sección "Relacionados" dependen de esto. |
-| **Permiso de escritura en `docs/reports/`** *(recomendado)* | Para guardar la ficha como archivo y, la primera vez en un proyecto, agregar la regla para ignorarla si eliges dejar las fichas locales. Sin esto, la ficha completa se entrega en el chat. |
+| **Permiso de escritura en `docs/module-reports/`** *(recomendado)* | Para guardar la ficha como archivo y, la primera vez en un proyecto, agregar la regla para ignorarla si eliges dejar las fichas locales. Sin esto, la ficha completa se entrega en el chat. |
 | **Poder correr comandos de solo lectura** *(recomendado)* | Se usa para `git log` de los archivos clave, para entender por qué algo está como está. Opcional. |
 | **Soporte del formato Agent Skills** *(recomendado)* | Permite que el asistente active el skill solo cuando pides explicar o analizar algo, y que cargue los archivos de referencia solo cuando hacen falta. Sin esto, hay que pasarle las instrucciones a mano (ver abajo). |
 | **Un modelo capaz y con ventana de contexto amplia** | Analizar un módulo completo implica leer muchos archivos en varios repos y escribir una ficha larga y estructurada. |
 
-Nunca escribe código, corre migraciones ni despliega nada. Lo único que escribe son las fichas en `docs/reports/` y, una vez por proyecto y solo si lo eliges, una regla para ignorarlas. No necesita acceso a la red.
+Nunca escribe código, corre migraciones ni despliega nada. Lo único que escribe son las fichas en `docs/module-reports/` y, una vez por proyecto y solo si lo eliges, una regla para ignorarlas. No necesita acceso a la red.
 
 ## Instalación
 
@@ -166,7 +166,7 @@ CONTRIBUTING.md             cómo contribuir (en inglés)
 README.es.md                este README
 ```
 
-No modifica código ni despliega nada. Lo único que escribe son las fichas en `docs/reports/` y, una vez por proyecto y solo si lo eliges, una regla para ignorarlas.
+No modifica código ni despliega nada. Lo único que escribe son las fichas en `docs/module-reports/` y, una vez por proyecto y solo si lo eliges, una regla para ignorarlas.
 
 ## Contribuir
 

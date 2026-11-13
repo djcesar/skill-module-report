@@ -2,9 +2,9 @@
 name: module-report
 description: 'Analysis report on a flow, module, function, endpoint, screen or process of the current project, built from the real code, with eight sections (description, use cases, required features, things to keep in mind, issues to fix, nice to have, what I would do differently, related). Three combinable modes - as-technical (for whoever changes the code), as-business (user stories, screens, fields and messages, no jargon) and as-new-spec (clean specification to rebuild it in a new project). Use it whenever someone asks to explain, analyze, document or audit how something works, even without saying report - walk me through the X flow, analyze module Y, overview before changing it, what is missing, what you would change, user stories for X, in business terms or for the PO, what buttons and fields it has, X from scratch or as baseline docs for a new project, or a mode by name. Also in Spanish (cómo funciona el flujo de X, analízame el módulo Y, historias de usuario, en forma de negocio, desde cero, documentación base).'
 license: Apache-2.0
-compatibility: 'Requires an agent with read access to the repository (search and open files). Recommended - write access to docs/reports/, read-only commands (git log) and subagents for large modules.'
+compatibility: 'Requires an agent with read access to the repository (search and open files). Recommended - write access to docs/module-reports/, read-only commands (git log) and subagents for large modules.'
 metadata:
-  version: "2.1.1"
+  version: "3.0.0"
 ---
 
 # Analyze module
@@ -120,7 +120,7 @@ For any other language, translate with the same criteria. The title must name wh
 
 **The full report always goes to a file; the chat gets only the summary.** Reports on a full module easily exceed 300 lines: in the chat they get cut off, cannot be shared and are lost. In a file they read well, can be versioned and compared over time.
 
-- **Where:** `docs/reports/` at the root of the working directory (create it if missing). If the working directory groups several sibling repositories, it goes in that common root, not inside one of them.
+- **Where:** `docs/module-reports/` at the root of the working directory (create it if missing). If the working directory groups several sibling repositories, it goes in that common root, not inside one of them.
 - **Name:** `<topic>-<mode>.md` in lowercase with hyphens, using the user's own words (e.g. `membership-as-new-spec.md`, `reset-contrasena-as-business.md`); never a generic name like `report.md`. If several modes were requested, one file per mode. `as-new-spec` uses the mode it is combined with as a suffix (`<topic>-as-new-spec-as-business.md`, `<topic>-as-new-spec-as-technical.md`; both when it goes alone) and always adds `<topic>-as-new-spec-traceability.md` (see its reference).
 - **If a file with that name already exists**, do not overwrite it: it is the previous report and is useful for comparison. Use `<topic>-<mode>-YYYY-MM-DD.md`.
 - **Do not commit** the file; say it was created and that committing is the user's call. Before creating the folder for the first time, see the next section.
@@ -130,11 +130,11 @@ For any other language, translate with the same criteria. The title must name wh
 
 Reports can contain security findings with their exact location in the code ("this endpoint is public and lets anyone change the role, `file:line`"). In a public repository that is a guide to attacking the system, and even in a private one not everyone with access should see it. That is why the decision is made once per project, before writing the first report, and the user makes it.
 
-**When to ask:** only if `docs/reports/` does not exist yet **and** the folder where it would go is inside a git repository. If the folder already exists, the decision was already made: respect it and do not ask again. If there is no git repository (e.g. a folder grouping sibling repositories), there is nothing to version and you do not ask.
+**When to ask:** only if `docs/module-reports/` does not exist yet **and** the folder where it would go is inside a git repository. If the folder already exists, the decision was already made: respect it and do not ask again. If there is no git repository (e.g. a folder grouping sibling repositories), there is nothing to version and you do not ask.
 
 **What to ask**, before creating the folder, with these options and the first one as recommended:
-1. **Local only, for the whole team** (recommended): add `docs/reports/` to the repository's `.gitignore`. It also protects whoever clones the repository, but it changes a versioned file: say it needs to be committed.
-2. **Local only, this machine only**: add `docs/reports/` to `.git/info/exclude`. It touches nothing versioned, but does not protect others.
+1. **Local only, for the whole team** (recommended): add `docs/module-reports/` to the repository's `.gitignore`. It also protects whoever clones the repository, but it changes a versioned file: say it needs to be committed.
+2. **Local only, this machine only**: add `docs/module-reports/` to `.git/info/exclude`. It touches nothing versioned, but does not protect others.
 3. **Keep them in the repository**: reports can be committed like any other document.
 
 If the tool cannot ask questions (e.g. an automated run), apply option 1 and say so in the chat.
@@ -142,10 +142,10 @@ If the tool cannot ask questions (e.g. an automated run), apply option 1 and say
 **When adding the rule**, add a comment explaining why (`# module-report reports: may contain security findings`). If the file does not exist, create it. Never delete or reorder what is already there.
 
 **If the user chose to keep them in the repository**, keep two protections:
-- `as-new-spec` traceability files always contain paths into the current code and its risks: add `docs/reports/*-traceability.md` to `.gitignore` anyway, and say so.
+- `as-new-spec` traceability files always contain paths into the current code and its risks: add `docs/module-reports/*-traceability.md` to `.gitignore` anyway, and say so.
 - If you can tell the repository is **public** (with the platform's CLI or the remote's configuration) and the report has 🔴 security findings, warn before writing it and offer to keep that report out of the repository.
 
-**If reports were already committed** (`git ls-files docs/reports` returns something) and the user chose to keep them local, `.gitignore` does not remove them from the repository: say so and give the command (`git rm -r --cached docs/reports`), but do not run it yourself. Do not commit the `.gitignore` either: that is the user's decision.
+**If reports were already committed** (`git ls-files docs/module-reports` returns something) and the user chose to keep them local, `.gitignore` does not remove them from the repository: say so and give the command (`git rm -r --cached docs/module-reports`), but do not run it yourself. Do not commit the `.gitignore` either: that is the user's decision.
 
 In the chat, reply with:
 1. The report's **summary** (the same one that opens it, see the templates): 5–8 lines.

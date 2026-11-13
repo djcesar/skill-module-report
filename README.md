@@ -12,11 +12,11 @@ The report is written in the language of the request: ask in English and everyth
 
 ## Where the report goes
 
-The full report is always saved as a Markdown file in `docs/reports/` at the root of the working directory, named after the request and the mode (e.g. `docs/reports/user-registration-as-business.md`, one file per mode). The chat only shows a 5–8 line summary and a link to the file, so long reports are never cut off and can be shared, versioned and compared over time.
+The full report is always saved as a Markdown file in `docs/module-reports/` at the root of the working directory, named after the request and the mode (e.g. `docs/module-reports/user-registration-as-business.md`, one file per mode). The chat only shows a 5–8 line summary and a link to the file, so long reports are never cut off and can be shared, versioned and compared over time.
 
 - If a file with that name already exists, it is kept and the new one gets a date suffix (`…-YYYY-MM-DD.md`).
 - The file is not committed; that is up to you.
-- **Repo or local only?** Reports can contain security findings with their exact location in the code, so the first time the skill writes a report in a git repository it asks whether reports should travel with the repo or stay local. Staying local (recommended) adds `docs/reports/` to `.gitignore`, or to `.git/info/exclude` if you prefer not to touch versioned files. If you choose the repo, traceability files are still ignored, and it warns before writing security findings into a public repository. It never commits or removes anything from git by itself.
+- **Repo or local only?** Reports can contain security findings with their exact location in the code, so the first time the skill writes a report in a git repository it asks whether reports should travel with the repo or stay local. Staying local (recommended) adds `docs/module-reports/` to `.gitignore`, or to `.git/info/exclude` if you prefer not to touch versioned files. If you choose the repo, traceability files are still ignored, and it warns before writing security findings into a public repository. It never commits or removes anything from git by itself.
 - `as-new-spec` also writes an internal traceability file next to the specification (see below).
 - If the tool cannot write files (e.g. a plain chat), the full report is delivered in the chat instead.
 
@@ -115,12 +115,12 @@ The skill is instructions in Markdown; what it needs is an assistant that can wo
 |---|---|
 | **Read access to the repository** (search files, open them, list folders) | The whole report is built from the actual code: entry points, validations, data, permissions and UI texts. Without it, it can only analyze what you paste into the chat. |
 | **All related repositories within reach** (e.g. backend and frontends in sibling folders) | A flow usually crosses repos: the endpoint lives in the API and the screen that calls it in a frontend. Cross-repo traceability and the "Related" section depend on it. |
-| **Write access to `docs/reports/`** *(recommended)* | To save the report as a file, and the first time in a project to add the ignore rule if you choose to keep reports local. Without it, the full report is delivered in the chat. |
+| **Write access to `docs/module-reports/`** *(recommended)* | To save the report as a file, and the first time in a project to add the ignore rule if you choose to keep reports local. Without it, the full report is delivered in the chat. |
 | **Ability to run read-only commands** *(recommended)* | Used for `git log` on key files, to understand why something is the way it is. Optional. |
 | **Support for the Agent Skills format** *(recommended)* | Lets the assistant activate the skill on its own when you ask to explain or analyze something, and load the reference files only when needed. Without it, you have to provide the instructions manually (see below). |
 | **A capable model with a large context window** | Analyzing a full module means reading many files across repos and writing a long, structured report. |
 
-It never writes code, runs migrations or deploys anything. The only files it writes are the reports in `docs/reports/` and, once per project and only if you choose it, an ignore rule. It needs no network access.
+It never writes code, runs migrations or deploys anything. The only files it writes are the reports in `docs/module-reports/` and, once per project and only if you choose it, an ignore rule. It needs no network access.
 
 ## Installation
 
@@ -168,7 +168,7 @@ CONTRIBUTING.md             how to contribute
 README.es.md                this README in Spanish
 ```
 
-It does not modify code or deploy anything. The only files it writes are the reports in `docs/reports/` and, once per project and only if you choose it, an ignore rule.
+It does not modify code or deploy anything. The only files it writes are the reports in `docs/module-reports/` and, once per project and only if you choose it, an ignore rule.
 
 ## Contributing
 

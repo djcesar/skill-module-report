@@ -112,7 +112,7 @@ Para otro idioma, traduce con el mismo criterio. El título debe nombrar lo que 
 
 **La ficha completa siempre va a un archivo; en el chat va solo el resumen.** Las fichas de un módulo completo pasan fácilmente de 300 líneas: en el chat se cortan, no se pueden compartir y se pierden. En un archivo se leen bien, se versionan y se pueden comparar en el tiempo.
 
-- **Dónde:** `docs/reports/` en la raíz del directorio de trabajo (créala si no existe). Si el directorio de trabajo agrupa varios repos hermanos, va en esa raíz común, no dentro de uno de ellos.
+- **Dónde:** `docs/module-reports/` en la raíz del directorio de trabajo (créala si no existe). Si el directorio de trabajo agrupa varios repos hermanos, va en esa raíz común, no dentro de uno de ellos.
 - **Nombre:** `<tema>-<modo>.md` en minúsculas y con guiones, con las palabras del usuario (p. ej. `afiliaciones-as-new-spec.md`, `reset-contrasena-as-business.md`); nunca un nombre genérico como `respuesta.md`. Si pidió varios modos, un archivo por modo. `as-new-spec` usa como sufijo el modo con que se combina (`<tema>-as-new-spec-as-business.md`, `<tema>-as-new-spec-as-technical.md`; los dos cuando va solo) y agrega siempre `<tema>-as-new-spec-traceability.md` (ver su referencia).
 - **Si ya existe** un archivo con ese nombre, no lo sobrescribas: es la ficha anterior y sirve para comparar. Usa `<tema>-<modo>-AAAA-MM-DD.md`.
 - **No hagas commit** del archivo; avisa que quedó creado y que decide el usuario. Antes de crear la carpeta por primera vez, mira la sección siguiente.
@@ -122,11 +122,11 @@ Para otro idioma, traduce con el mismo criterio. El título debe nombrar lo que 
 
 Las fichas pueden contener hallazgos de seguridad con su ubicación exacta en el código ("este endpoint es público y deja cambiar el rol, `archivo:línea`"). En un repo público eso es una guía para atacar el sistema, y aun en uno privado no todos los que tienen acceso deberían verlo. Por eso la decisión se toma una vez por proyecto, antes de escribir la primera ficha, y la toma el usuario.
 
-**Cuándo preguntar:** solo si `docs/reports/` todavía no existe **y** la carpeta donde iría está dentro de un repositorio git. Si la carpeta ya existe, la decisión ya se tomó: respétala y no vuelvas a preguntar. Si no hay repo git (p. ej. una carpeta que agrupa repos hermanos), no hay nada que versionar y no se pregunta.
+**Cuándo preguntar:** solo si `docs/module-reports/` todavía no existe **y** la carpeta donde iría está dentro de un repositorio git. Si la carpeta ya existe, la decisión ya se tomó: respétala y no vuelvas a preguntar. Si no hay repo git (p. ej. una carpeta que agrupa repos hermanos), no hay nada que versionar y no se pregunta.
 
 **Qué preguntar**, antes de crear la carpeta, con estas opciones y la primera como recomendada:
-1. **Solo local, para todo el equipo** (recomendada): agrega `docs/reports/` al `.gitignore` del repo. Protege también a quien clone el repo, pero es un cambio en un archivo versionado: avisa que hay que hacerle commit.
-2. **Solo local, solo en esta máquina**: agrega `docs/reports/` a `.git/info/exclude`. No toca nada versionado, pero no protege a los demás.
+1. **Solo local, para todo el equipo** (recomendada): agrega `docs/module-reports/` al `.gitignore` del repo. Protege también a quien clone el repo, pero es un cambio en un archivo versionado: avisa que hay que hacerle commit.
+2. **Solo local, solo en esta máquina**: agrega `docs/module-reports/` a `.git/info/exclude`. No toca nada versionado, pero no protege a los demás.
 3. **Que viajen al repo**: las fichas se pueden subir como cualquier documento.
 
 Si la herramienta no permite hacer preguntas (p. ej. una ejecución automática), aplica la opción 1 y dilo en el chat.
@@ -134,10 +134,10 @@ Si la herramienta no permite hacer preguntas (p. ej. una ejecución automática)
 **Al agregar la regla**, ponle un comentario que explique por qué (`# Fichas de module-report: pueden contener hallazgos de seguridad`). Si el archivo no existe, créalo. Nunca borres ni reordenes lo que ya tiene.
 
 **Si eligió que viajen al repo**, mantén dos protecciones:
-- Los archivos de trazabilidad de `as-new-spec` siempre llevan rutas del código actual y sus riesgos: agrega `docs/reports/*-traceability.md` al `.gitignore` igual, y dilo.
+- Los archivos de trazabilidad de `as-new-spec` siempre llevan rutas del código actual y sus riesgos: agrega `docs/module-reports/*-traceability.md` al `.gitignore` igual, y dilo.
 - Si puedes saber que el repo es **público** (con la CLI de la plataforma o la configuración del remoto) y la ficha tiene hallazgos 🔴 de seguridad, avisa antes de escribirla y ofrece dejar esa ficha fuera del repo.
 
-**Si ya había fichas versionadas** (`git ls-files docs/reports` devuelve algo) y el usuario eligió dejarlas locales, el `.gitignore` no las saca del repo: avísalo y dale el comando (`git rm -r --cached docs/reports`), pero no lo ejecutes tú. Tampoco hagas commit del `.gitignore`: esa decisión es del usuario.
+**Si ya había fichas versionadas** (`git ls-files docs/module-reports` devuelve algo) y el usuario eligió dejarlas locales, el `.gitignore` no las saca del repo: avísalo y dale el comando (`git rm -r --cached docs/module-reports`), pero no lo ejecutes tú. Tampoco hagas commit del `.gitignore`: esa decisión es del usuario.
 
 En el chat responde con:
 1. El **resumen** de la ficha (el mismo que la abre, ver plantillas): 5–8 líneas.
