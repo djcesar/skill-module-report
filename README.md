@@ -6,6 +6,8 @@ An agent skill that analyzes a flow, module, function or process in the project 
 
 It follows the open [Agent Skills](https://agentskills.io) format (a folder with a `SKILL.md` plus reference files), so it is not tied to a single AI tool or model. See [Requirements](#requirements) and [Installation](#installation).
 
+> ⭐ **If module-report saves you time, please [star the repository](https://github.com/djcesar/skill-module-report)**: it helps other developers find it. Ideas, bug reports and pull requests are very welcome, see [Contributing](#contributing).
+
 The report is written in the language of the request: ask in English and everything comes out in English, ask in Spanish and it comes out in Spanish, headings included.
 
 ## Where the report goes
@@ -162,10 +164,23 @@ evals/                      test cases and the fictional sample project
 docs/es/                    Spanish translation of SKILL.md and references, for reading only
 CHANGELOG.md                version history
 LICENSE, NOTICE             Apache 2.0 license and attribution notice
+CONTRIBUTING.md             how to contribute
 README.es.md                this README in Spanish
 ```
 
 It does not modify code or deploy anything. The only files it writes are the reports in `docs/reports/` and, once per project and only if you choose it, an ignore rule.
+
+## Contributing
+
+module-report gets better with every real project it meets, and contributions of any size are welcome:
+
+- ⭐ **Star the repository** so more people can find it.
+- 🐛 **[Open an issue](https://github.com/djcesar/skill-module-report/issues)** when a report misses a flaw, picks the wrong mode or comes out in mixed languages, or to propose an idea.
+- 🧪 **Add a test case** in `evals/`: it is the best way to make sure an improvement stays working.
+- 🌍 **Improve or add a translation.**
+- 🔧 **Send a pull request.** Read [CONTRIBUTING.md](CONTRIBUTING.md) first: it explains how the repository is organized and the short checklist every change follows.
+
+If you use it at work or in a project, sharing it or telling us how it went also helps a lot.
 
 ## License
 

@@ -6,6 +6,8 @@ Skill para agentes de IA que analiza un flujo, módulo, función o proceso del p
 
 Sigue el formato abierto [Agent Skills](https://agentskills.io) (una carpeta con un `SKILL.md` y archivos de referencia), así que no depende de una sola herramienta ni de un modelo en particular. Ver [Requisitos](#requisitos) e [Instalación](#instalación).
 
+> ⭐ **Si module-report te ahorra tiempo, [dale una estrella al repositorio](https://github.com/djcesar/skill-module-report)**: ayuda a que otros desarrolladores lo encuentren. Las ideas, los reportes de errores y los pull requests son muy bienvenidos, ver [Contribuir](#contribuir).
+
 ## Dónde queda la ficha
 
 La ficha completa siempre se guarda como archivo Markdown en `docs/reports/`, en la raíz del directorio de trabajo, con un nombre que dice qué se pidió y en qué modo (p. ej. `docs/reports/registro-de-usuarios-as-business.md`; un archivo por modo). En el chat solo aparece un resumen de 5 a 8 líneas y el enlace al archivo, así las fichas largas nunca se cortan y se pueden compartir, versionar y comparar en el tiempo.
@@ -160,10 +162,23 @@ evals/                      casos de prueba y el proyecto ficticio de ejemplo
 docs/es/                    traducción al español de SKILL.md y las referencias, solo para leer
 CHANGELOG.md                historial de versiones
 LICENSE, NOTICE             licencia Apache 2.0 y aviso de atribución
+CONTRIBUTING.md             cómo contribuir (en inglés)
 README.es.md                este README
 ```
 
 No modifica código ni despliega nada. Lo único que escribe son las fichas en `docs/reports/` y, una vez por proyecto y solo si lo eliges, una regla para ignorarlas.
+
+## Contribuir
+
+module-report mejora con cada proyecto real con el que se encuentra, y cualquier aporte, grande o pequeño, es bienvenido:
+
+- ⭐ **Dale una estrella al repositorio** para que más gente lo encuentre.
+- 🐛 **[Abre un issue](https://github.com/djcesar/skill-module-report/issues)** cuando una ficha omita una falla, elija el modo equivocado o salga con idiomas mezclados, o para proponer una idea. Puedes escribirlo en español.
+- 🧪 **Agrega un caso de prueba** en `evals/`: es la mejor forma de que una mejora siga funcionando.
+- 🌍 **Mejora o agrega una traducción.**
+- 🔧 **Envía un pull request.** Lee primero [CONTRIBUTING.md](CONTRIBUTING.md) (en inglés): explica cómo está organizado el repositorio y la lista corta que sigue cada cambio.
+
+Si lo usas en tu trabajo o en un proyecto, compartirlo o contarnos cómo te fue también ayuda mucho.
 
 ## Licencia
 
