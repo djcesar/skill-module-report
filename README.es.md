@@ -46,25 +46,28 @@ Lo que el flujo necesita hacer o tener para funcionar. Sale de lo que el código
 - **`as-new-spec`:** requisitos funcionales y no funcionales numerados (seguridad, privacidad, auditoría, accesibilidad…), modelo de datos, contratos de API y matriz de permisos.
 
 ### 4. Cosas importantes a tener en cuenta
-Lo que hay que saber antes de tocarlo o usarlo: efectos secundarios, reglas que no se ven, acoplamientos, orden de las operaciones, diferencias entre ambientes o canales (web, app, administración), y lo que se rompe si se cambia sin cuidado.
+Lo que hay que saber antes de tocarlo o usarlo: lo que no se ve a simple vista y lo que se rompe si se cambia sin cuidado.
+- **`as-technical`:** efectos secundarios, invariantes, acoplamientos, orden de las operaciones, diferencias entre ambientes, trampas conocidas, rendimiento y seguridad.
+- **`as-business`:** reglas que no se ven en la pantalla, diferencias entre canales (web, app móvil, administración), dependencias con otros procesos, tiempos y vencimientos, datos que se sobrescriben, y lo que el usuario no ve pero le afecta.
+- **`as-new-spec`:** reglas de negocio e invariantes (lo que nunca puede pasar), restricciones legales o normativas, orden obligatorio de pasos y migración de datos, más **"Errores que esta especificación previene"**: cada error del sistema actual como patrón genérico, con el requisito que lo previene y una prueba de aceptación.
 
 ### 5. Cosas a resolver
-Lo que **está mal hoy**: bugs, validaciones faltantes, riesgos de seguridad, inconsistencias entre capas o canales. Cada punto lleva evidencia y severidad (🔴 alta, 🟡 media, 🟢 baja).
-- **`as-business`:** contado por su impacto en el usuario o en la organización, no por su mecanismo.
-- **`as-new-spec`:** como todavía no hay sistema, se convierte en **decisiones abiertas** para negocio o jurídica, con opciones y una recomendación.
+Lo que **está mal hoy**, con una severidad para cada punto (🔴 alta, 🟡 media, 🟢 baja).
+- **`as-technical`:** bugs, validaciones faltantes, riesgos de seguridad, código muerto e inconsistencias entre capas o canales, cada uno con su mecanismo y evidencia `archivo:línea`. Cada 🔴 lleva *(verificado en código)* o *(inferido)*, y *no probado en vivo*.
+- **`as-business`:** problemas desde la experiencia del usuario: pasos confusos, mensajes engañosos o ausentes, callejones sin salida, reglas distintas entre canales, más lo técnico crítico contado por su impacto en el usuario o en la organización. Cada uno dice dónde se ve (pantalla o botón).
+- **`as-new-spec`:** como todavía no hay sistema, se convierte en **decisiones abiertas** para negocio o jurídica, con opciones, impacto y una recomendación.
 
 ### 6. Cosas que sería bueno incluir
-Mejoras sobre lo que ya existe: pruebas, logs, mensajes más claros, accesibilidad, reportes, funciones vecinas. Es lo deseable, no lo roto (eso va en la sección 5).
+Mejoras sobre lo que ya existe. Es lo deseable, no lo roto (eso va en la sección 5).
+- **`as-technical`:** pruebas, logs, métricas, documentación, refactors y funciones vecinas.
+- **`as-business`:** mejoras de producto y experiencia: confirmaciones, mensajes más claros, atajos, accesibilidad, información útil para el usuario o para quien lo atiende, reportes.
 - **`as-new-spec`:** lo que puede quedar para una fase 2, con la razón de por qué puede esperar.
 
 ### 7. Qué haría diferente
-Cómo debió diseñarse desde el principio, buscando lo correcto y no lo rápido. No repite los defectos de la sección 5: propone el diseño que los habría evitado de raíz. Cada punto tiene tres partes:
-- **Hoy:** cómo está hecho.
-- **Lo haría así:** el diseño concreto.
-- **Por qué:** el principio que lo justifica y el costo de cambiarlo.
-
-En `as-technical` mira seguridad por diseño, capas, contratos, modelo de datos, pruebas y lógica duplicada entre canales. En `as-business` mira flujo, prevención de errores, mensajes, consistencia, accesibilidad y privacidad.
-- **`as-new-spec`:** se convierte en las **decisiones de diseño** del proyecto: decisión, alternativas descartadas y por qué.
+Cómo debió diseñarse desde el principio, buscando **lo correcto y no lo rápido**, aunque cueste más. No repite los defectos de la sección 5: propone el diseño que los habría evitado de raíz. Cada punto tiene tres partes: **Hoy** (cómo está hecho), **Lo haría así** (el diseño concreto) y **Por qué** (el principio que lo justifica y el costo de cambiarlo).
+- **`as-technical`:** seguridad por diseño, capas, contratos, modelo de datos, pruebas y lógica duplicada entre canales.
+- **`as-business`:** flujo, prevención de errores, mensajes, consistencia entre canales, accesibilidad y privacidad.
+- **`as-new-spec`:** se convierte en las **decisiones de diseño** del proyecto: la decisión, las alternativas descartadas (incluido cualquier atajo más rápido y por qué se descartó) y el costo que se acepta.
 
 ### 8. Relacionados
 Tabla con lo que este flujo toca o lo que lo toca, y cómo se relacionan.
@@ -73,10 +76,18 @@ Tabla con lo que este flujo toca o lo que lo toca, y cómo se relacionan.
 - **`as-new-spec`:** módulos e integraciones que el nuevo módulo necesita o alimenta, con el contrato entre ellos.
 
 ### Cierre
-Si hay algo urgente, una línea final lo señala. En `as-new-spec`, los riesgos críticos del sistema actual nunca se escriben en la especificación, para que se pueda entregar tal cual; se nombran brevemente en el chat y quedan completos en el archivo de trazabilidad.
+Si hay algo urgente, una línea final lo señala. En `as-new-spec`, los errores encontrados en el sistema actual sí entran en la especificación como lecciones genéricas ("Errores que esta especificación previene": el patrón, por qué importa, el requisito que lo previene y una prueba de aceptación), para que el equipo nuevo sepa por qué existe cada regla y no los repita. Su ubicación exacta en el código actual nunca entra en la especificación, porque siguen abiertos en producción y el documento está pensado para entregarse; se nombra brevemente en el chat y queda completa en el archivo de trazabilidad.
 
 ### Archivo de trazabilidad (solo `as-new-spec`)
 Junto a la especificación, `as-new-spec` siempre escribe un archivo interno `<tema>-as-new-spec-traceability.md`. Relaciona cada requisito y decisión de diseño con lo que lo motivó (un defecto que previene, un caso actual que se conserva, algo que falta hoy o una práctica del dominio), con evidencia `archivo:línea` del sistema actual, y guarda los riesgos críticos y demás defectos del sistema actual. Es el único archivo que puede mencionar el código actual y el nombre real de la organización, y no está pensado para entregarse.
+
+### Tecnología (solo `as-new-spec`)
+El skill solo puede leer el proyecto actual, no el proyecto nuevo para el que es la especificación, así que no conoce el stack destino. Por defecto la especificación es **neutral en tecnología**: ni hereda el stack actual ni elige uno.
+- **Los requisitos se escriben como capacidades, no como productos**: "la base de datos debe garantizar que no haya dos reservas activas en la misma franja, incluso con solicitudes simultáneas", no "usar una restricción de exclusión de PostgreSQL". Lo aprendido sirve con cualquier stack.
+- **"Lo que el stack elegido debe soportar"**: una lista de capacidades que sale de lo aprendido, para evaluar stacks candidatos sin elegir ninguno.
+- **Las trampas del stack actual** (valores por defecto del framework, configuración de librerías) van al archivo de trazabilidad, útiles si el proyecto nuevo conserva esa tecnología.
+- **Para apuntar a un stack, nómbralo en el pedido**: `/module-report reservas as-new-spec para Go y PostgreSQL`. El diseño se alinea con él y cada capacidad dice cómo la resuelve ese stack.
+- **Para una recomendación, pídela**: llega como decisión abierta que compara dos o tres stacks contra la lista, nunca metida en el diseño.
 
 ## Modos
 
@@ -86,7 +97,7 @@ Los tres modos son identificadores fijos: se escriben igual en cualquier idioma.
 |---|---|---|
 | **`as-technical`** (por defecto) | Quien va a desarrollar o tocar el código: archivos, servicios, datos, permisos, deuda técnica, con citas `archivo:línea`. | `as-technical`, o "explícame el flujo de X", "analiza el módulo Y, lo voy a tocar" |
 | **`as-business`** | Producto, QA, soporte, cliente: historias de usuario con criterios de aceptación, pantallas, botones, campos y mensajes. Lo técnico solo si es crítico y contado por su impacto. | `as-business`, o "en forma de negocio", "historias de usuario de X", "qué botones y campos tiene X", "sin cosas técnicas" |
-| **`as-new-spec`** | Un equipo que va a construir el módulo en un proyecto nuevo: especificación base limpia, con el diseño correcto, requisitos, decisiones abiertas y decisiones de diseño (ADR). Sin citas de código, sin bugs del sistema actual y sin el nombre de la organización. | `as-new-spec`, o "desde cero", "como documentación base para un proyecto nuevo", "especificación de X" |
+| **`as-new-spec`** | Un equipo que va a construir el módulo en un proyecto nuevo: especificación base limpia, con el diseño correcto, requisitos, decisiones abiertas y decisiones de diseño (ADR). Sin citas de código ni el nombre de la organización; los errores del sistema actual aparecen solo como lecciones genéricas, con el requisito y la prueba que los previenen. | `as-new-spec`, o "desde cero", "como documentación base para un proyecto nuevo", "especificación de X" |
 
 Los modos se combinan: `as-technical as-business` entrega las dos fichas (primero la de negocio); `as-new-spec as-business` entrega solo la especificación funcional. `as-new-spec` solo entrega la especificación funcional y la técnica.
 

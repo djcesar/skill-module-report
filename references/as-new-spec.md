@@ -7,7 +7,7 @@ Think of who will read it: a team starting a clean project that will use this do
 ## How what you found is transformed
 
 - **"What I would do differently" stops being an opinion and becomes the design.** The redesigns you would propose become the architecture, the flow and the rules of the specification.
-- **Defects are not described, they are prevented.** Every bug or risk you saw in the current system becomes a requirement, rule or acceptance criterion that makes it impossible. For example, "the update-user endpoint was public and accepted the role" becomes "RNF-SEC-2: no endpoint accepts role or status fields from the client; changing a role is an audited admin action". Do not tell the story of the bug.
+- **Defects are not described, they are prevented.** Every bug or risk you saw in the current system becomes a requirement, rule or acceptance criterion that makes it impossible. For example, "the update-user endpoint was public and accepted the role" becomes "RNF-SEC-2: no endpoint accepts role or status fields from the client; changing a role is an audited admin action". Do not tell the story of the bug in the current system; record the lesson as a generic pattern in "Mistakes this specification prevents".
 - **Use cases are the ones it should have, not only the ones it has.** If the current system lacks an obvious case (correcting data, resending a link, viewing history), include it. If a current case exists only because of a workaround, leave it out.
 - **What you cannot decide goes in as an open decision**, with options and your recommendation. Do not invent legal or business rules the code does not support.
 
@@ -15,6 +15,7 @@ Think of who will read it: a team starting a clean project that will use this do
 
 The specification must be deliverable to another organization or team without changes (the traceability file, below, is the exception):
 
+- **Lessons yes, exploitable details no.** The mistakes found in the current system do go into the specification, as generic patterns (see "Mistakes this specification prevents"), because a requirement without its reason is the first one to be relaxed "to go faster". What stays out are the details that would let someone attack the live system: where each flaw is today, its paths, endpoints and ids. Those go only in the traceability file.
 - **No references to the current code.** No file paths, old class or endpoint names, or line numbers. The "Technical references" line at the end is left out too.
 - **No proper names of the organization.** Replace the organization's name with its generic role, and do the same with everything derived from it: acronyms, domains, app and repository names, email addresses.
   - A political party ("Example Party", acronym "EP") → "the Party"; a clinic → "the Clinic"; a company → "the Company"; a university → "the University". In Spanish: "el Partido", "la Clínica", "la Empresa", "la Universidad".
@@ -22,7 +23,7 @@ The specification must be deliverable to another organization or team without ch
   - Apps and repositories → by their function: user portal, admin panel, mobile app, API.
   - Search the code for the organization's name (UI texts, email templates, domains, repository names) to know exactly what to replace.
 - **No real data**: no people's names, ID numbers, emails or ids that appear in the code, seeds or examples.
-- **Technology is a recommendation, not an inheritance.** If the project has an architecture proposal or a defined stack, align with it and say so. If not, recommend one with its justification and express the design in concepts (states, contracts, permissions) that survive a change of stack.
+- **Technology-neutral by default.** You can only read the current project, not the one this specification is for, so its stack is unknown. Do not inherit the current stack (it may be exactly what the new project wants to change) and do not pick one on your own (it would bias a document meant to serve any decision). See "Technology" below for how to keep what was learned without naming products.
 
 ## The eight sections in this mode
 
@@ -57,12 +58,30 @@ With `as-technical`: case, actor, preconditions, main flow, alternate and error 
 - With `as-technical`: data model (entities, key fields, constraints; with a Mermaid
   `erDiagram`), a `sequenceDiagram` of the main use case, API contracts per use case
   (method, route, who may call it, input, output, errors), **permission matrix**
-  (role × action, by record owner), events and integrations.
+  (role × action, by record owner), events and integrations. All of it in concepts, not products
+  (see "Technology").
+
+### What the chosen stack must support
+Only in the technical specification. A checklist of capabilities derived from what was learned,
+to evaluate candidate stacks without choosing one: e.g. schema validation that rejects undeclared
+fields, server-side authorization by role and by record owner, transactions or uniqueness/exclusion
+constraints, a secrets manager, a queue with retries. Each item says which requirement or
+mistake (M-n) it serves.
 
 ## Things to keep in mind
 Business rules and invariants (what must never happen), legal or regulatory constraints,
 mandatory order of steps, consistency across channels, data migration if an existing system
 is being replaced.
+
+### Mistakes this specification prevents
+One entry per mistake found in the current system (every risk and every significant defect),
+written as a **generic pattern**: what goes wrong and why, with no paths, endpoints, class names
+or organization name. Each one links to the requirement that prevents it and to an acceptance
+test that would catch it if it came back.
+
+| # | Mistake (generic pattern) | Why it matters | Prevented by | Acceptance test |
+|---|---|---|---|---|
+| M-1 | Mass assignment: an endpoint accepts the whole object from the client, so the client can set fields it should not (role, status, payment, owner) | Privilege escalation, fake payments | RNF-SEC-4 | Sending `role` or `status` in a sign-up body returns 400 and changes nothing |
 
 ## Issues to fix
 **Open decisions** before building: questions for business, legal or operations.
@@ -86,6 +105,26 @@ not what is easy or quick: the correct design even if it costs more to build, an
 Modules and integrations the new module needs or feeds, with the contract between them
 (what it asks of or delivers to each one). Generic names, not those of the current system.
 ```
+
+## Technology
+
+The specification has to stay useful whatever stack the new project ends up using, without losing
+what the current system taught.
+
+- **Write requirements as capabilities, not products.** Not "use a PostgreSQL `EXCLUDE`
+  constraint" but "the database must guarantee atomically that no two active bookings share a time
+  slot, even under concurrent requests". The lesson survives any stack.
+- **Turn the lessons into the stack checklist** ("What the chosen stack must support"), so the
+  team can evaluate candidates against it.
+- **Pitfalls specific to the current stack go in the traceability file** ("Lessons specific to the
+  current stack"), e.g. "in NestJS, a global `ValidationPipe` without `whitelist` lets extra fields
+  through". Valuable if the new team keeps that technology, without constraining a team that does not.
+- **Name technology only if the user gave the target stack** in the request (e.g. "as-new-spec for Go
+  and PostgreSQL"). Then align the design with it, say so in the scope, and for each capability state
+  how that stack provides it.
+- **If the user asks for a recommendation**, it goes in "Issues to fix" as an open decision: two or
+  three candidate stacks compared against the checklist, with your recommendation. Never baked into
+  the design.
 
 ## Combining with `as-technical` and `as-business`
 
@@ -120,11 +159,16 @@ kept** (with evidence), **missing today** or **domain practice** (no code eviden
 take it from). Not everything needs an origin in the code, but everything needs an origin.
 
 ## Critical risks in the current system
-The 🔴 you saw, with their certainty label and evidence, as in `as-technical`. They are what the
-specification prevents, but they are still open in production and should not wait for the new project.
+The 🔴 you saw, with their certainty label and evidence, as in `as-technical`, each linked to its
+generic entry in the specification (M-1, M-2…). They are what the specification prevents, but they
+are still open in production and should not wait for the new project.
 
 ## Other defects in the current system
 Medium or low severity ones, one line each.
+
+## Lessons specific to the current stack
+Pitfalls of the current technology behind the mistakes above, and how to avoid them if the new
+project keeps it (e.g. framework defaults, library settings). Each one linked to its M-n.
 ```
 
 Before delivering, check the specification (not the traceability file) for the organization's name, file paths and current class or endpoint names. If you find any, replace them.

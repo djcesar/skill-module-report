@@ -2,6 +2,13 @@
 
 All notable changes to this skill. The version lives in `SKILL.md` (`metadata.version`) and follows [semantic versioning](https://semver.org/): a new mode or section is a minor change; renaming modes or changing where the report goes is a major one.
 
+## 2.1.0 — 2026-11-13
+
+- **`as-new-spec` now carries the lessons from the current system.** A new "Mistakes this specification prevents" subsection lists every risk and significant defect found, written as a generic pattern (what goes wrong and why), each linked to the requirement that prevents it and an acceptance test that would catch it if it came back. Before, mistakes only became bare requirements, which do not say why they exist and are the first to be relaxed "to go faster". Exact locations in the current code still stay out of the specification and only go in the traceability file, which now links each risk to its generic entry.
+- **`as-new-spec` is technology-neutral by default.** The skill can only read the current project, so it no longer aligns with the current stack or picks one on its own. Requirements are written as capabilities, a new "What the chosen stack must support" checklist turns the lessons into criteria to evaluate stacks, and pitfalls of the current stack go to a new "Lessons specific to the current stack" section of the traceability file. Technology is named only when the user gives the target stack in the request; a recommendation, if asked, comes as an open decision comparing candidates.
+- **README:** sections 4 to 7 now describe all three modes, like the other sections. Before they only described the modes that differed, so `as-technical` looked missing and the `as-business` part of "Issues to fix" undersold what it covers.
+- **Fixed file names for `as-new-spec`:** `<topic>-as-new-spec-as-business.md` and `<topic>-as-new-spec-as-technical.md`. Before, runs varied between `-functional`/`-technical` and `-as-business`/`-as-technical`.
+
 ## 2.0.1 — 2026-11-13
 
 - **`as-new-spec` now states the "right, not easy" premise explicitly.** Its design decisions must pick the correct option over the quicker or cheaper one, list that shortcut among the rejected alternatives with the reason, and state the accepted cost plainly. Before, the premise only lived in a general rule worded for the analysis modes, so `as-new-spec` could skip it.

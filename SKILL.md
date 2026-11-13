@@ -3,7 +3,7 @@ name: module-report
 description: 'Analysis report on a flow, module, function, endpoint, screen or process of the current project, built from the real code, with eight sections (description, use cases, required features, things to keep in mind, issues to fix, nice to have, what I would do differently, related). Three combinable modes - as-technical (for whoever changes the code), as-business (user stories, screens, fields and messages, no jargon) and as-new-spec (clean specification to rebuild it in a new project). Use it whenever someone asks to explain, analyze, document or audit how something works, even without saying report - walk me through the X flow, analyze module Y, overview before changing it, what is missing, what you would change, user stories for X, in business terms or for the PO, what buttons and fields it has, X from scratch or as baseline docs for a new project, or a mode by name. Also in Spanish (cómo funciona el flujo de X, analízame el módulo Y, historias de usuario, en forma de negocio, desde cero, documentación base).'
 compatibility: 'Requires an agent with read access to the repository (search and open files). Recommended - write access to docs/reports/, read-only commands (git log) and subagents for large modules.'
 metadata:
-  version: "2.0.1"
+  version: "2.1.0"
 ---
 
 # Analyze module
@@ -27,6 +27,7 @@ Choose like this:
   - `as-new-spec` if they ask "from scratch", "as if it were new", "for a new project", "specification", "baseline documentation" or "how it should be built".
   - `as-technical` if they mention code, implementation, "I'm going to change/refactor it", or give no hint.
 - If they ask for technical and business, deliver `as-business` first and then `as-technical`, as two separate reports.
+- In `as-new-spec`, if the request names the target stack ("as-new-spec for Go and PostgreSQL"), use it; otherwise the specification stays technology-neutral (see its reference).
 
 Read the matching reference before writing; it has the template and how to fill it.
 
@@ -69,7 +70,7 @@ Always run this list over the flow's actions, even when the mode is `as-business
 7. **Secrets**: keys or credentials in the code, in the client or in the repository.
 8. **Abuse and cost**: emails/SMS, file uploads or heavy processes that can be triggered without limit.
 
-How each risk is reported depends on the mode: in `as-technical` with its mechanism and evidence; in `as-business` by its impact; in `as-new-spec` as a requirement that prevents it (RNF-SEG) and, if it exists in the current system, in the traceability file. If a point does not apply to the flow, do not mention it.
+How each risk is reported depends on the mode: in `as-technical` with its mechanism and evidence; in `as-business` by its impact; in `as-new-spec` as a requirement that prevents it (RNF-SEC) plus a generic entry in "Mistakes this specification prevents" with its acceptance test, and, if it exists in the current system, with its exact location in the traceability file. If a point does not apply to the flow, do not mention it.
 
 ### Split the investigation (if your tool allows it)
 
@@ -119,7 +120,7 @@ For any other language, translate with the same criteria. The title must name wh
 **The full report always goes to a file; the chat gets only the summary.** Reports on a full module easily exceed 300 lines: in the chat they get cut off, cannot be shared and are lost. In a file they read well, can be versioned and compared over time.
 
 - **Where:** `docs/reports/` at the root of the working directory (create it if missing). If the working directory groups several sibling repositories, it goes in that common root, not inside one of them.
-- **Name:** `<topic>-<mode>.md` in lowercase with hyphens, using the user's own words (e.g. `membership-as-new-spec.md`, `reset-contrasena-as-business.md`); never a generic name like `report.md`. If several modes were requested, one file per mode. `as-new-spec` always adds `<topic>-as-new-spec-traceability.md` (see its reference).
+- **Name:** `<topic>-<mode>.md` in lowercase with hyphens, using the user's own words (e.g. `membership-as-new-spec.md`, `reset-contrasena-as-business.md`); never a generic name like `report.md`. If several modes were requested, one file per mode. `as-new-spec` uses the mode it is combined with as a suffix (`<topic>-as-new-spec-as-business.md`, `<topic>-as-new-spec-as-technical.md`; both when it goes alone) and always adds `<topic>-as-new-spec-traceability.md` (see its reference).
 - **If a file with that name already exists**, do not overwrite it: it is the previous report and is useful for comparison. Use `<topic>-<mode>-YYYY-MM-DD.md`.
 - **Do not commit** the file; say it was created and that committing is the user's call. Before creating the folder for the first time, see the next section.
 - **If you cannot write files** (tool without write access, chat without a file system), deliver the full report in the chat, as the only exception.
@@ -163,4 +164,4 @@ Common to all modes:
   - Valid syntax: quote labels with spaces, accents, parentheses or colons (`A["Review (admin)"]`), node ids without spaces or accents. A diagram that does not render is worse than none.
   - Only when they add something: a simple function without states or several components does not need a diagram.
 
-Close in the chat with an optional next-step line if something in "Issues to fix" is clearly urgent, without summarizing the report again. In `as-new-spec`, name the current system's critical risks in the chat, one line each, with the link to the traceability file where they are recorded in full; they never go inside the specification. If you chose the mode without the user naming it, mention in that line that the other modes exist and how to ask for them (`as-technical`, `as-business`, `as-new-spec`).
+Close in the chat with an optional next-step line if something in "Issues to fix" is clearly urgent, without summarizing the report again. In `as-new-spec`, name the current system's critical risks in the chat, one line each, with the link to the traceability file where they are recorded in full; their exact location in the current code never goes inside the specification, only their generic lesson (see the reference). If you chose the mode without the user naming it, mention in that line that the other modes exist and how to ask for them (`as-technical`, `as-business`, `as-new-spec`).

@@ -48,25 +48,28 @@ What the flow needs to do or have in order to work. It comes from what the code 
 - **`as-new-spec`:** numbered functional and non-functional requirements (security, privacy, auditing, accessibility…), data model, API contracts and permission matrix.
 
 ### 4. Things to keep in mind
-What you need to know before touching or using it: side effects, hidden rules, coupling, order of operations, differences between environments or channels (web, mobile app, admin panel), and what breaks if it is changed carelessly.
+What you need to know before touching or using it: what is not obvious and what breaks if it is changed carelessly.
+- **`as-technical`:** side effects, invariants, coupling, order of operations, differences between environments, known pitfalls, performance and security.
+- **`as-business`:** rules that are not visible on screen, differences between channels (web, mobile app, admin panel), dependencies on other processes, timings and expirations, data that gets overwritten, and what the user does not see but affects them.
+- **`as-new-spec`:** business rules and invariants (what must never happen), legal or regulatory constraints, mandatory order of steps and data migration, plus **"Mistakes this specification prevents"**: each mistake from the current system as a generic pattern, with the requirement that prevents it and an acceptance test.
 
 ### 5. Issues to fix
-What is **wrong today**: bugs, missing validations, security risks, inconsistencies between layers or channels. Each item includes evidence and a severity (🔴 high, 🟡 medium, 🟢 low).
-- **`as-business`:** described by its impact on the user or the organization, not by its mechanism.
-- **`as-new-spec`:** since there is no system yet, this becomes **open decisions** for business or legal, with options and a recommendation.
+What is **wrong today**, with a severity for each item (🔴 high, 🟡 medium, 🟢 low).
+- **`as-technical`:** bugs, missing validations, security risks, dead code and inconsistencies between layers or channels, each with its mechanism and `file:line` evidence. Every 🔴 is labeled *(verified in code)* or *(inferred)*, plus *not tested live*.
+- **`as-business`:** problems from the user's point of view: confusing steps, misleading or missing messages, dead ends, rules that differ between channels, plus critical technical issues described by their impact on the user or the organization. Each one says where it shows (screen or button).
+- **`as-new-spec`:** since there is no system yet, this becomes **open decisions** for business or legal, with options, impact and a recommendation.
 
 ### 6. Nice to have
-Improvements on what already exists: tests, logging, clearer messages, accessibility, reports, neighboring features. These are wishes, not defects (defects go in section 5).
+Improvements on what already exists. These are wishes, not defects (defects go in section 5).
+- **`as-technical`:** tests, logging, metrics, documentation, refactors and neighboring features.
+- **`as-business`:** product and experience improvements: confirmations, clearer messages, shortcuts, accessibility, useful information for the user or whoever supports them, reports.
 - **`as-new-spec`:** what can wait for a phase 2, with the reason it can wait.
 
 ### 7. What I would do differently
-How it should have been designed from the start, aiming for what is right rather than what is quick. It does not repeat the defects from section 5; it proposes the design that would have prevented them at the root. Each item has three parts:
-- **Today:** how it is built.
-- **I would do it like this:** the concrete design.
-- **Why:** the principle behind it and the cost of the change.
-
-In `as-technical` it looks at security by design, layering, contracts, data model, tests and logic duplicated across channels. In `as-business` it looks at flow, error prevention, messaging, consistency, accessibility and privacy.
-- **`as-new-spec`:** this becomes the project's **design decisions**: the decision, the alternatives that were rejected, and why.
+How it should have been designed from the start, aiming for **what is right rather than what is quick**, even if it costs more. It does not repeat the defects from section 5; it proposes the design that would have prevented them at the root. Each item has three parts: **Today** (how it is built), **I would do it like this** (the concrete design) and **Why** (the principle behind it and the cost of the change).
+- **`as-technical`:** security by design, layering, contracts, data model, tests and logic duplicated across channels.
+- **`as-business`:** flow, error prevention, messages, consistency between channels, accessibility and privacy.
+- **`as-new-spec`:** becomes the project's **design decisions**: the decision, the rejected alternatives (including any quicker shortcut and why it was rejected) and the accepted cost.
 
 ### 8. Related
 A table of what this flow touches or what touches it, and how they relate.
@@ -75,10 +78,18 @@ A table of what this flow touches or what touches it, and how they relate.
 - **`as-new-spec`:** modules and integrations the new module needs or feeds, with the contract between them.
 
 ### Closing
-If something is urgent, a final line points it out. In `as-new-spec`, critical risks found in the current system are never written into the specification, so it can be handed over as is; they are listed briefly in the chat and in full in the traceability file.
+If something is urgent, a final line points it out. In `as-new-spec`, the mistakes found in the current system go into the specification as generic lessons ("Mistakes this specification prevents": the pattern, why it matters, the requirement that prevents it and an acceptance test), so the new team knows why each rule exists and does not repeat them. Their exact location in the current code never goes into the specification, because they are still open in production and the document is meant to be handed over; it is named briefly in the chat and recorded in full in the traceability file.
 
 ### Traceability file (`as-new-spec` only)
 Next to the specification, `as-new-spec` always writes an internal `<topic>-as-new-spec-traceability.md`. It maps every requirement and design decision to what motivated it (a defect it prevents, a current case it keeps, something missing today, or domain practice), with `file:line` evidence from the current system, and records the critical risks and other defects of the current system. It is the one file allowed to mention the current code and the organization's real name, and it is not meant to be handed over.
+
+### Technology (`as-new-spec` only)
+The skill can only read the current project, not the new one the specification is for, so it does not know the target stack. By default the specification is **technology-neutral**: it neither inherits the current stack nor picks one.
+- **Requirements are written as capabilities, not products**: "the database must guarantee that no two active bookings share a time slot, even under concurrent requests", not "use a PostgreSQL exclusion constraint". What was learned survives any stack.
+- **"What the chosen stack must support"**: a checklist of capabilities derived from what was learned, to evaluate candidate stacks without choosing one.
+- **Pitfalls of the current stack** (framework defaults, library settings) go in the traceability file, useful if the new project keeps that technology.
+- **To target a stack, name it in the request**: `/module-report bookings as-new-spec for Go and PostgreSQL`. The design is then aligned with it and each capability says how that stack provides it.
+- **To get a recommendation, ask for it**: it comes as an open decision comparing two or three stacks against the checklist, never baked into the design.
 
 ## Modes
 
@@ -88,7 +99,7 @@ The three modes are fixed identifiers: they are written the same way in any lang
 |---|---|---|
 | **`as-technical`** (default) | Whoever will build or change the code: files, services, data, permissions, technical debt, with `file:line` references. | `as-technical`, or "explain the X flow", "analyze module Y, I'm going to change it" |
 | **`as-business`** | Product, QA, support, the client: user stories with acceptance criteria, screens, buttons, fields and messages. Technical details only when critical, described by their impact. | `as-business`, or "in business terms", "user stories for X", "what buttons and fields does X have", "no technical details" |
-| **`as-new-spec`** | A team that will build the module in a new project: a clean baseline specification with the right design, requirements, open decisions and design decisions (ADR). No code references, no bugs from the current system and no organization name. | `as-new-spec`, or "from scratch", "as baseline documentation for a new project", "specification for X" |
+| **`as-new-spec`** | A team that will build the module in a new project: a clean baseline specification with the right design, requirements, open decisions and design decisions (ADR). No code references or organization name; the current system's mistakes appear only as generic lessons with the requirement and test that prevent them. | `as-new-spec`, or "from scratch", "as baseline documentation for a new project", "specification for X" |
 
 Modes can be combined: `as-technical as-business` delivers both reports (business first); `as-new-spec as-business` delivers only the functional specification. `as-new-spec` on its own delivers both the functional and the technical specification.
 

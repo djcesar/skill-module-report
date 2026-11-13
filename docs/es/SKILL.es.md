@@ -21,6 +21,7 @@ Elige así:
   - `as-new-spec` si pide "desde cero", "como si fuera nuevo", "para un proyecto nuevo", "especificación", "documentación base" o "cómo debería construirse".
   - `as-technical` si menciona código, implementación, "lo voy a tocar/modificar/refactorizar", o no da pistas.
 - Si pide técnico y negocio, entrega primero `as-business` y luego `as-technical`, como dos fichas separadas.
+- En `as-new-spec`, si el pedido nombra el stack destino ("as-new-spec para Go y PostgreSQL"), úsalo; si no, la especificación queda neutral en tecnología (ver su referencia).
 
 Lee la referencia que corresponda antes de escribir; trae la plantilla y cómo llenarla.
 
@@ -63,7 +64,7 @@ Revisa siempre esta lista sobre las acciones del flujo, aunque el modo sea `as-b
 7. **Secretos**: llaves o credenciales en el código, en el cliente o en el repositorio.
 8. **Abuso y costo**: envíos de correo/SMS, cargas de archivos o procesos pesados que se pueden disparar sin límite.
 
-Cómo se reporta cada riesgo depende del modo: en `as-technical` con su mecanismo y evidencia; en `as-business` por su impacto; en `as-new-spec` como requisito que lo previene (RNF-SEG) y, si existe en el sistema actual, en el archivo de trazabilidad. Si un punto no aplica al flujo, no lo menciones.
+Cómo se reporta cada riesgo depende del modo: en `as-technical` con su mecanismo y evidencia; en `as-business` por su impacto; en `as-new-spec` como requisito que lo previene (RNF-SEG) más una entrada genérica en "Errores que esta especificación previene" con su prueba de aceptación, y, si existe en el sistema actual, con su ubicación exacta en el archivo de trazabilidad. Si un punto no aplica al flujo, no lo menciones.
 
 ### Repartir la investigación (si tu herramienta lo permite)
 
@@ -112,7 +113,7 @@ Para otro idioma, traduce con el mismo criterio. El título debe nombrar lo que 
 **La ficha completa siempre va a un archivo; en el chat va solo el resumen.** Las fichas de un módulo completo pasan fácilmente de 300 líneas: en el chat se cortan, no se pueden compartir y se pierden. En un archivo se leen bien, se versionan y se pueden comparar en el tiempo.
 
 - **Dónde:** `docs/reports/` en la raíz del directorio de trabajo (créala si no existe). Si el directorio de trabajo agrupa varios repos hermanos, va en esa raíz común, no dentro de uno de ellos.
-- **Nombre:** `<tema>-<modo>.md` en minúsculas y con guiones, con las palabras del usuario (p. ej. `afiliaciones-as-new-spec.md`, `reset-contrasena-as-business.md`); nunca un nombre genérico como `respuesta.md`. Si pidió varios modos, un archivo por modo. En `as-new-spec` se agrega siempre `<tema>-as-new-spec-traceability.md` (ver su referencia).
+- **Nombre:** `<tema>-<modo>.md` en minúsculas y con guiones, con las palabras del usuario (p. ej. `afiliaciones-as-new-spec.md`, `reset-contrasena-as-business.md`); nunca un nombre genérico como `respuesta.md`. Si pidió varios modos, un archivo por modo. `as-new-spec` usa como sufijo el modo con que se combina (`<tema>-as-new-spec-as-business.md`, `<tema>-as-new-spec-as-technical.md`; los dos cuando va solo) y agrega siempre `<tema>-as-new-spec-traceability.md` (ver su referencia).
 - **Si ya existe** un archivo con ese nombre, no lo sobrescribas: es la ficha anterior y sirve para comparar. Usa `<tema>-<modo>-AAAA-MM-DD.md`.
 - **No hagas commit** del archivo; avisa que quedó creado y que decide el usuario. Antes de crear la carpeta por primera vez, mira la sección siguiente.
 - **Si no puedes escribir archivos** (herramienta sin acceso de escritura, chat sin sistema de archivos), entrega la ficha completa en el chat, como única excepción.
@@ -156,4 +157,4 @@ Comunes a todos los modos:
   - Sintaxis válida: etiquetas con espacios, tildes, paréntesis o dos puntos entre comillas (`A["Revisar (admin)"]`), ids de nodo sin espacios ni tildes. Un diagrama que no renderiza es peor que ninguno.
   - Solo cuando aportan: una función simple sin estados ni varios componentes no necesita diagrama.
 
-Cierra en el chat con una línea opcional de siguiente paso si hay algo claramente urgente en "Cosas a resolver", sin volver a resumir la ficha. En `as-new-spec`, nombra en el chat los riesgos críticos del sistema actual en una línea cada uno, con el enlace al archivo de trazabilidad donde quedan completos; nunca van dentro de la especificación. Si elegiste el modo sin que el usuario lo nombrara, menciona en esa línea que existen los otros y cómo pedirlos (`as-technical`, `as-business`, `as-new-spec`).
+Cierra en el chat con una línea opcional de siguiente paso si hay algo claramente urgente en "Cosas a resolver", sin volver a resumir la ficha. En `as-new-spec`, nombra en el chat los riesgos críticos del sistema actual en una línea cada uno, con el enlace al archivo de trazabilidad donde quedan completos; su ubicación exacta en el código actual nunca va dentro de la especificación, solo su lección genérica (ver la referencia). Si elegiste el modo sin que el usuario lo nombrara, menciona en esa línea que existen los otros y cómo pedirlos (`as-technical`, `as-business`, `as-new-spec`).
