@@ -73,11 +73,14 @@ What is left for a **later phase** (v2): valuable but not needed for the first d
 Say why it can wait.
 
 ## What I would do differently
-Here it becomes the key **design decisions**, in a short ADR format:
+Here it becomes the key **design decisions**, in a short ADR format. Choose what is right,
+not what is easy or quick: the correct design even if it costs more to build, and say so.
 - **Decision:** what is done.
 - **Rejected alternatives:** the other reasonable options, including the one the previous
   system used, described generically ("state split across several flags"), without naming it.
-- **Why:** the principle, the risk it avoids and the cost that is accepted.
+  When there is a quicker or cheaper shortcut, list it here and say why it was rejected.
+- **Why:** the principle, the risk it avoids and the cost that is accepted (effort, time,
+  complexity), stated plainly instead of hidden.
 
 ## Related
 Modules and integrations the new module needs or feeds, with the contract between them

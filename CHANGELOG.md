@@ -2,6 +2,10 @@
 
 All notable changes to this skill. The version lives in `SKILL.md` (`metadata.version`) and follows [semantic versioning](https://semver.org/): a new mode or section is a minor change; renaming modes or changing where the report goes is a major one.
 
+## 2.0.1 — 2026-11-13
+
+- **`as-new-spec` now states the "right, not easy" premise explicitly.** Its design decisions must pick the correct option over the quicker or cheaper one, list that shortcut among the rejected alternatives with the reason, and state the accepted cost plainly. Before, the premise only lived in a general rule worded for the analysis modes, so `as-new-spec` could skip it.
+
 ## 2.0.0 — 2026-11-13
 
 - **Renamed to `module-report`** (was `skill-analizar-modulo`) so the name works in any language. It is now invoked as `/module-report` and installed in a `module-report` folder; the repository is `skill-module-report` (GitHub redirects the old URL). This is a breaking change for anyone invoking the skill by its old name or with the old install path.

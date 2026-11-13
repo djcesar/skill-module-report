@@ -75,11 +75,14 @@ Lo que queda para una **fase posterior** (v2): valioso pero no necesario para la
 Di por qué puede esperar.
 
 ## Qué haría diferente
-Aquí se convierte en las **decisiones de diseño** clave, en formato corto de ADR:
+Aquí se convierte en las **decisiones de diseño** clave, en formato corto de ADR. Elige lo
+correcto, no lo fácil ni lo rápido: el diseño bien hecho aunque cueste más construirlo, y dilo.
 - **Decisión:** lo que se hace.
 - **Alternativas descartadas:** las otras formas razonables, incluida la que tenía el sistema
   anterior, descrita de forma genérica ("estado repartido en varias banderas"), sin nombrarlo.
-- **Por qué:** el principio, el riesgo que evita y el costo que se acepta.
+  Si hay un atajo más rápido o barato, ponlo aquí y di por qué se descartó.
+- **Por qué:** el principio, el riesgo que evita y el costo que se acepta (esfuerzo, tiempo,
+  complejidad), dicho claramente y no escondido.
 
 ## Relacionados
 Módulos e integraciones que el nuevo módulo necesita o alimenta, con el contrato entre ellos
