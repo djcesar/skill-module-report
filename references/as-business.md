@@ -1,4 +1,4 @@
-# Ficha de negocio
+# Modo `as-business`
 
 Para producto, negocio, QA, soporte o el cliente: gente que conoce el proceso pero no el código. La ficha cuenta **qué ve y qué hace cada persona**: pantallas, botones, campos, mensajes, correos y reglas. El código se usa para averiguar todo eso con precisión, pero casi no aparece en la ficha.
 
@@ -100,7 +100,7 @@ Cada punto con tres partes:
 ```
 
 - La última línea de referencias existe para que alguien técnico pueda rastrear la ficha sin que el resto tenga que leer código. Mantenla corta.
-- **"Qué haría diferente" en la de negocio** piensa en ejes como estos (usa los que apliquen):
+- **"Qué haría diferente" en `as-business`** piensa en ejes como estos (usa los que apliquen):
   - Flujo: menos pasos, sin callejones sin salida, que el usuario siempre sepa en qué estado está y qué sigue.
   - Prevención de errores: validar mientras escribe, confirmar acciones irreversibles, permitir deshacer o corregir.
   - Mensajes: que digan qué pasó y qué hacer, sin culpar ni revelar datos de otros.

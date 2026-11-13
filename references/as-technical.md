@@ -1,4 +1,4 @@
-# Ficha técnica
+# Modo `as-technical`
 
 Para quien va a desarrollar, revisar o tocar el código. Cita archivos como enlaces markdown relativos con línea (`[users.service.ts:120](src/users/users.service.ts:120)`).
 
@@ -48,7 +48,7 @@ y no lo rápido. Cada punto con tres partes:
 ```
 
 - **"Features requeridas" describe lo que el flujo necesita, no un wishlist**: deriva de lo que el código hace y exige (validaciones, config, permisos). Las ideas nuevas van en "Sería bueno incluir".
-- **"Qué haría diferente" en la técnica** piensa en ejes como estos (usa los que apliquen):
+- **"Qué haría diferente" en `as-technical`** piensa en ejes como estos (usa los que apliquen):
   - Seguridad por diseño: denegar por defecto, autorización en el servidor por rol y por dueño del registro, secretos fuera del código, mínimo privilegio.
   - Capas y responsabilidades: controladores delgados, lógica de negocio en un solo lugar, sin reglas duplicadas entre front y back.
   - Contratos: DTOs validados, errores con el código HTTP correcto, idempotencia, versionado.

@@ -1,4 +1,4 @@
-# Modo "desde cero": especificación para construirlo nuevo
+# Modo `as-new-spec`: especificación para construirlo nuevo
 
 El usuario no quiere saber cómo está hecho hoy: quiere la **documentación base para construir este módulo, flujo o función en un proyecto nuevo, bien hecho desde el principio**. El sistema actual es tu fuente de conocimiento del dominio (qué hace, para quién, qué reglas tiene, qué salió mal), pero el documento final describe **lo que debe construirse**, no lo que existe.
 
@@ -40,15 +40,15 @@ Qué problema resuelve, actores, y un **glosario** de los términos y estados de
 principal como máquina de estados: estados, transiciones, quién dispara cada una.
 
 ## Casos de uso
-Completos y correctos (ver arriba). En negocio: historias con criterios Dado/cuando/entonces.
-En técnica: caso, actor, precondiciones, flujo principal, alternos y errores, postcondiciones.
+Completos y correctos (ver arriba). Con `as-business`: historias con criterios Dado/cuando/entonces.
+Con `as-technical`: caso, actor, precondiciones, flujo principal, alternos y errores, postcondiciones.
 
 ## Features o características requeridas
 - **Requisitos funcionales** numerados (RF-1…), cada uno trazable a un caso de uso.
 - **Requisitos no funcionales** (RNF-SEG, RNF-PRIV, RNF-AUD, RNF-REND, RNF-ACC…):
   seguridad, privacidad y datos personales, auditoría, rendimiento, accesibilidad, disponibilidad.
-- En negocio: pantallas con sus campos y botones (tabla), mensajes y comunicaciones.
-- En técnica: modelo de datos (entidades, campos clave, restricciones), contratos de API
+- Con `as-business`: pantallas con sus campos y botones (tabla), mensajes y comunicaciones.
+- Con `as-technical`: modelo de datos (entidades, campos clave, restricciones), contratos de API
   por caso de uso (método, ruta, quién puede, entrada, salida, errores), **matriz de permisos**
   (rol × acción, por dueño del registro), eventos e integraciones.
 
@@ -77,11 +77,11 @@ Módulos e integraciones que el nuevo módulo necesita o alimenta, con el contra
 (qué le pide o qué le entrega a cada uno). Nombres genéricos, no los del sistema actual.
 ```
 
-## Combinación con técnico y negocio
+## Combinación con `as-technical` y `as-business`
 
-- **"Desde cero" + negocio**: especificación funcional (historias, pantallas, reglas, decisiones abiertas para negocio).
-- **"Desde cero" + técnico**: especificación técnica (modelo, contratos, permisos, decisiones de arquitectura).
-- **"Desde cero" sin más**: entrega ambas, primero la funcional y luego la técnica, porque una documentación base de proyecto necesita las dos. Que no se contradigan: los RF y las historias deben usar la misma numeración o una tabla de trazabilidad.
+- **`as-new-spec as-business`**: especificación funcional (historias, pantallas, reglas, decisiones abiertas para negocio).
+- **`as-new-spec as-technical`**: especificación técnica (modelo, contratos, permisos, decisiones de arquitectura).
+- **`as-new-spec` solo**: entrega ambas, primero la funcional y luego la técnica, porque una documentación base de proyecto necesita las dos. Que no se contradigan: los RF y las historias deben usar la misma numeración o una tabla de trazabilidad.
 
 Si viste riesgos críticos en el sistema actual, avísalos **fuera de la especificación**: en el chat, después del documento, nunca dentro de él ni en su archivo. Así el documento se puede entregar tal cual sin arrastrar detalles del sistema viejo.
 

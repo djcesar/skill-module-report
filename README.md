@@ -14,33 +14,33 @@ Every report opens with a **Scope** line: what was reviewed and what was left ou
 
 ### 1. Description *(Descripción)*
 What it is, why it exists and how it works, in one or two paragraphs, followed by the end-to-end walkthrough step by step.
-- **Technical:** input → validation → logic → data → response, with a link to each file.
-- **Business:** the steps as the user experiences them ("on the **Sign in** screen, tap **Forgot your password?**…").
-- **From scratch:** purpose, actors, glossary, and the lifecycle of the main object as a state machine.
+- **`as-technical`:** input → validation → logic → data → response, with a link to each file.
+- **`as-business`:** the steps as the user experiences them ("on the **Sign in** screen, tap **Forgot your password?**…").
+- **`as-new-spec`:** purpose, actors, glossary, and the lifecycle of the main object as a state machine.
 
 ### 2. Use cases *(Casos de uso)*
 Who uses it, what for and what triggers it, including alternate and error paths, not just the happy path.
-- **Technical:** actor, goal and trigger.
-- **Business:** "As a… I want… so that…" user stories with Given/When/Then acceptance criteria and the message the user sees on each error.
-- **From scratch:** the cases it *should* have, including the ones missing today, and without the ones that only exist because of a workaround.
+- **`as-technical`:** actor, goal and trigger.
+- **`as-business`:** "As a… I want… so that…" user stories with Given/When/Then acceptance criteria and the message the user sees on each error.
+- **`as-new-spec`:** the cases it *should* have, including the ones missing today, and without the ones that only exist because of a workaround.
 
 ### 3. Required features *(Features o características requeridas)*
 What the flow needs to do or have in order to work. It comes from what the code actually requires; it is not a wishlist.
-- **Technical:** inputs and outputs, validations, rules, permissions, tables, environment variables and integrations.
-- **Business:** one table per screen with every field and button (visible text, whether it is required, rules, and the message when it fails), business rules, and the emails or text messages that are sent.
-- **From scratch:** numbered functional and non-functional requirements (security, privacy, auditing, accessibility…), data model, API contracts and permission matrix.
+- **`as-technical`:** inputs and outputs, validations, rules, permissions, tables, environment variables and integrations.
+- **`as-business`:** one table per screen with every field and button (visible text, whether it is required, rules, and the message when it fails), business rules, and the emails or text messages that are sent.
+- **`as-new-spec`:** numbered functional and non-functional requirements (security, privacy, auditing, accessibility…), data model, API contracts and permission matrix.
 
 ### 4. Things to keep in mind *(Cosas importantes a tener en cuenta)*
 What you need to know before touching or using it: side effects, hidden rules, coupling, order of operations, differences between environments or channels (web, mobile app, admin panel), and what breaks if it is changed carelessly.
 
 ### 5. Issues to fix *(Cosas a resolver)*
 What is **wrong today**: bugs, missing validations, security risks, inconsistencies between layers or channels. Each item includes evidence and a severity (🔴 high, 🟡 medium, 🟢 low).
-- **Business:** described by its impact on the user or the organization, not by its mechanism.
-- **From scratch:** since there is no system yet, this becomes **open decisions** for business or legal, with options and a recommendation.
+- **`as-business`:** described by its impact on the user or the organization, not by its mechanism.
+- **`as-new-spec`:** since there is no system yet, this becomes **open decisions** for business or legal, with options and a recommendation.
 
 ### 6. Nice to have *(Cosas que sería bueno incluir)*
 Improvements on what already exists: tests, logging, clearer messages, accessibility, reports, neighboring features. These are wishes, not defects (defects go in section 5).
-- **From scratch:** what can wait for a phase 2, with the reason it can wait.
+- **`as-new-spec`:** what can wait for a phase 2, with the reason it can wait.
 
 ### 7. What I would do differently *(Qué haría diferente)*
 How it should have been designed from the start, aiming for what is right rather than what is quick. It does not repeat the defects from section 5; it proposes the design that would have prevented them at the root. Each item has three parts:
@@ -48,27 +48,31 @@ How it should have been designed from the start, aiming for what is right rather
 - **I would do it like this:** the concrete design.
 - **Why:** the principle behind it and the cost of the change.
 
-The technical version looks at security by design, layering, contracts, data model, tests and logic duplicated across channels. The business version looks at flow, error prevention, messaging, consistency, accessibility and privacy.
-- **From scratch:** this becomes the project's **design decisions**: the decision, the alternatives that were rejected, and why.
+In `as-technical` it looks at security by design, layering, contracts, data model, tests and logic duplicated across channels. In `as-business` it looks at flow, error prevention, messaging, consistency, accessibility and privacy.
+- **`as-new-spec`:** this becomes the project's **design decisions**: the decision, the alternatives that were rejected, and why.
 
 ### 8. Related *(Relacionados)*
 A table of what this flow touches or what touches it, and how they relate.
-- **Technical:** modules, functions, endpoints, screens, tables, jobs and external services, with their location.
-- **Business:** related processes and screens, and who uses them.
-- **From scratch:** modules and integrations the new module needs or feeds, with the contract between them.
+- **`as-technical`:** modules, functions, endpoints, screens, tables, jobs and external services, with their location.
+- **`as-business`:** related processes and screens, and who uses them.
+- **`as-new-spec`:** modules and integrations the new module needs or feeds, with the contract between them.
 
 ### Closing
-If something is urgent, a final line points it out. In "from scratch" mode, critical risks found in the current system are reported in the chat, never inside the document, so the document can be handed over as is.
+If something is urgent, a final line points it out. In `as-new-spec`, critical risks found in the current system are reported in the chat, never inside the document, so the document can be handed over as is.
 
-## Versions
+## Modes
 
-| Version | For whom | How to ask for it |
+The three modes are fixed identifiers: they are written the same way in any language.
+
+| Mode | For whom | How to ask for it |
 |---|---|---|
-| **Technical** (default) | Whoever will build or change the code: files, services, data, permissions, technical debt, with `file:line` references. | "explain the X flow", "analyze module Y, I'm going to change it" |
-| **Business** | Product, QA, support, the client: user stories with acceptance criteria, screens, buttons, fields and messages. Technical details only when critical, described by their impact. | "in business terms", "user stories for X", "what buttons and fields does X have", "no technical details" |
-| **From scratch** | A team that will build the module in a new project: a clean baseline specification with the right design, requirements, open decisions and design decisions (ADR). No code references, no bugs from the current system and no organization name. | "from scratch", "as baseline documentation for a new project", "specification for X" |
+| **`as-technical`** (default) | Whoever will build or change the code: files, services, data, permissions, technical debt, with `file:line` references. | `as-technical`, or "explain the X flow", "analyze module Y, I'm going to change it" |
+| **`as-business`** | Product, QA, support, the client: user stories with acceptance criteria, screens, buttons, fields and messages. Technical details only when critical, described by their impact. | `as-business`, or "in business terms", "user stories for X", "what buttons and fields does X have", "no technical details" |
+| **`as-new-spec`** | A team that will build the module in a new project: a clean baseline specification with the right design, requirements, open decisions and design decisions (ADR). No code references, no bugs from the current system and no organization name. | `as-new-spec`, or "from scratch", "as baseline documentation for a new project", "specification for X" |
 
-They can be combined: "explain X in technical and business mode", "X from scratch, functional part only". Requests also work in Spanish ("explícame el módulo X", "en modo negocio", "desde cero").
+Modes can be combined: `as-technical as-business` delivers both reports (business first); `as-new-spec as-business` delivers only the functional specification. `as-new-spec` on its own delivers both the functional and the technical specification.
+
+Examples: `/skill-analizar-modulo user registration as-business`, "explain the payments module as-technical as-business", "password reset as-new-spec". Plain requests also work, in English or Spanish ("explícame el módulo X en modo negocio", "desde cero").
 
 ## Requirements
 
@@ -93,17 +97,17 @@ git clone https://github.com/djcesar/skill-analizar-modulo.git <skills-folder>/s
 ```
 
 - **Tools that support Agent Skills** (agentic coding assistants and IDE agents): each one looks for skills in its own folder, either per user or per project. Check your tool's documentation for the exact path. Once installed, it activates when you ask to explain, analyze or document something in the code, without naming it; tools with slash commands also let you invoke it as `/skill-analizar-modulo`.
-- **Tools without skill support** (or a plain chat): give the assistant the contents of `SKILL.md` as instructions, plus the reference file for the version you want (`references/tecnico.md`, `references/negocio.md`, and also `references/desde-cero.md` for a from-scratch spec). Then ask for the analysis normally.
+- **Tools without skill support** (or a plain chat): give the assistant the contents of `SKILL.md` as instructions, plus the reference file for the mode you want (`references/as-technical.md` or `references/as-business.md`, and also `references/as-new-spec.md` for a new-project spec). Then ask for the analysis normally.
 
 Results are best in agent-style tools that work directly inside the repository; in a chat without file access the report loses its `file:line` references and its cross-repo view.
 
 ## Structure
 
 ```
-SKILL.md                 workflow and version selection
-references/tecnico.md    technical template
-references/negocio.md    business template and how to extract the user's view from the code
-references/desde-cero.md how to turn the analysis into a specification for a new project
+SKILL.md                    workflow and mode selection
+references/as-technical.md  as-technical template
+references/as-business.md   as-business template and how to extract the user's view from the code
+references/as-new-spec.md   how to turn the analysis into a specification for a new project
 ```
 
 It is read-only: it does not modify code or deploy anything.

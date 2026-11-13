@@ -12,33 +12,33 @@ Toda ficha abre con una línea de **Alcance**: qué se revisó y qué quedó fue
 
 ### 1. Descripción
 Qué es, para qué existe y cómo funciona, en uno o dos párrafos, seguidos del recorrido paso a paso de punta a punta.
-- **Técnica:** entrada → validación → lógica → datos → respuesta, con enlace a cada archivo.
-- **Negocio:** los pasos tal como los vive el usuario ("en la pantalla **Iniciar sesión** toca **¿Olvidó su contraseña?**…").
-- **Desde cero:** propósito, actores, glosario y el ciclo de vida del objeto principal como máquina de estados.
+- **`as-technical`:** entrada → validación → lógica → datos → respuesta, con enlace a cada archivo.
+- **`as-business`:** los pasos tal como los vive el usuario ("en la pantalla **Iniciar sesión** toca **¿Olvidó su contraseña?**…").
+- **`as-new-spec`:** propósito, actores, glosario y el ciclo de vida del objeto principal como máquina de estados.
 
 ### 2. Casos de uso
 Quién usa esto, para qué y qué lo dispara, incluidos los caminos alternos y de error, no solo el camino feliz.
-- **Técnica:** actor, objetivo y disparador.
-- **Negocio:** historias "Como… quiero… para…" con criterios de aceptación Dado/cuando/entonces y el mensaje que ve el usuario en cada error.
-- **Desde cero:** los casos que *debe* tener, incluidos los que hoy faltan, sin los que solo existen por un parche.
+- **`as-technical`:** actor, objetivo y disparador.
+- **`as-business`:** historias "Como… quiero… para…" con criterios de aceptación Dado/cuando/entonces y el mensaje que ve el usuario en cada error.
+- **`as-new-spec`:** los casos que *debe* tener, incluidos los que hoy faltan, sin los que solo existen por un parche.
 
 ### 3. Features o características requeridas
 Lo que el flujo necesita hacer o tener para funcionar. Sale de lo que el código realmente exige; no es una lista de deseos.
-- **Técnica:** entradas y salidas, validaciones, reglas, permisos, tablas, variables de entorno e integraciones.
-- **Negocio:** una tabla por pantalla con cada campo y botón (texto visible, si es obligatorio, reglas y mensaje si falla), reglas de negocio, y correos o SMS que se envían.
-- **Desde cero:** requisitos funcionales y no funcionales numerados (seguridad, privacidad, auditoría, accesibilidad…), modelo de datos, contratos de API y matriz de permisos.
+- **`as-technical`:** entradas y salidas, validaciones, reglas, permisos, tablas, variables de entorno e integraciones.
+- **`as-business`:** una tabla por pantalla con cada campo y botón (texto visible, si es obligatorio, reglas y mensaje si falla), reglas de negocio, y correos o SMS que se envían.
+- **`as-new-spec`:** requisitos funcionales y no funcionales numerados (seguridad, privacidad, auditoría, accesibilidad…), modelo de datos, contratos de API y matriz de permisos.
 
 ### 4. Cosas importantes a tener en cuenta
 Lo que hay que saber antes de tocarlo o usarlo: efectos secundarios, reglas que no se ven, acoplamientos, orden de las operaciones, diferencias entre ambientes o canales (web, app, administración), y lo que se rompe si se cambia sin cuidado.
 
 ### 5. Cosas a resolver
 Lo que **está mal hoy**: bugs, validaciones faltantes, riesgos de seguridad, inconsistencias entre capas o canales. Cada punto lleva evidencia y severidad (🔴 alta, 🟡 media, 🟢 baja).
-- **Negocio:** contado por su impacto en el usuario o en la organización, no por su mecanismo.
-- **Desde cero:** como todavía no hay sistema, se convierte en **decisiones abiertas** para negocio o jurídica, con opciones y una recomendación.
+- **`as-business`:** contado por su impacto en el usuario o en la organización, no por su mecanismo.
+- **`as-new-spec`:** como todavía no hay sistema, se convierte en **decisiones abiertas** para negocio o jurídica, con opciones y una recomendación.
 
 ### 6. Cosas que sería bueno incluir
 Mejoras sobre lo que ya existe: pruebas, logs, mensajes más claros, accesibilidad, reportes, funciones vecinas. Es lo deseable, no lo roto (eso va en la sección 5).
-- **Desde cero:** lo que puede quedar para una fase 2, con la razón de por qué puede esperar.
+- **`as-new-spec`:** lo que puede quedar para una fase 2, con la razón de por qué puede esperar.
 
 ### 7. Qué haría diferente
 Cómo debió diseñarse desde el principio, buscando lo correcto y no lo rápido. No repite los defectos de la sección 5: propone el diseño que los habría evitado de raíz. Cada punto tiene tres partes:
@@ -46,27 +46,31 @@ Cómo debió diseñarse desde el principio, buscando lo correcto y no lo rápido
 - **Lo haría así:** el diseño concreto.
 - **Por qué:** el principio que lo justifica y el costo de cambiarlo.
 
-En la técnica mira seguridad por diseño, capas, contratos, modelo de datos, pruebas y lógica duplicada entre canales. En la de negocio mira flujo, prevención de errores, mensajes, consistencia, accesibilidad y privacidad.
-- **Desde cero:** se convierte en las **decisiones de diseño** del proyecto: decisión, alternativas descartadas y por qué.
+En `as-technical` mira seguridad por diseño, capas, contratos, modelo de datos, pruebas y lógica duplicada entre canales. En `as-business` mira flujo, prevención de errores, mensajes, consistencia, accesibilidad y privacidad.
+- **`as-new-spec`:** se convierte en las **decisiones de diseño** del proyecto: decisión, alternativas descartadas y por qué.
 
 ### 8. Relacionados
 Tabla con lo que este flujo toca o lo que lo toca, y cómo se relacionan.
-- **Técnica:** módulos, funciones, endpoints, pantallas, tablas, jobs y servicios externos, con su ubicación.
-- **Negocio:** procesos y pantallas relacionados, y quién los usa.
-- **Desde cero:** módulos e integraciones que el nuevo módulo necesita o alimenta, con el contrato entre ellos.
+- **`as-technical`:** módulos, funciones, endpoints, pantallas, tablas, jobs y servicios externos, con su ubicación.
+- **`as-business`:** procesos y pantallas relacionados, y quién los usa.
+- **`as-new-spec`:** módulos e integraciones que el nuevo módulo necesita o alimenta, con el contrato entre ellos.
 
 ### Cierre
-Si hay algo urgente, una línea final lo señala. En "desde cero", los riesgos críticos del sistema actual se avisan en el chat, nunca dentro del documento, para que este se pueda entregar tal cual.
+Si hay algo urgente, una línea final lo señala. En `as-new-spec`, los riesgos críticos del sistema actual se avisan en el chat, nunca dentro del documento, para que este se pueda entregar tal cual.
 
-## Versiones
+## Modos
 
-| Versión | Para quién | Cómo pedirla |
+Los tres modos son identificadores fijos: se escriben igual en cualquier idioma.
+
+| Modo | Para quién | Cómo pedirlo |
 |---|---|---|
-| **Técnica** (por defecto) | Quien va a desarrollar o tocar el código: archivos, servicios, datos, permisos, deuda técnica, con citas `archivo:línea`. | "explícame el flujo de X", "analiza el módulo Y, lo voy a tocar" |
-| **Negocio** | Producto, QA, soporte, cliente: historias de usuario con criterios de aceptación, pantallas, botones, campos y mensajes. Lo técnico solo si es crítico y contado por su impacto. | "en forma de negocio", "historias de usuario de X", "qué botones y campos tiene X", "sin cosas técnicas" |
-| **Desde cero** | Un equipo que va a construir el módulo en un proyecto nuevo: especificación base limpia, con el diseño correcto, requisitos, decisiones abiertas y decisiones de diseño (ADR). Sin citas de código, sin bugs del sistema actual y sin el nombre de la organización. | "desde cero", "como documentación base para un proyecto nuevo", "especificación de X" |
+| **`as-technical`** (por defecto) | Quien va a desarrollar o tocar el código: archivos, servicios, datos, permisos, deuda técnica, con citas `archivo:línea`. | `as-technical`, o "explícame el flujo de X", "analiza el módulo Y, lo voy a tocar" |
+| **`as-business`** | Producto, QA, soporte, cliente: historias de usuario con criterios de aceptación, pantallas, botones, campos y mensajes. Lo técnico solo si es crítico y contado por su impacto. | `as-business`, o "en forma de negocio", "historias de usuario de X", "qué botones y campos tiene X", "sin cosas técnicas" |
+| **`as-new-spec`** | Un equipo que va a construir el módulo en un proyecto nuevo: especificación base limpia, con el diseño correcto, requisitos, decisiones abiertas y decisiones de diseño (ADR). Sin citas de código, sin bugs del sistema actual y sin el nombre de la organización. | `as-new-spec`, o "desde cero", "como documentación base para un proyecto nuevo", "especificación de X" |
 
-Se pueden combinar: "explícame X en modo técnico y negocio", "X desde cero, solo la parte funcional".
+Los modos se combinan: `as-technical as-business` entrega las dos fichas (primero la de negocio); `as-new-spec as-business` entrega solo la especificación funcional. `as-new-spec` solo entrega la especificación funcional y la técnica.
+
+Ejemplos: `/skill-analizar-modulo registro de usuarios as-business`, "explícame el módulo de pagos as-technical as-business", "reset de contraseña as-new-spec". También funcionan los pedidos normales, en español o inglés ("explícame el módulo X en modo negocio", "desde cero").
 
 ## Requisitos
 
@@ -91,17 +95,17 @@ git clone https://github.com/djcesar/skill-analizar-modulo.git <carpeta-de-skill
 ```
 
 - **Herramientas que soportan Agent Skills** (asistentes de código tipo agente y agentes de IDE): cada una busca los skills en su propia carpeta, por usuario o por proyecto. Revisa la documentación de tu herramienta para la ruta exacta. Una vez instalado, se activa al pedir que explique, analice o documente algo del código, sin necesidad de nombrarlo; en las que tienen comandos con barra también se puede invocar como `/skill-analizar-modulo`.
-- **Herramientas sin soporte de skills** (o un chat normal): pásale al asistente el contenido de `SKILL.md` como instrucciones, más la referencia de la versión que quieras (`references/tecnico.md`, `references/negocio.md`, y además `references/desde-cero.md` para una especificación desde cero). Después pide el análisis normalmente.
+- **Herramientas sin soporte de skills** (o un chat normal): pásale al asistente el contenido de `SKILL.md` como instrucciones, más la referencia del modo que quieras (`references/as-technical.md` o `references/as-business.md`, y además `references/as-new-spec.md` para una especificación de proyecto nuevo). Después pide el análisis normalmente.
 
 Rinde mejor en herramientas tipo agente que trabajan directamente dentro del repositorio; en un chat sin acceso a los archivos la ficha pierde las citas `archivo:línea` y la vista entre repos.
 
 ## Estructura
 
 ```
-SKILL.md                 flujo de trabajo y elección de versión
-references/tecnico.md    plantilla técnica
-references/negocio.md    plantilla de negocio y cómo sacar la vista de usuario del código
-references/desde-cero.md cómo transformar el análisis en especificación para un proyecto nuevo
+SKILL.md                    flujo de trabajo y elección de modo
+references/as-technical.md  plantilla as-technical
+references/as-business.md   plantilla as-business y cómo sacar la vista de usuario del código
+references/as-new-spec.md   cómo transformar el análisis en especificación para un proyecto nuevo
 ```
 
 Es de solo lectura: no modifica código ni despliega nada.
