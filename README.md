@@ -14,6 +14,7 @@ The full report is always saved as a Markdown file in `docs/reports/` at the roo
 
 - If a file with that name already exists, it is kept and the new one gets a date suffix (`…-YYYY-MM-DD.md`).
 - The file is not committed; that is up to you.
+- `as-new-spec` also writes an internal traceability file next to the specification (see below).
 - If the tool cannot write files (e.g. a plain chat), the full report is delivered in the chat instead.
 
 ## How it works
@@ -73,7 +74,10 @@ A table of what this flow touches or what touches it, and how they relate.
 - **`as-new-spec`:** modules and integrations the new module needs or feeds, with the contract between them.
 
 ### Closing
-If something is urgent, a final line points it out. In `as-new-spec`, critical risks found in the current system are reported in the chat, never inside the document or its file, so the document can be handed over as is.
+If something is urgent, a final line points it out. In `as-new-spec`, critical risks found in the current system are never written into the specification, so it can be handed over as is; they are listed briefly in the chat and in full in the traceability file.
+
+### Traceability file (`as-new-spec` only)
+Next to the specification, `as-new-spec` always writes an internal `<topic>-as-new-spec-traceability.md`. It maps every requirement and design decision to what motivated it (a defect it prevents, a current case it keeps, something missing today, or domain practice), with `file:line` evidence from the current system, and records the critical risks and other defects of the current system. It is the one file allowed to mention the current code and the organization's real name, and it is not meant to be handed over.
 
 ## Modes
 

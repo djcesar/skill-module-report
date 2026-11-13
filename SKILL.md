@@ -3,7 +3,7 @@ name: skill-analizar-modulo
 description: 'Ficha de análisis de un flujo, módulo, función, endpoint, pantalla o proceso del proyecto actual, investigando el código real, con ocho secciones (descripción, casos de uso, features requeridas, cosas importantes, cosas a resolver, sería bueno incluir, qué haría diferente, relacionados). Tres modos combinables - as-technical (para quien toca el código), as-business (historias de usuario, pantallas, campos y mensajes, sin jerga) y as-new-spec (especificación limpia para construirlo en un proyecto nuevo). Úsalo siempre que pidan explicar, analizar, documentar o auditar cómo funciona algo, aunque no digan ficha - cómo funciona el flujo de X, analízame el módulo Y, panorama antes de tocarlo, qué le falta, qué harías diferente, historias de usuario de X, en forma de negocio o para el PO, qué botones y campos tiene, X desde cero o como documentación base para un proyecto nuevo, o un modo por nombre. También en inglés (walk me through X, user stories for Y, spec to rebuild Z).'
 compatibility: 'Requiere un agente con acceso de lectura al repositorio (buscar y abrir archivos). Recomendado - escritura en docs/reports/, comandos de solo lectura (git log) y subagentes para módulos grandes.'
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # Analizar módulo
@@ -69,7 +69,7 @@ Revisa siempre esta lista sobre las acciones del flujo, aunque el modo sea `as-b
 7. **Secretos**: llaves o credenciales en el código, en el cliente o en el repositorio.
 8. **Abuso y costo**: envíos de correo/SMS, cargas de archivos o procesos pesados que se pueden disparar sin límite.
 
-Cómo se reporta cada riesgo depende del modo: en `as-technical` con su mecanismo y evidencia; en `as-business` por su impacto; en `as-new-spec` como requisito que lo previene (RNF-SEG) y, si existe en el sistema actual, en la nota del chat. Si un punto no aplica al flujo, no lo menciones.
+Cómo se reporta cada riesgo depende del modo: en `as-technical` con su mecanismo y evidencia; en `as-business` por su impacto; en `as-new-spec` como requisito que lo previene (RNF-SEG) y, si existe en el sistema actual, en el archivo de trazabilidad. Si un punto no aplica al flujo, no lo menciones.
 
 ### Repartir la investigación (si tu herramienta lo permite)
 
@@ -118,7 +118,7 @@ Para otro idioma, traduce con el mismo criterio. El título debe nombrar lo que 
 **La ficha completa siempre va a un archivo; en el chat va solo el resumen.** Las fichas de un módulo completo pasan fácilmente de 300 líneas: en el chat se cortan, no se pueden compartir y se pierden. En un archivo se leen bien, se versionan y se pueden comparar en el tiempo.
 
 - **Dónde:** `docs/reports/` en la raíz del directorio de trabajo (créala si no existe). Si el directorio de trabajo agrupa varios repos hermanos, va en esa raíz común, no dentro de uno de ellos.
-- **Nombre:** `<tema>-<modo>.md` en minúsculas y con guiones, con las palabras del usuario (p. ej. `afiliaciones-as-new-spec.md`, `reset-contrasena-as-business.md`); nunca un nombre genérico como `respuesta.md`. Si pidió varios modos, un archivo por modo.
+- **Nombre:** `<tema>-<modo>.md` en minúsculas y con guiones, con las palabras del usuario (p. ej. `afiliaciones-as-new-spec.md`, `reset-contrasena-as-business.md`); nunca un nombre genérico como `respuesta.md`. Si pidió varios modos, un archivo por modo. En `as-new-spec` se agrega siempre `<tema>-as-new-spec-traceability.md` (ver su referencia).
 - **Si ya existe** un archivo con ese nombre, no lo sobrescribas: es la ficha anterior y sirve para comparar. Usa `<tema>-<modo>-AAAA-MM-DD.md`.
 - **No hagas commit** del archivo; avisa que quedó creado y que decide el usuario.
 - **Si no puedes escribir archivos** (herramienta sin acceso de escritura, chat sin sistema de archivos), entrega la ficha completa en el chat, como única excepción.
@@ -141,4 +141,4 @@ Comunes a todos los modos:
   - Sintaxis válida: etiquetas con espacios, tildes, paréntesis o dos puntos entre comillas (`A["Revisar (admin)"]`), ids de nodo sin espacios ni tildes. Un diagrama que no renderiza es peor que ninguno.
   - Solo cuando aportan: una función simple sin estados ni varios componentes no necesita diagrama.
 
-Cierra en el chat con una línea opcional de siguiente paso si hay algo claramente urgente en "Cosas a resolver", sin volver a resumir la ficha. En `as-new-spec` esa línea va solo en el chat, nunca en el archivo, y avisa si viste riesgos críticos en el sistema actual, porque la especificación los omite a propósito y no deben perderse. Si elegiste el modo sin que el usuario lo nombrara, menciona en esa línea que existen los otros y cómo pedirlos (`as-technical`, `as-business`, `as-new-spec`).
+Cierra en el chat con una línea opcional de siguiente paso si hay algo claramente urgente en "Cosas a resolver", sin volver a resumir la ficha. En `as-new-spec`, nombra en el chat los riesgos críticos del sistema actual en una línea cada uno, con el enlace al archivo de trazabilidad donde quedan completos; nunca van dentro de la especificación. Si elegiste el modo sin que el usuario lo nombrara, menciona en esa línea que existen los otros y cómo pedirlos (`as-technical`, `as-business`, `as-new-spec`).

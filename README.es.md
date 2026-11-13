@@ -12,6 +12,7 @@ La ficha completa siempre se guarda como archivo Markdown en `docs/reports/`, en
 
 - Si ya existe un archivo con ese nombre, se conserva y el nuevo lleva la fecha (`…-AAAA-MM-DD.md`).
 - El archivo no se sube a git; eso lo decides tú.
+- `as-new-spec` escribe además un archivo interno de trazabilidad junto a la especificación (ver abajo).
 - Si la herramienta no puede escribir archivos (p. ej. un chat normal), la ficha completa se entrega en el chat.
 
 ## Cómo trabaja
@@ -71,7 +72,10 @@ Tabla con lo que este flujo toca o lo que lo toca, y cómo se relacionan.
 - **`as-new-spec`:** módulos e integraciones que el nuevo módulo necesita o alimenta, con el contrato entre ellos.
 
 ### Cierre
-Si hay algo urgente, una línea final lo señala. En `as-new-spec`, los riesgos críticos del sistema actual se avisan en el chat, nunca dentro del documento ni en su archivo, para que este se pueda entregar tal cual.
+Si hay algo urgente, una línea final lo señala. En `as-new-spec`, los riesgos críticos del sistema actual nunca se escriben en la especificación, para que se pueda entregar tal cual; se nombran brevemente en el chat y quedan completos en el archivo de trazabilidad.
+
+### Archivo de trazabilidad (solo `as-new-spec`)
+Junto a la especificación, `as-new-spec` siempre escribe un archivo interno `<tema>-as-new-spec-traceability.md`. Relaciona cada requisito y decisión de diseño con lo que lo motivó (un defecto que previene, un caso actual que se conserva, algo que falta hoy o una práctica del dominio), con evidencia `archivo:línea` del sistema actual, y guarda los riesgos críticos y demás defectos del sistema actual. Es el único archivo que puede mencionar el código actual y el nombre real de la organización, y no está pensado para entregarse.
 
 ## Modos
 

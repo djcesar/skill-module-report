@@ -2,6 +2,10 @@
 
 All notable changes to this skill. The version lives in `SKILL.md` (`metadata.version`) and follows [semantic versioning](https://semver.org/): a new mode or section is a minor change; renaming modes or changing where the report goes is a major one.
 
+## 1.1.0 — 2026-11-12
+
+- **Traceability file in `as-new-spec`.** Next to the clean specification it now always writes an internal `<topic>-as-new-spec-traceability.md` that maps every requirement and design decision to its origin (defect it prevents, current case it keeps, missing today, or domain practice) with `file:line` evidence, and records the current system's critical risks and other defects. Before, the reason behind each requirement was not written anywhere and the risks only appeared in the chat, so they were lost when the conversation ended.
+
 ## 1.0.0 — 2026-11-12
 
 First version intended to be shared.

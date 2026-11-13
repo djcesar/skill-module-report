@@ -13,7 +13,7 @@ Piensa en quien lo va a leer: un equipo que arranca un proyecto limpio y va a us
 
 ## Limpieza del documento
 
-El documento tiene que poder entregarse a otra organización o a otro equipo sin modificarlo:
+La especificación tiene que poder entregarse a otra organización o a otro equipo sin modificarla (el archivo de trazabilidad, más abajo, es la excepción):
 
 - **Sin referencias al código actual.** Nada de rutas de archivos, nombres de clases o endpoints viejos, ni números de línea. Tampoco va la línea de "Referencias técnicas" al final.
 - **Sin nombres propios de la organización.** Reemplaza el nombre de la organización por su rol genérico, y haz lo mismo con sus derivados: siglas, dominios, nombres de apps y repositorios, correos.
@@ -88,8 +88,39 @@ Módulos e integraciones que el nuevo módulo necesita o alimenta, con el contra
 
 - **`as-new-spec as-business`**: especificación funcional (historias, pantallas, reglas, decisiones abiertas para negocio).
 - **`as-new-spec as-technical`**: especificación técnica (modelo, contratos, permisos, decisiones de arquitectura).
-- **`as-new-spec` solo**: entrega ambas, primero la funcional y luego la técnica, porque una documentación base de proyecto necesita las dos. Que no se contradigan: los RF y las historias deben usar la misma numeración o una tabla de trazabilidad.
+- **`as-new-spec` solo**: entrega ambas, primero la funcional y luego la técnica, porque una documentación base de proyecto necesita las dos. Que no se contradigan: los RF y las historias deben usar la misma numeración o una tabla de correspondencia.
 
-Si viste riesgos críticos en el sistema actual, avísalos **fuera de la especificación**: en el chat, después del resumen, nunca dentro del documento ni en su archivo. Así el documento se puede entregar tal cual sin arrastrar detalles del sistema viejo.
+## Archivo de trazabilidad
 
-Antes de entregar, revisa el documento buscando el nombre de la organización, rutas de archivos y nombres de clases o endpoints actuales. Si encuentras alguno, reemplázalo.
+Además de la especificación, escribe siempre un segundo archivo, interno: `<tema>-as-new-spec-traceability.md`, en la misma carpeta. Uno solo, aunque la especificación salga en dos archivos (funcional y técnica).
+
+Por qué existe: la especificación está limpia a propósito, así que por sí sola no dice **de dónde salió cada requisito**. Cuando alguien pregunte "¿por qué está este RNF-SEG?" o "¿esta regla es necesaria?", la respuesta tiene que estar escrita en algún lado. Y los riesgos del sistema actual no pueden quedar solo en el chat, porque se pierden al cerrar la conversación. Ya tienes toda esta información cuando escribes la especificación; aquí solo la anotas.
+
+Este archivo **no se entrega** con la especificación y es la excepción a las reglas de limpieza: aquí sí van rutas de archivos, endpoints y el nombre real de la organización.
+
+```markdown
+# <Tema> — as-new-spec · trazabilidad
+
+> **Documento interno.** Explica de dónde sale cada requisito y decisión de la especificación
+> `<archivo(s) de la especificación>`. Contiene referencias al sistema actual: no se entrega con ella.
+
+## Requisitos y decisiones → origen
+| Requisito o decisión | Qué lo motivó | Evidencia en el sistema actual |
+|---|---|---|
+| RNF-SEG-4 Contratos estrictos | Hoy el cliente puede fijar estado, pago y dueño | `reservas.controller.ts:29`, `reserva.dto.ts:10` |
+| RF-3 Cancelar reserva | Caso actual, se conserva | `mis-reservas.page.html:9` |
+| RF-9 Reenviar enlace | Falta hoy (dominio) | — |
+
+Clasifica cada fila por su origen: **defecto que previene** (con evidencia), **caso actual que se
+conserva** (con evidencia), **falta hoy** o **práctica de dominio** (sin evidencia de código; di de
+dónde lo tomas). No hace falta que todo tenga origen en el código, pero todo tiene que tener origen.
+
+## Riesgos críticos del sistema actual
+Los 🔴 que viste, con su marca de certeza y evidencia, como en `as-technical`. Son los que la
+especificación previene, pero siguen abiertos en producción y no deben esperar al proyecto nuevo.
+
+## Otros defectos del sistema actual
+Los de severidad media o baja, en una línea cada uno.
+```
+
+Antes de entregar, revisa la especificación (no la trazabilidad) buscando el nombre de la organización, rutas de archivos y nombres de clases o endpoints actuales. Si encuentras alguno, reemplázalo.
