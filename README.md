@@ -27,6 +27,20 @@ The full report is always saved as a Markdown file in `docs/module-reports/` at 
 - **Critical findings are double-checked.** Before reporting a 🔴, it re-reads the exact code and confirms the whole chain. Each one is labeled *(verified in code)* or *(inferred)*, plus *not tested live* unless it was actually reproduced.
 - **Mermaid diagrams where they help.** A sequence diagram of the main path and a state diagram in `as-technical`, a user-flow chart in `as-business`, and a state machine plus data model in `as-new-spec`. They render on GitHub and most editors.
 
+## Modes
+
+The three modes are fixed identifiers: they are written the same way in any language.
+
+| Mode | For whom | How to ask for it |
+|---|---|---|
+| **`as-technical`** (default) | Whoever will build or change the code: files, services, data, permissions, technical debt, with `file:line` references. | `as-technical`, or "explain the X flow", "analyze module Y, I'm going to change it" |
+| **`as-business`** | Product, QA, support, the client: user stories with acceptance criteria, screens, buttons, fields and messages. Technical details only when critical, described by their impact. | `as-business`, or "in business terms", "user stories for X", "what buttons and fields does X have", "no technical details" |
+| **`as-new-spec`** | A team that will build the module in a new project: a clean baseline specification with the right design, requirements, open decisions and design decisions (ADR). No code references or organization name; the current system's mistakes appear only as generic lessons with the requirement and test that prevent them. | `as-new-spec`, or "from scratch", "as baseline documentation for a new project", "specification for X" |
+
+Modes can be combined: `as-technical as-business` delivers both reports (business first); `as-new-spec as-business` delivers only the functional specification. `as-new-spec` on its own delivers both the functional and the technical specification.
+
+Examples: `/module-report user registration as-business`, "explain the payments module as-technical as-business", "password reset as-new-spec". Plain requests also work, in English or Spanish ("explícame el módulo X en modo negocio", "desde cero").
+
 ## What the report contains
 
 Every report opens with a **Scope** line (what was reviewed and what was left out, so you know how far the analysis goes) and a **Summary** of 5–8 lines (what it is, the high-severity findings and the most important change). The eight sections follow, always in this order. If one does not apply, the report says so in one line; none is skipped.
@@ -92,20 +106,6 @@ The skill can only read the current project, not the new one the specification i
 - **Pitfalls of the current stack** (framework defaults, library settings) go in the traceability file, useful if the new project keeps that technology.
 - **To target a stack, name it in the request**: `/module-report bookings as-new-spec for Go and PostgreSQL`. The design is then aligned with it and each capability says how that stack provides it.
 - **To get a recommendation, ask for it**: it comes as an open decision comparing two or three stacks against the checklist, never baked into the design.
-
-## Modes
-
-The three modes are fixed identifiers: they are written the same way in any language.
-
-| Mode | For whom | How to ask for it |
-|---|---|---|
-| **`as-technical`** (default) | Whoever will build or change the code: files, services, data, permissions, technical debt, with `file:line` references. | `as-technical`, or "explain the X flow", "analyze module Y, I'm going to change it" |
-| **`as-business`** | Product, QA, support, the client: user stories with acceptance criteria, screens, buttons, fields and messages. Technical details only when critical, described by their impact. | `as-business`, or "in business terms", "user stories for X", "what buttons and fields does X have", "no technical details" |
-| **`as-new-spec`** | A team that will build the module in a new project: a clean baseline specification with the right design, requirements, open decisions and design decisions (ADR). No code references or organization name; the current system's mistakes appear only as generic lessons with the requirement and test that prevent them. | `as-new-spec`, or "from scratch", "as baseline documentation for a new project", "specification for X" |
-
-Modes can be combined: `as-technical as-business` delivers both reports (business first); `as-new-spec as-business` delivers only the functional specification. `as-new-spec` on its own delivers both the functional and the technical specification.
-
-Examples: `/module-report user registration as-business`, "explain the payments module as-technical as-business", "password reset as-new-spec". Plain requests also work, in English or Spanish ("explícame el módulo X en modo negocio", "desde cero").
 
 ## Requirements
 

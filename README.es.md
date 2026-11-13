@@ -25,6 +25,20 @@ La ficha completa siempre se guarda como archivo Markdown en `docs/module-report
 - **Los hallazgos críticos se verifican dos veces.** Antes de reportar un 🔴, vuelve a leer el código exacto y confirma la cadena completa. Cada uno lleva *(verificado en código)* o *(inferido)*, y *no probado en vivo* salvo que se haya reproducido.
 - **Diagramas Mermaid donde ayudan.** Secuencia del camino principal y diagrama de estados en `as-technical`, flujo del usuario en `as-business`, y máquina de estados más modelo de datos en `as-new-spec`. Se ven en GitHub y en la mayoría de editores.
 
+## Modos
+
+Los tres modos son identificadores fijos: se escriben igual en cualquier idioma.
+
+| Modo | Para quién | Cómo pedirlo |
+|---|---|---|
+| **`as-technical`** (por defecto) | Quien va a desarrollar o tocar el código: archivos, servicios, datos, permisos, deuda técnica, con citas `archivo:línea`. | `as-technical`, o "explícame el flujo de X", "analiza el módulo Y, lo voy a tocar" |
+| **`as-business`** | Producto, QA, soporte, cliente: historias de usuario con criterios de aceptación, pantallas, botones, campos y mensajes. Lo técnico solo si es crítico y contado por su impacto. | `as-business`, o "en forma de negocio", "historias de usuario de X", "qué botones y campos tiene X", "sin cosas técnicas" |
+| **`as-new-spec`** | Un equipo que va a construir el módulo en un proyecto nuevo: especificación base limpia, con el diseño correcto, requisitos, decisiones abiertas y decisiones de diseño (ADR). Sin citas de código ni el nombre de la organización; los errores del sistema actual aparecen solo como lecciones genéricas, con el requisito y la prueba que los previenen. | `as-new-spec`, o "desde cero", "como documentación base para un proyecto nuevo", "especificación de X" |
+
+Los modos se combinan: `as-technical as-business` entrega las dos fichas (primero la de negocio); `as-new-spec as-business` entrega solo la especificación funcional. `as-new-spec` solo entrega la especificación funcional y la técnica.
+
+Ejemplos: `/module-report registro de usuarios as-business`, "explícame el módulo de pagos as-technical as-business", "reset de contraseña as-new-spec". También funcionan los pedidos normales, en español o inglés ("explícame el módulo X en modo negocio", "desde cero").
+
 ## Qué trae la ficha
 
 Toda ficha abre con una línea de **Alcance** (qué se revisó y qué quedó fuera, para saber hasta dónde llega el análisis) y un **Resumen** de 5 a 8 líneas (qué es, los hallazgos de severidad alta y el cambio más importante). Después vienen las ocho secciones, siempre en este orden. Si una no aplica, la ficha lo dice en una línea; ninguna se omite.
@@ -90,20 +104,6 @@ El skill solo puede leer el proyecto actual, no el proyecto nuevo para el que es
 - **Las trampas del stack actual** (valores por defecto del framework, configuración de librerías) van al archivo de trazabilidad, útiles si el proyecto nuevo conserva esa tecnología.
 - **Para apuntar a un stack, nómbralo en el pedido**: `/module-report reservas as-new-spec para Go y PostgreSQL`. El diseño se alinea con él y cada capacidad dice cómo la resuelve ese stack.
 - **Para una recomendación, pídela**: llega como decisión abierta que compara dos o tres stacks contra la lista, nunca metida en el diseño.
-
-## Modos
-
-Los tres modos son identificadores fijos: se escriben igual en cualquier idioma.
-
-| Modo | Para quién | Cómo pedirlo |
-|---|---|---|
-| **`as-technical`** (por defecto) | Quien va a desarrollar o tocar el código: archivos, servicios, datos, permisos, deuda técnica, con citas `archivo:línea`. | `as-technical`, o "explícame el flujo de X", "analiza el módulo Y, lo voy a tocar" |
-| **`as-business`** | Producto, QA, soporte, cliente: historias de usuario con criterios de aceptación, pantallas, botones, campos y mensajes. Lo técnico solo si es crítico y contado por su impacto. | `as-business`, o "en forma de negocio", "historias de usuario de X", "qué botones y campos tiene X", "sin cosas técnicas" |
-| **`as-new-spec`** | Un equipo que va a construir el módulo en un proyecto nuevo: especificación base limpia, con el diseño correcto, requisitos, decisiones abiertas y decisiones de diseño (ADR). Sin citas de código ni el nombre de la organización; los errores del sistema actual aparecen solo como lecciones genéricas, con el requisito y la prueba que los previenen. | `as-new-spec`, o "desde cero", "como documentación base para un proyecto nuevo", "especificación de X" |
-
-Los modos se combinan: `as-technical as-business` entrega las dos fichas (primero la de negocio); `as-new-spec as-business` entrega solo la especificación funcional. `as-new-spec` solo entrega la especificación funcional y la técnica.
-
-Ejemplos: `/module-report registro de usuarios as-business`, "explícame el módulo de pagos as-technical as-business", "reset de contraseña as-new-spec". También funcionan los pedidos normales, en español o inglés ("explícame el módulo X en modo negocio", "desde cero").
 
 ## Requisitos
 
