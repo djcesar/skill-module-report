@@ -130,7 +130,7 @@ nuevo, sin perder lo que enseñó el sistema actual.
 
 - **`as-new-spec as-business`**: especificación funcional (historias, pantallas, reglas, decisiones abiertas para negocio).
 - **`as-new-spec as-technical`**: especificación técnica (modelo, contratos, permisos, decisiones de arquitectura).
-- **`as-new-spec` solo**: entrega ambas, primero la funcional y luego la técnica, porque una documentación base de proyecto necesita las dos. Que no se contradigan: los RF y las historias deben usar la misma numeración o una tabla de correspondencia.
+- **`as-new-spec` solo**: entrega las dos en **un solo archivo**, `<tema>-as-new-spec.md`, porque una documentación base de proyecto necesita las dos y se entrega como una sola pieza. Dentro, un índice corto y dos partes claras: "Parte 1 · Especificación funcional" y "Parte 2 · Especificación técnica", cada una con las ocho secciones. Que no se contradigan: los RF y las historias comparten la misma numeración, y "Errores que esta especificación previene" aparece una sola vez (en la Parte 1, referenciada desde la Parte 2).
 
 ## Archivo de trazabilidad
 

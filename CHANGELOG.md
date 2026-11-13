@@ -2,6 +2,10 @@
 
 All notable changes to this skill. The version lives in `SKILL.md` (`metadata.version`) and follows [semantic versioning](https://semver.org/): a new mode or section is a minor change; renaming modes or changing where the report goes is a major one.
 
+## 3.1.0 — 2026-11-13
+
+- **`as-new-spec` on its own now delivers a single file**, `<topic>-as-new-spec.md`, with "Part 1 · Functional specification" and "Part 2 · Technical specification" inside, sharing the same requirement numbering. Before it wrote two files named `-as-new-spec-as-business.md` and `-as-new-spec-as-technical.md`, which looked like combined modes and had to be handed over separately. Combined with one mode (`as-new-spec as-business` or `as-new-spec as-technical`) it still writes only that part, with the suffix. The traceability file stays separate because it is internal.
+
 ## 3.0.0 — 2026-11-13
 
 - **Reports now go to `docs/module-reports/`** (was `docs/reports/`). `docs/reports/` is a common name that many projects already use for coverage or test reports, so the skill could mix its files with theirs or inherit an unrelated ignore rule; the new name says whose files they are. The ignore rules the skill writes, the traceability rule, the READMEs and the tests use the new path.

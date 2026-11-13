@@ -130,7 +130,7 @@ what the current system taught.
 
 - **`as-new-spec as-business`**: functional specification (stories, screens, rules, open decisions for the business).
 - **`as-new-spec as-technical`**: technical specification (model, contracts, permissions, architecture decisions).
-- **`as-new-spec` alone**: deliver both, functional first and then technical, because baseline project documentation needs both. They must not contradict each other: RFs and stories should share the same numbering or a correspondence table.
+- **`as-new-spec` alone**: deliver both in **one file**, `<topic>-as-new-spec.md`, because baseline project documentation needs both and is handed over as a single piece. Inside, a short index and two clear parts: "Part 1 · Functional specification" and "Part 2 · Technical specification", each with the eight sections. They must not contradict each other: RFs and stories share the same numbering, and "Mistakes this specification prevents" appears once (in Part 1, referenced from Part 2).
 
 ## Traceability file
 

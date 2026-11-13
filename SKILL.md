@@ -4,7 +4,7 @@ description: 'Analysis report on a flow, module, function, endpoint, screen or p
 license: Apache-2.0
 compatibility: 'Requires an agent with read access to the repository (search and open files). Recommended - write access to docs/module-reports/, read-only commands (git log) and subagents for large modules.'
 metadata:
-  version: "3.0.0"
+  version: "3.1.0"
 ---
 
 # Analyze module
@@ -19,7 +19,7 @@ There are three modes. Their names are fixed identifiers: use them as they are i
 
 - **`as-technical`** → [references/as-technical.md](references/as-technical.md). For whoever will build or change the code: files, services, data, configuration, technical debt.
 - **`as-business`** → [references/as-business.md](references/as-business.md). For product, business, QA, support or the client: user stories, screens, buttons, fields, messages and rules; technical details only when critical, described by their impact.
-- **`as-new-spec`** → also read [references/as-new-spec.md](references/as-new-spec.md). It is no longer a report on how the system is: it is the specification to build it right in a clean project. "What I would do differently" becomes the design, defects become requirements that prevent them, and the document has no references to the current code or the organization's name. It combines with `as-technical` or `as-business`, which give the content of each section; `as-new-spec` says how to transform it. If the user does not say which, deliver both.
+- **`as-new-spec`** → also read [references/as-new-spec.md](references/as-new-spec.md). It is no longer a report on how the system is: it is the specification to build it right in a clean project. "What I would do differently" becomes the design, defects become requirements that prevent them, and the document has no references to the current code or the organization's name. It combines with `as-technical` or `as-business`, which give the content of each section; `as-new-spec` says how to transform it. If the user does not say which, deliver both parts in a single file.
 
 Choose like this:
 - If the user names one or more modes (`as-business`, `as-technical as-business`…), use exactly those.
@@ -121,7 +121,7 @@ For any other language, translate with the same criteria. The title must name wh
 **The full report always goes to a file; the chat gets only the summary.** Reports on a full module easily exceed 300 lines: in the chat they get cut off, cannot be shared and are lost. In a file they read well, can be versioned and compared over time.
 
 - **Where:** `docs/module-reports/` at the root of the working directory (create it if missing). If the working directory groups several sibling repositories, it goes in that common root, not inside one of them.
-- **Name:** `<topic>-<mode>.md` in lowercase with hyphens, using the user's own words (e.g. `membership-as-new-spec.md`, `reset-contrasena-as-business.md`); never a generic name like `report.md`. If several modes were requested, one file per mode. `as-new-spec` uses the mode it is combined with as a suffix (`<topic>-as-new-spec-as-business.md`, `<topic>-as-new-spec-as-technical.md`; both when it goes alone) and always adds `<topic>-as-new-spec-traceability.md` (see its reference).
+- **Name:** `<topic>-<mode>.md` in lowercase with hyphens, using the user's own words (e.g. `membership-as-new-spec.md`, `reset-contrasena-as-business.md`); never a generic name like `report.md`. If several modes were requested, one file per mode. `as-new-spec` alone writes a single `<topic>-as-new-spec.md` with both parts inside; combined with one mode it writes only that part, with the mode as a suffix (`<topic>-as-new-spec-as-business.md` or `<topic>-as-new-spec-as-technical.md`). It always adds `<topic>-as-new-spec-traceability.md` (see its reference).
 - **If a file with that name already exists**, do not overwrite it: it is the previous report and is useful for comparison. Use `<topic>-<mode>-YYYY-MM-DD.md`.
 - **Do not commit** the file; say it was created and that committing is the user's call. Before creating the folder for the first time, see the next section.
 - **If you cannot write files** (tool without write access, chat without a file system), deliver the full report in the chat, as the only exception.
