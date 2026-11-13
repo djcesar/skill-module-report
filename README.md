@@ -161,7 +161,12 @@ references/as-new-spec.md   how to turn the analysis into a specification for a 
 evals/                      test cases and the fictional sample project
 docs/es/                    Spanish translation of SKILL.md and references, for reading only
 CHANGELOG.md                version history
+LICENSE, NOTICE             Apache 2.0 license and attribution notice
 README.es.md                this README in Spanish
 ```
 
 It does not modify code or deploy anything. The only files it writes are the reports in `docs/reports/` and, once per project and only if you choose it, an ignore rule.
+
+## License
+
+Licensed under the [Apache License 2.0](LICENSE). You may use, modify and redistribute it, including commercially, as long as you keep the license and the [NOTICE](NOTICE) file and mark the files you changed. Copyright 2026 Cesar Vasquez.

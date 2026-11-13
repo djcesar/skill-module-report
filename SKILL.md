@@ -1,9 +1,10 @@
 ---
 name: module-report
 description: 'Analysis report on a flow, module, function, endpoint, screen or process of the current project, built from the real code, with eight sections (description, use cases, required features, things to keep in mind, issues to fix, nice to have, what I would do differently, related). Three combinable modes - as-technical (for whoever changes the code), as-business (user stories, screens, fields and messages, no jargon) and as-new-spec (clean specification to rebuild it in a new project). Use it whenever someone asks to explain, analyze, document or audit how something works, even without saying report - walk me through the X flow, analyze module Y, overview before changing it, what is missing, what you would change, user stories for X, in business terms or for the PO, what buttons and fields it has, X from scratch or as baseline docs for a new project, or a mode by name. Also in Spanish (cómo funciona el flujo de X, analízame el módulo Y, historias de usuario, en forma de negocio, desde cero, documentación base).'
+license: Apache-2.0
 compatibility: 'Requires an agent with read access to the repository (search and open files). Recommended - write access to docs/reports/, read-only commands (git log) and subagents for large modules.'
 metadata:
-  version: "2.1.0"
+  version: "2.1.1"
 ---
 
 # Analyze module

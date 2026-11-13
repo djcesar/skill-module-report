@@ -159,7 +159,12 @@ references/as-new-spec.md   cómo transformar el análisis en especificación pa
 evals/                      casos de prueba y el proyecto ficticio de ejemplo
 docs/es/                    traducción al español de SKILL.md y las referencias, solo para leer
 CHANGELOG.md                historial de versiones
+LICENSE, NOTICE             licencia Apache 2.0 y aviso de atribución
 README.es.md                este README
 ```
 
 No modifica código ni despliega nada. Lo único que escribe son las fichas en `docs/reports/` y, una vez por proyecto y solo si lo eliges, una regla para ignorarlas.
+
+## Licencia
+
+Publicado bajo la [Licencia Apache 2.0](LICENSE). Puedes usarlo, modificarlo y redistribuirlo, incluso con fines comerciales, siempre que conserves la licencia y el archivo [NOTICE](NOTICE) e indiques los archivos que cambiaste. Copyright 2026 Cesar Vasquez.

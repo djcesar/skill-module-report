@@ -2,6 +2,10 @@
 
 All notable changes to this skill. The version lives in `SKILL.md` (`metadata.version`) and follows [semantic versioning](https://semver.org/): a new mode or section is a minor change; renaming modes or changing where the report goes is a major one.
 
+## 2.1.1 — 2026-11-13
+
+- **Licensed under Apache 2.0.** Adds the official `LICENSE` text, a `NOTICE` file with the attribution, the `license: Apache-2.0` field in the `SKILL.md` frontmatter, and a License section in both READMEs. Before, the repository had no license, which legally meant all rights reserved.
+
 ## 2.1.0 — 2026-11-13
 
 - **`as-new-spec` now carries the lessons from the current system.** A new "Mistakes this specification prevents" subsection lists every risk and significant defect found, written as a generic pattern (what goes wrong and why), each linked to the requirement that prevents it and an acceptance test that would catch it if it came back. Before, mistakes only became bare requirements, which do not say why they exist and are the first to be relaxed "to go faster". Exact locations in the current code still stay out of the specification and only go in the traceability file, which now links each risk to its generic entry.
