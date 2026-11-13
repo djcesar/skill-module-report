@@ -130,7 +130,7 @@ Las fichas pueden contener hallazgos de seguridad con su ubicación exacta en el
 
 Si la herramienta no permite hacer preguntas (p. ej. una ejecución automática), aplica la opción 1 y dilo en el chat.
 
-**Al agregar la regla**, ponle un comentario que explique por qué (`# Fichas de skill-analizar-modulo: pueden contener hallazgos de seguridad`). Si el archivo no existe, créalo. Nunca borres ni reordenes lo que ya tiene.
+**Al agregar la regla**, ponle un comentario que explique por qué (`# Fichas de module-report: pueden contener hallazgos de seguridad`). Si el archivo no existe, créalo. Nunca borres ni reordenes lo que ya tiene.
 
 **Si eligió que viajen al repo**, mantén dos protecciones:
 - Los archivos de trazabilidad de `as-new-spec` siempre llevan rutas del código actual y sus riesgos: agrega `docs/reports/*-traceability.md` al `.gitignore` igual, y dilo.

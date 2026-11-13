@@ -1,9 +1,9 @@
 ---
-name: skill-analizar-modulo
+name: module-report
 description: 'Analysis report on a flow, module, function, endpoint, screen or process of the current project, built from the real code, with eight sections (description, use cases, required features, things to keep in mind, issues to fix, nice to have, what I would do differently, related). Three combinable modes - as-technical (for whoever changes the code), as-business (user stories, screens, fields and messages, no jargon) and as-new-spec (clean specification to rebuild it in a new project). Use it whenever someone asks to explain, analyze, document or audit how something works, even without saying report - walk me through the X flow, analyze module Y, overview before changing it, what is missing, what you would change, user stories for X, in business terms or for the PO, what buttons and fields it has, X from scratch or as baseline docs for a new project, or a mode by name. Also in Spanish (cómo funciona el flujo de X, analízame el módulo Y, historias de usuario, en forma de negocio, desde cero, documentación base).'
 compatibility: 'Requires an agent with read access to the repository (search and open files). Recommended - write access to docs/reports/, read-only commands (git log) and subagents for large modules.'
 metadata:
-  version: "1.2.0"
+  version: "2.0.0"
 ---
 
 # Analyze module
@@ -137,7 +137,7 @@ Reports can contain security findings with their exact location in the code ("th
 
 If the tool cannot ask questions (e.g. an automated run), apply option 1 and say so in the chat.
 
-**When adding the rule**, add a comment explaining why (`# skill-analizar-modulo reports: may contain security findings`). If the file does not exist, create it. Never delete or reorder what is already there.
+**When adding the rule**, add a comment explaining why (`# module-report reports: may contain security findings`). If the file does not exist, create it. Never delete or reorder what is already there.
 
 **If the user chose to keep them in the repository**, keep two protections:
 - `as-new-spec` traceability files always contain paths into the current code and its risks: add `docs/reports/*-traceability.md` to `.gitignore` anyway, and say so.

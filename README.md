@@ -1,4 +1,4 @@
-# skill-analizar-modulo
+# skill-module-report
 
 **English** · [Español](README.es.md)
 
@@ -92,7 +92,7 @@ The three modes are fixed identifiers: they are written the same way in any lang
 
 Modes can be combined: `as-technical as-business` delivers both reports (business first); `as-new-spec as-business` delivers only the functional specification. `as-new-spec` on its own delivers both the functional and the technical specification.
 
-Examples: `/skill-analizar-modulo user registration as-business`, "explain the payments module as-technical as-business", "password reset as-new-spec". Plain requests also work, in English or Spanish ("explícame el módulo X en modo negocio", "desde cero").
+Examples: `/module-report user registration as-business`, "explain the payments module as-technical as-business", "password reset as-new-spec". Plain requests also work, in English or Spanish ("explícame el módulo X en modo negocio", "desde cero").
 
 ## Requirements
 
@@ -114,10 +114,10 @@ It never writes code, runs migrations or deploys anything. The only files it wri
 Clone the repository into the skills folder of the tool you use:
 
 ```bash
-git clone https://github.com/djcesar/skill-analizar-modulo.git <skills-folder>/skill-analizar-modulo
+git clone https://github.com/djcesar/skill-module-report.git <skills-folder>/module-report
 ```
 
-- **Tools that support Agent Skills** (agentic coding assistants and IDE agents): each one looks for skills in its own folder, either per user or per project. Check your tool's documentation for the exact path. Once installed, it activates when you ask to explain, analyze or document something in the code, without naming it; tools with slash commands also let you invoke it as `/skill-analizar-modulo`.
+- **Tools that support Agent Skills** (agentic coding assistants and IDE agents): each one looks for skills in its own folder, either per user or per project. Check your tool's documentation for the exact path. Once installed, it activates when you ask to explain, analyze or document something in the code, without naming it; tools with slash commands also let you invoke it as `/module-report`.
 - **Tools without skill support** (or a plain chat): give the assistant the contents of `SKILL.md` as instructions, plus the reference file for the mode you want (`references/as-technical.md` or `references/as-business.md`, and also `references/as-new-spec.md` for a new-project spec). Then ask for the analysis normally.
 
 Results are best in agent-style tools that work directly inside the repository; in a chat without file access the report loses its `file:line` references and its cross-repo view.

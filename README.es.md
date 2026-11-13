@@ -1,4 +1,4 @@
-# skill-analizar-modulo
+# skill-module-report
 
 [English](README.md) · **Español**
 
@@ -90,7 +90,7 @@ Los tres modos son identificadores fijos: se escriben igual en cualquier idioma.
 
 Los modos se combinan: `as-technical as-business` entrega las dos fichas (primero la de negocio); `as-new-spec as-business` entrega solo la especificación funcional. `as-new-spec` solo entrega la especificación funcional y la técnica.
 
-Ejemplos: `/skill-analizar-modulo registro de usuarios as-business`, "explícame el módulo de pagos as-technical as-business", "reset de contraseña as-new-spec". También funcionan los pedidos normales, en español o inglés ("explícame el módulo X en modo negocio", "desde cero").
+Ejemplos: `/module-report registro de usuarios as-business`, "explícame el módulo de pagos as-technical as-business", "reset de contraseña as-new-spec". También funcionan los pedidos normales, en español o inglés ("explícame el módulo X en modo negocio", "desde cero").
 
 ## Requisitos
 
@@ -112,10 +112,10 @@ Nunca escribe código, corre migraciones ni despliega nada. Lo único que escrib
 Clona el repositorio en la carpeta de skills de la herramienta que uses:
 
 ```bash
-git clone https://github.com/djcesar/skill-analizar-modulo.git <carpeta-de-skills>/skill-analizar-modulo
+git clone https://github.com/djcesar/skill-module-report.git <carpeta-de-skills>/module-report
 ```
 
-- **Herramientas que soportan Agent Skills** (asistentes de código tipo agente y agentes de IDE): cada una busca los skills en su propia carpeta, por usuario o por proyecto. Revisa la documentación de tu herramienta para la ruta exacta. Una vez instalado, se activa al pedir que explique, analice o documente algo del código, sin necesidad de nombrarlo; en las que tienen comandos con barra también se puede invocar como `/skill-analizar-modulo`.
+- **Herramientas que soportan Agent Skills** (asistentes de código tipo agente y agentes de IDE): cada una busca los skills en su propia carpeta, por usuario o por proyecto. Revisa la documentación de tu herramienta para la ruta exacta. Una vez instalado, se activa al pedir que explique, analice o documente algo del código, sin necesidad de nombrarlo; en las que tienen comandos con barra también se puede invocar como `/module-report`.
 - **Herramientas sin soporte de skills** (o un chat normal): pásale al asistente el contenido de `SKILL.md` como instrucciones, más la referencia del modo que quieras (`references/as-technical.md` o `references/as-business.md`, y además `references/as-new-spec.md` para una especificación de proyecto nuevo). Después pide el análisis normalmente.
 
 Rinde mejor en herramientas tipo agente que trabajan directamente dentro del repositorio; en un chat sin acceso a los archivos la ficha pierde las citas `archivo:línea` y la vista entre repos.
