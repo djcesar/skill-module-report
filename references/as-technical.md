@@ -15,6 +15,10 @@ Es lo mismo que se muestra en el chat.
 ## Descripción
 Qué es, para qué existe y cómo funciona, en 1–2 párrafos. Luego el recorrido en pasos numerados
 (entrada → validación → lógica → datos → respuesta/efectos), con enlaces a los archivos.
+Si el recorrido cruza dos o más componentes (front, API, base de datos, servicios externos),
+agrega un `sequenceDiagram` de Mermaid del camino principal. Si el objeto tiene estados
+(pendiente, aprobado…), agrega también un `stateDiagram-v2` con los estados como están hoy,
+incluidas las combinaciones raras que encontraste.
 
 ## Casos de uso
 Lista de "**Actor** quiere/necesita **objetivo**" con el disparador. Incluye los caminos alternos

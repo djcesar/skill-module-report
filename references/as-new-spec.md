@@ -42,6 +42,8 @@ abiertas que bloquean el arranque. Es lo mismo que se muestra en el chat.
 Qué problema resuelve, actores, y un **glosario** de los términos y estados del dominio
 (p. ej. "Afiliado", "Desafiliado", "Reafiliación"). Incluye el **ciclo de vida** del objeto
 principal como máquina de estados: estados, transiciones, quién dispara cada una.
+Dibújala siempre como `stateDiagram-v2` de Mermaid: en este modo es la pieza central del
+diseño y la que el equipo va a implementar.
 
 ## Casos de uso
 Completos y correctos (ver arriba). Con `as-business`: historias con criterios Dado/cuando/entonces.
@@ -52,7 +54,8 @@ Con `as-technical`: caso, actor, precondiciones, flujo principal, alternos y err
 - **Requisitos no funcionales** (RNF-SEG, RNF-PRIV, RNF-AUD, RNF-REND, RNF-ACC…):
   seguridad, privacidad y datos personales, auditoría, rendimiento, accesibilidad, disponibilidad.
 - Con `as-business`: pantallas con sus campos y botones (tabla), mensajes y comunicaciones.
-- Con `as-technical`: modelo de datos (entidades, campos clave, restricciones), contratos de API
+- Con `as-technical`: modelo de datos (entidades, campos clave, restricciones; con un
+  `erDiagram` de Mermaid), un `sequenceDiagram` del caso de uso principal, contratos de API
   por caso de uso (método, ruta, quién puede, entrada, salida, errores), **matriz de permisos**
   (rol × acción, por dueño del registro), eventos e integraciones.
 

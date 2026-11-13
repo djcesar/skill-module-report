@@ -16,6 +16,13 @@ The full report is always saved as a Markdown file in `docs/fichas/` at the root
 - The file is not committed; that is up to you.
 - If the tool cannot write files (e.g. a plain chat), the full report is delivered in the chat instead.
 
+## How it works
+
+- **Built from the code, not assumptions.** It follows the flow end to end (entry points, logic, data, integrations, configuration, permissions) across sibling repositories, and marks anything it deduces as *(inferred)*.
+- **Security checklist in every mode.** It always checks unauthenticated actions, server-side role and ownership checks, sensitive fields accepted from the client, exposed personal data, guessable IDs or links, secrets, and abuse (unlimited emails/SMS). Each mode reports them its own way: mechanism, business impact, or a requirement that prevents them.
+- **Critical findings are double-checked.** Before reporting a 🔴, it re-reads the exact code and confirms the whole chain. Each one is labeled *(verified in code)* or *(inferred)*, plus *not tested live* unless it was actually reproduced.
+- **Mermaid diagrams where they help.** A sequence diagram of the main path and a state diagram in `as-technical`, a user-flow chart in `as-business`, and a state machine plus data model in `as-new-spec`. They render on GitHub and most editors.
+
 ## What the report contains
 
 Every report opens with a **Scope** line (what was reviewed and what was left out, so you know how far the analysis goes) and a **Summary** of 5–8 lines (what it is, the high-severity findings and the most important change). The eight sections follow, always in this order. If one does not apply, the report says so in one line; none is skipped.

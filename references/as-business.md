@@ -13,7 +13,7 @@ Lo que el usuario ve está en los fronts, no en el backend. Busca:
 - **Lo que pasa fuera de la pantalla**: correos, SMS, notificaciones, PDFs generados, y su contenido y destinatario.
 - **Quién puede hacer qué**: roles, menús que aparecen o no, apps distintas (web, móvil, administración).
 
-Antes de escribir, revisa también en el backend las acciones clave del proceso (ver, descargar, crear, cambiar): ¿se pueden hacer sin iniciar sesión, o sobre los datos de otra persona? Que la pantalla esconda un botón no significa que el sistema lo impida. Este es el riesgo crítico que más se escapa cuando se miran solo pantallas, y es justamente el que el negocio necesita conocer.
+Antes de escribir, aplica en el backend la **revisión de riesgos** de SKILL.md a las acciones clave del proceso (ver, descargar, crear, cambiar). Que la pantalla esconda un botón no significa que el sistema lo impida. Es el riesgo crítico que más se escapa cuando se miran solo pantallas, y justamente el que el negocio necesita conocer.
 
 Escribe los textos de la interfaz tal como aparecen, en negrita (**Guardar**, **¿Olvidaste tu contraseña?**). Así quien lea la ficha los reconoce en la pantalla. Si un texto se arma dinámicamente o no lo pudiste confirmar, dilo.
 
@@ -47,6 +47,10 @@ como pasos de usuario:
 1. En la pantalla **<Título>** (<app>), el <rol> toca **<Botón>**.
 2. Escribe <dato> en el campo **<Campo>** y toca **<Botón>**.
 3. Recibe <correo/SMS/mensaje> con…
+
+Si el proceso tiene decisiones o caminos alternos (aprobado/rechazado, con o sin cuenta),
+agrega un `flowchart` de Mermaid con los pasos del usuario y esas bifurcaciones, usando los
+nombres de las pantallas y botones, sin nombres técnicos.
 
 ## Casos de uso
 Una historia por objetivo distinto del usuario, incluidas las de otros roles (p. ej. el admin).

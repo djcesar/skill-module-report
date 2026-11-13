@@ -14,6 +14,13 @@ La ficha completa siempre se guarda como archivo Markdown en `docs/fichas/`, en 
 - El archivo no se sube a git; eso lo decides tú.
 - Si la herramienta no puede escribir archivos (p. ej. un chat normal), la ficha completa se entrega en el chat.
 
+## Cómo trabaja
+
+- **Sale del código, no de suposiciones.** Sigue el flujo de punta a punta (entradas, lógica, datos, integraciones, configuración, permisos), también entre repos hermanos, y marca como *(inferido)* lo que deduce.
+- **Revisión de seguridad en todos los modos.** Siempre revisa acciones sin sesión, control de rol y de dueño del registro en el servidor, campos sensibles aceptados desde el cliente, datos personales expuestos, ids o enlaces adivinables, secretos y abuso (correos/SMS sin límite). Cada modo los reporta a su manera: por mecanismo, por impacto en el negocio o como requisito que los previene.
+- **Los hallazgos críticos se verifican dos veces.** Antes de reportar un 🔴, vuelve a leer el código exacto y confirma la cadena completa. Cada uno lleva *(verificado en código)* o *(inferido)*, y *no probado en vivo* salvo que se haya reproducido.
+- **Diagramas Mermaid donde ayudan.** Secuencia del camino principal y diagrama de estados en `as-technical`, flujo del usuario en `as-business`, y máquina de estados más modelo de datos en `as-new-spec`. Se ven en GitHub y en la mayoría de editores.
+
 ## Qué trae la ficha
 
 Toda ficha abre con una línea de **Alcance** (qué se revisó y qué quedó fuera, para saber hasta dónde llega el análisis) y un **Resumen** de 5 a 8 líneas (qué es, los hallazgos de severidad alta y el cambio más importante). Después vienen las ocho secciones, siempre en este orden. Si una no aplica, la ficha lo dice en una línea; ninguna se omite.
