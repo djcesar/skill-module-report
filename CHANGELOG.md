@@ -2,6 +2,11 @@
 
 All notable changes to this skill. The version lives in `SKILL.md` (`metadata.version`) and follows [semantic versioning](https://semver.org/): a new mode or section is a minor change; renaming modes or changing where the report goes is a major one.
 
+## 3.4.0 — 2026-11-14
+
+- **Explicit privacy rules in the skill.** The agent must not send code, findings or report content to any external service, URL or API, and must not call live systems (production, staging, third-party APIs), not even to confirm a finding. Secret values found in the code (keys, passwords, tokens, connection strings, personal data) are never copied into a report: they are described with their location and a masked value, so reports can be shared safely. Before, the skill only forbade modifying code and deploying.
+- **README: new "Privacy and data" section** (English and Spanish), linked from the navigation bar. It explains what the skill guarantees and what depends on the AI tool and model provider that runs it.
+
 ## 3.3.0 — 2026-11-13
 
 - **`as-new-spec` now also specifies modules that do not exist yet.** It covers four situations along two questions: does the target exist (rebuild or extension, using the current implementation as the source) or not (a new module, using the project around it and the domain's usual practices, with scope choices as open decisions), and will it be built in this project (aligned with the current stack, integrated by name with existing modules, with a coexistence plan) or in a new project (technology-neutral and anonymized, as before). Before the long investigation it runs a quick search and asks one question, showing what it found, unless the request states the destination explicitly ("create" or "from scratch" alone do not); without a way to ask it takes the recommended option and says so. The case is recorded in the scope line. Before, asking for a module that did not exist ended in "not found".
