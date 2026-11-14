@@ -1,10 +1,10 @@
 ---
 name: module-report
-description: 'Analysis report on a flow, module, function, endpoint, screen or process of the current project, built from the real code, with eight sections (description, use cases, required features, things to keep in mind, issues to fix, nice to have, what I would do differently, related). Three combinable modes - as-technical (for whoever changes the code), as-business (user stories, screens, fields and messages, no jargon) and as-new-spec (clean specification to rebuild it in a new project). Use it whenever someone asks to explain, analyze, document or audit how something works, even without saying report - walk me through the X flow, analyze module Y, overview before changing it, what is missing, what you would change, user stories for X, in business terms or for the PO, what buttons and fields it has, X from scratch or as baseline docs for a new project, or a mode by name. Also in Spanish (cómo funciona el flujo de X, analízame el módulo Y, historias de usuario, en forma de negocio, desde cero, documentación base).'
+description: 'Analysis report on a flow, module, function, endpoint, screen or process of the current project, built from the real code, with eight sections (description, use cases, required features, things to keep in mind, issues to fix, nice to have, what I would do differently, related). Three combinable modes - as-technical (for whoever changes the code), as-business (user stories, screens, fields and messages, no jargon) and as-new-spec (clean specification to rebuild it in a new project). Use it whenever someone asks to explain, analyze, document or audit how something works, even without saying report - walk me through the X flow, analyze module Y, overview before changing it, what is missing, what you would change, user stories for X, in business terms or for the PO, what buttons and fields it has, X from scratch, a new module to design, baseline docs, or a mode by name. Also in Spanish (cómo funciona el flujo de X, analízame el módulo Y, historias de usuario, en forma de negocio, desde cero, documentación base).'
 license: Apache-2.0
 compatibility: 'Requires an agent with read access to the repository (search and open files). Recommended - write access to docs/module-reports/, read-only commands (git log) and subagents for large modules.'
 metadata:
-  version: "3.2.0"
+  version: "3.3.0"
 ---
 
 # Analyze module
@@ -19,16 +19,16 @@ There are three modes. Their names are fixed identifiers: use them as they are i
 
 - **`as-technical`** → [references/as-technical.md](references/as-technical.md). For whoever will build or change the code: files, services, data, configuration, technical debt.
 - **`as-business`** → [references/as-business.md](references/as-business.md). For product, business, QA, support or the client: user stories, screens, buttons, fields, messages and rules; technical details only when critical, described by their impact.
-- **`as-new-spec`** → also read [references/as-new-spec.md](references/as-new-spec.md). It is no longer a report on how the system is: it is the specification to build it right in a clean project. "What I would do differently" becomes the design, defects become requirements that prevent them, and the document has no references to the current code or the organization's name. It combines with `as-technical` or `as-business`, which give the content of each section; `as-new-spec` says how to transform it. If the user does not say which, deliver both parts in a single file.
+- **`as-new-spec`** → also read [references/as-new-spec.md](references/as-new-spec.md). It is no longer a report on how the system is: it is the specification to build something done right, whether it already exists (a rebuild or an extension) or not (a new module), and whether it will be built in this project or in a new one. "What I would do differently" becomes the design, and defects become requirements that prevent them. Before the long investigation it asks where the specification is for, unless the request says so (see its reference). It combines with `as-technical` or `as-business`, which give the content of each section; `as-new-spec` says how to transform it. If the user does not say which, deliver both parts in a single file.
 
 Choose like this:
 - If the user names one or more modes (`as-business`, `as-technical as-business`…), use exactly those.
 - Otherwise, infer from how they asked:
   - `as-business` if they mention business, functional, user stories, acceptance criteria, product/PO/client/QA, "no technical details", "buttons and fields", "how the user uses it".
-  - `as-new-spec` if they ask "from scratch", "as if it were new", "for a new project", "specification", "baseline documentation" or "how it should be built".
+  - `as-new-spec` if they ask "from scratch", "as if it were new", "for a new project", "specification", "baseline documentation", "how it should be built", or to design or create a module that does not exist yet ("I want to create a document management module").
   - `as-technical` if they mention code, implementation, "I'm going to change/refactor it", or give no hint.
 - If they ask for technical and business, deliver `as-business` first and then `as-technical`, as two separate reports.
-- In `as-new-spec`, if the request names the target stack ("as-new-spec for Go and PostgreSQL"), use it; otherwise the specification stays technology-neutral (see its reference).
+- In `as-new-spec`, if the request names the target stack ("as-new-spec for Go and PostgreSQL"), use it; otherwise the stack depends on where it will be built: the current one for this project, neutral for a new project (see its reference).
 
 Read the matching reference before writing; it has the template and how to fill it.
 
@@ -38,7 +38,7 @@ Interpret the request (it may come as a business name — "the password reset" �
 
 - If there are several candidates and one is clearly the most likely, take it and say so in the scope line.
 - Ask only if the ambiguity completely changes the analysis (two different modules with the same name).
-- If it does not exist, say so and propose the closest thing you found.
+- If it does not exist, say so and propose the closest thing you found. In `as-new-spec` that is not a dead end: specifying something new is part of that mode (see its reference).
 
 ## 2. Investigate
 
@@ -171,7 +171,7 @@ Common to all modes:
 - **Mermaid diagrams** (each template says which): a good diagram explains at a glance what takes several paragraphs, and GitHub and most editors render it. So that they help instead of confusing:
   - They must say the same as the text: if the text changes, the diagram changes too.
   - Small: up to about 12 nodes or participants. If it does not fit, split it or keep only the main path.
-  - Labels in the report's language; in `as-business` and `as-new-spec`, no file or class names.
+  - Labels in the report's language; in `as-business`, and in `as-new-spec` for a new project, no file or class names.
   - Valid syntax: quote labels with spaces, accents, parentheses or colons (`A["Review (admin)"]`), node ids without spaces or accents. A diagram that does not render is worse than none.
   - Only when they add something: a simple function without states or several components does not need a diagram.
 

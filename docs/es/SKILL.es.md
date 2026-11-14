@@ -12,16 +12,16 @@ Hay tres modos. Los nombres son identificadores fijos: úsalos igual en cualquie
 
 - **`as-technical`** → [references/as-technical.md](references/as-technical.md). Para quien va a desarrollar o tocar el código: archivos, servicios, datos, configuración, deuda técnica.
 - **`as-business`** → [references/as-business.md](references/as-business.md). Para producto, negocio, QA, soporte o el cliente: historias de usuario, pantallas, botones, campos, mensajes y reglas; lo técnico solo si es crítico y contado por su impacto.
-- **`as-new-spec`** → además lee [references/as-new-spec.md](references/as-new-spec.md). Ya no es una ficha de cómo está el sistema: es la especificación para construirlo bien en un proyecto limpio. "Qué haría diferente" pasa a ser el diseño, los defectos se convierten en requisitos que los previenen, y el documento sale sin referencias al código actual ni nombres propios de la organización. Se combina con `as-technical` o `as-business`, que dan el contenido de cada sección; `as-new-spec` dice cómo transformarlo. Si no dice con cuál, entrega las dos partes en un solo archivo.
+- **`as-new-spec`** → además lee [references/as-new-spec.md](references/as-new-spec.md). Ya no es una ficha de cómo está el sistema: es la especificación para construir algo bien hecho, exista ya (rehacerlo o extenderlo) o no (un módulo nuevo), y se construya en este proyecto o en uno nuevo. Antes de la investigación larga pregunta para dónde es la especificación, salvo que el pedido lo diga (ver su referencia). "Qué haría diferente" pasa a ser el diseño, los defectos se convierten en requisitos que los previenen, y el documento sale sin referencias al código actual ni nombres propios de la organización. Se combina con `as-technical` o `as-business`, que dan el contenido de cada sección; `as-new-spec` dice cómo transformarlo. Si no dice con cuál, entrega las dos partes en un solo archivo.
 
 Elige así:
 - Si el usuario nombra uno o varios modos (`as-business`, `as-technical as-business`…), usa exactamente esos.
 - Si no, deduce por cómo lo pidió:
   - `as-business` si menciona negocio, funcional, historias de usuario, criterios de aceptación, producto/PO/cliente/QA, "sin cosas técnicas", "botones y campos", "cómo lo usa el usuario".
-  - `as-new-spec` si pide "desde cero", "como si fuera nuevo", "para un proyecto nuevo", "especificación", "documentación base" o "cómo debería construirse".
+  - `as-new-spec` si pide "desde cero", "como si fuera nuevo", "para un proyecto nuevo", "especificación", "documentación base", "cómo debería construirse", o diseñar o crear un módulo que todavía no existe ("quiero crear un módulo de gestión documental").
   - `as-technical` si menciona código, implementación, "lo voy a tocar/modificar/refactorizar", o no da pistas.
 - Si pide técnico y negocio, entrega primero `as-business` y luego `as-technical`, como dos fichas separadas.
-- En `as-new-spec`, si el pedido nombra el stack destino ("as-new-spec para Go y PostgreSQL"), úsalo; si no, la especificación queda neutral en tecnología (ver su referencia).
+- En `as-new-spec`, si el pedido nombra el stack destino ("as-new-spec para Go y PostgreSQL"), úsalo; si no, el stack depende de dónde se construye: el actual para este proyecto, neutral para un proyecto nuevo (ver su referencia).
 
 Lee la referencia que corresponda antes de escribir; trae la plantilla y cómo llenarla.
 
@@ -31,7 +31,7 @@ Interpreta la solicitud (puede venir como nombre de negocio — "el reset de con
 
 - Si hay varios candidatos y uno es claramente el más probable, tómalo y dilo en la línea de alcance.
 - Pregunta solo si la ambigüedad cambia por completo el análisis (dos módulos distintos con el mismo nombre).
-- Si no existe, dilo y propone lo más cercano que encontraste.
+- Si no existe, dilo y propone lo más cercano que encontraste. En `as-new-spec` eso no es un callejón sin salida: especificar algo nuevo es parte de ese modo (ver su referencia).
 
 ## 2. Investigar
 

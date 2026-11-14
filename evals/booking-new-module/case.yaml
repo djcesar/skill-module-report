@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: booking-new-module
+expected_outcome: |
+  as-new-spec for a module that does not exist: quick search, one question about the destination (this project recommended), then a single specification aligned with the current stack, integrated by name with the existing booking and SMS pieces, with domain practices and open decisions, mistakes from the reused pieces, and a traceability file.
+context:
+  scaffold_script: place-files.sh

@@ -33,7 +33,7 @@ Los tres modos son identificadores fijos: se escriben igual en cualquier idioma.
 |---|---|---|
 | **`as-technical`** (por defecto) | Quien va a desarrollar o tocar el código: archivos, servicios, datos, permisos, deuda técnica, con citas `archivo:línea`. | `as-technical`, o "explícame el flujo de X", "analiza el módulo Y, lo voy a tocar" |
 | **`as-business`** | Producto, QA, soporte, cliente: historias de usuario con criterios de aceptación, pantallas, botones, campos y mensajes. Lo técnico solo si es crítico y contado por su impacto. | `as-business`, o "en forma de negocio", "historias de usuario de X", "qué botones y campos tiene X", "sin cosas técnicas" |
-| **`as-new-spec`** | Un equipo que va a construir el módulo en un proyecto nuevo: especificación base limpia, con el diseño correcto, requisitos, decisiones abiertas y decisiones de diseño (ADR). Sin citas de código ni el nombre de la organización; los errores del sistema actual aparecen solo como lecciones genéricas, con el requisito y la prueba que los previenen. | `as-new-spec`, o "desde cero", "como documentación base para un proyecto nuevo", "especificación de X" |
+| **`as-new-spec`** | Un equipo que va a construir algo bien hecho: especificación base con el diseño correcto, requisitos, decisiones abiertas y decisiones de diseño (ADR). Sirve para un módulo que **existe** (rehacerlo o extenderlo) o que **todavía no existe** (un módulo nuevo), construido **en este proyecto** (alineado con su stack e integrado por nombre) o **en un proyecto nuevo** (neutral en tecnología y anonimizado). Primero pregunta cuál, salvo que lo digas. | `as-new-spec`, o "desde cero", "como documentación base para un proyecto nuevo", "especificación de X", "quiero crear un módulo de gestión documental" |
 
 Los modos se combinan: `as-technical as-business` entrega las dos fichas (primero la de negocio); `as-new-spec as-business` entrega solo la especificación funcional. `as-new-spec` solo entrega un único archivo con las dos partes, funcional y técnica.
 
@@ -97,8 +97,13 @@ Si hay algo urgente, una línea final lo señala. En `as-new-spec`, los errores 
 ### Archivo de trazabilidad (solo `as-new-spec`)
 Junto a la especificación, `as-new-spec` siempre escribe un archivo interno `<tema>-as-new-spec-traceability.md`. Relaciona cada requisito y decisión de diseño con lo que lo motivó (un defecto que previene, un caso actual que se conserva, algo que falta hoy o una práctica del dominio), con evidencia `archivo:línea` del sistema actual, y guarda los riesgos críticos y demás defectos del sistema actual. Es el único archivo que puede mencionar el código actual y el nombre real de la organización, y no está pensado para entregarse.
 
+### Nuevo o existente, aquí o en otro lado (solo `as-new-spec`)
+`as-new-spec` cubre cuatro situaciones según dos preguntas. **¿Existe?** Si existe, la implementación actual es la fuente de conocimiento y sus defectos se convierten en requisitos; si no, el conocimiento sale del proyecto que lo rodea (usuarios, roles, almacenamiento, convenciones) y de las prácticas habituales del dominio, con las decisiones de alcance como decisiones abiertas. **¿Dónde se construye?** En este proyecto (alineado con su stack, integrado por nombre con los módulos existentes) o en un proyecto nuevo (neutral en tecnología y anonimizado). Antes de la investigación larga hace una búsqueda rápida y una sola pregunta, mostrando lo que encontró, salvo que tu pedido diga el destino explícitamente ("en este proyecto", "para un proyecto nuevo"); "crear" o "desde cero" solos no lo dicen:
+
+> *No encontré un módulo de gestión documental. Hay un servicio de almacenamiento de archivos que tomaría como base. ¿Para dónde es la especificación? a. Un módulo nuevo en este proyecto (recomendada) · b. Un proyecto nuevo.*
+
 ### Tecnología (solo `as-new-spec`)
-El skill solo puede leer el proyecto actual, no el proyecto nuevo para el que es la especificación, así que no conoce el stack destino. Por defecto la especificación es **neutral en tecnología**: ni hereda el stack actual ni elige uno.
+Cuando la especificación es para **este proyecto**, usa el stack actual. Cuando es para **un proyecto nuevo**, el skill no puede conocer el stack destino, así que por defecto la especificación es **neutral en tecnología**: ni hereda el stack actual ni elige uno.
 - **Los requisitos se escriben como capacidades, no como productos**: "la base de datos debe garantizar que no haya dos reservas activas en la misma franja, incluso con solicitudes simultáneas", no "usar una restricción de exclusión de PostgreSQL". Lo aprendido sirve con cualquier stack.
 - **"Lo que el stack elegido debe soportar"**: una lista de capacidades que sale de lo aprendido, para evaluar stacks candidatos sin elegir ninguno.
 - **Las trampas del stack actual** (valores por defecto del framework, configuración de librerías) van al archivo de trazabilidad, útiles si el proyecto nuevo conserva esa tecnología.
@@ -143,6 +148,7 @@ Rinde mejor en herramientas tipo agente que trabajan directamente dentro del rep
 | `booking-as-business` | Historias de usuario, textos literales de pantalla, riesgos por impacto, diagrama de flujo, sin jerga, encabezados en inglés |
 | `booking-as-new-spec` | Anonimización, máquina de estados y modelo de datos, requisitos que previenen las fallas, archivo de trazabilidad |
 | `booking-git-local` | Primera ficha en un repo git: pregunta repo o local, agrega la regla sin tocar las existentes y no hace commit |
+| `booking-new-module` | `as-new-spec` para un módulo que todavía no existe: primero pregunta el destino, se alinea con el stack actual, se integra con las piezas existentes y deja las decisiones de alcance abiertas |
 | `booking-spanish` | Un pedido en español produce una ficha completamente en español |
 
 Los casos siguen el formato de `claude plugin eval` (`prompt.md`, `case.yaml`, `graders/`), pero los criterios son frases simples, así que cualquier agente o persona puede calificar una corrida leyéndolos.

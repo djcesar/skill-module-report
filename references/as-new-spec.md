@@ -1,10 +1,49 @@
-# Mode `as-new-spec`: specification to build it anew
+# Mode `as-new-spec`: specification to build something done right
 
-The user does not want to know how it is built today: they want the **baseline documentation to build this module, flow or function in a new project, done right from the start**. The current system is your source of domain knowledge (what it does, for whom, what rules it has, what went wrong), but the final document describes **what must be built**, not what exists.
+The user wants the **baseline documentation to build a module, flow or function done right from the start**: what must be built, how and why. It covers four situations, along two questions:
 
-Think of who will read it: a team starting a clean project that will use this document as the starting point to estimate, design and build. They do not know the old system and gain nothing from hearing about it; they need to know what to build, how and why.
+- **Does it exist already?** If it does, the current implementation is your source of domain knowledge (what it does, for whom, what rules it has, what went wrong). If it does not, the knowledge comes from the project around it (users, roles, storage, notifications, conventions it must integrate with) and from the domain's usual practices. If something partial or similar exists, treat it as an **extension**: what exists is the current system, what is missing comes from the domain.
+- **Where will it be built?** In **this project** (a new module, or a redesign in place) or in **a new project** (a rebuild elsewhere, a deliverable for another team).
+
+Either way, the document describes **what must be built**, not what exists. Think of who will read it: a team that will use it to estimate, design and build, and that gains nothing from a tour of the old code; they need to know what to build, how and why.
+
+## Before starting: what exists and where it will be built
+
+The destination is the one thing you cannot learn from the code, and it changes the whole document, so settle it before the long investigation.
+
+1. **Quick search first (seconds, not the full analysis).** Look for the target in the code by its name and synonyms. Note what you found: the module, something partial or similar, or nothing.
+2. **Ask one question, unless the request states the destination explicitly.** "For a new project", "for another team", "to build it elsewhere" → new project. "In this project", "add it to this system", "a new module for this platform" → this project. Words like "create", "design" or "from scratch" do **not** settle it on their own: a module can be created here or elsewhere. When the destination is not explicit, ask, saying what the quick search found so the user can correct it if you picked the wrong thing:
+
+   > *I did not find a document management module. There is a file storage service (`storage`) I would build on.*
+   > *Where is this specification for?*
+   > *a. A new module in this project (recommended): aligned with the current stack and integrated by name with the existing modules.*
+   > *b. A new project: technology-neutral and without the organization's name, ready to hand over to another team.*
+
+   Recommend **this project** when the target does not exist (new things are usually built where they are needed) and **a new project** when it exists and the user asked for it "from scratch" (that is usually a rebuild elsewhere). For an existing target built in this project, option a reads "Redesign it within this project".
+3. **If you cannot ask** (an automated run), take the recommended option and say so.
+4. **Record the case in the scope line** of the document: whether the target existed (and what was found) and the destination.
+
+## What changes in each case
+
+| | Built in a new project | Built in this project |
+|---|---|---|
+| **Technology** | Neutral (see "Technology") | Aligned with the current stack; name the frameworks and services the project already uses |
+| **Names** | Anonymized: no organization name, no current code references (see "Keeping the document clean") | Existing modules, entities and services are named, because the new part integrates with them; still no exploitable details of live flaws |
+| **Integration** | Described as contracts with generic modules | Concrete: which existing modules, entities and endpoints it uses or feeds, and what has to change in them |
+| **Migration** | Only if it replaces a system | Coexistence plan with what exists today (feature flags, data migration, order of rollout) |
+
+| | It exists (rebuild or extension) | It does not exist (new) |
+|---|---|---|
+| **Use cases and rules** | From the current behavior, corrected and completed | From the request, the project context and domain practice, marked as such; scope questions become open decisions |
+| **Mistakes this specification prevents** | Defects and risks found in the current implementation | Risks already present in the pieces it will reuse (e.g. a public storage URL) plus the domain's typical mistakes |
+| **Traceability origins** | Defect it prevents, current case kept, missing today, domain practice | User request, project integration, risk in a reused piece, domain practice |
+
+For something that does not exist, do not invent business rules as if they were facts: propose them as domain practice and let the scope-defining choices (which document types, volumes, retention rules, who approves) be **open decisions** with your recommendation.
 
 ## How what you found is transformed
+
+When the target does not exist, read "the current system" below as the pieces of the project it will
+reuse (authentication, roles, storage, notifications…) and the domain's usual practices.
 
 - **"What I would do differently" stops being an opinion and becomes the design.** The redesigns you would propose become the architecture, the flow and the rules of the specification.
 - **Defects are not described, they are prevented.** Every bug or risk you saw in the current system becomes a requirement, rule or acceptance criterion that makes it impossible. For example, "the update-user endpoint was public and accepted the role" becomes "RNF-SEC-2: no endpoint accepts role or status fields from the client; changing a role is an audited admin action". Do not tell the story of the bug in the current system; record the lesson as a generic pattern in "Mistakes this specification prevents".
@@ -13,7 +52,7 @@ Think of who will read it: a team starting a clean project that will use this do
 
 ## Keeping the document clean
 
-The specification must be deliverable to another organization or team without changes (the traceability file, below, is the exception):
+When the destination is **a new project**, the specification must be deliverable to another organization or team without changes (the traceability file, below, is the exception). When it is built in **this project**, the anonymization and no-code-references rules do not apply (see "What changes in each case"), but lessons-not-exploits and no-real-data still do:
 
 - **Lessons yes, exploitable details no.** The mistakes found in the current system do go into the specification, as generic patterns (see "Mistakes this specification prevents"), because a requirement without its reason is the first one to be relaxed "to go faster". What stays out are the details that would let someone attack the live system: where each flaw is today, its paths, endpoints and ids. Those go only in the traceability file.
 - **No references to the current code.** No file paths, old class or endpoint names, or line numbers. The "Technical references" line at the end is left out too.
@@ -23,7 +62,7 @@ The specification must be deliverable to another organization or team without ch
   - Apps and repositories → by their function: user portal, admin panel, mobile app, API.
   - Search the code for the organization's name (UI texts, email templates, domains, repository names) to know exactly what to replace.
 - **No real data**: no people's names, ID numbers, emails or ids that appear in the code, seeds or examples.
-- **Technology-neutral by default.** You can only read the current project, not the one this specification is for, so its stack is unknown. Do not inherit the current stack (it may be exactly what the new project wants to change) and do not pick one on your own (it would bias a document meant to serve any decision). See "Technology" below for how to keep what was learned without naming products.
+- **Technology-neutral for a new project.** You can only read the current project, not the one this specification is for, so its stack is unknown. Do not inherit the current stack (it may be exactly what the new project wants to change) and do not pick one on your own (it would bias a document meant to serve any decision). See "Technology" below for how to keep what was learned without naming products.
 
 ## The eight sections in this mode
 
@@ -108,8 +147,15 @@ Modules and integrations the new module needs or feeds, with the contract betwee
 
 ## Technology
 
-The specification has to stay useful whatever stack the new project ends up using, without losing
-what the current system taught.
+**Built in this project:** align with the current stack. Name the frameworks, database and services
+the project already uses, write each requirement in terms of how that stack provides it, and turn
+"What the chosen stack must support" into **"How the current stack covers it"**: each capability, how
+the stack provides it, and any gap that needs a new piece (with the gap as an open decision).
+Pitfalls of the current stack go straight into the specification as rules, because the team will
+build with it.
+
+**Built in a new project:** the rest of this section applies. The specification has to stay useful
+whatever stack the new project ends up using, without losing what the current system taught.
 
 - **Write requirements as capabilities, not products.** Not "use a PostgreSQL `EXCLUDE`
   constraint" but "the database must guarantee atomically that no two active bookings share a time

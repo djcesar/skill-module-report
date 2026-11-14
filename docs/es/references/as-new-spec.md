@@ -1,12 +1,50 @@
-# Modo `as-new-spec`: especificación para construirlo nuevo
+# Modo `as-new-spec`: especificación para construir algo bien hecho
 
 > **Traducción de referencia, solo para leer.** El agente usa la versión en inglés ([references/as-new-spec.md](../../../references/as-new-spec.md)). Si hay diferencias, manda la versión en inglés.
 
-El usuario no quiere saber cómo está hecho hoy: quiere la **documentación base para construir este módulo, flujo o función en un proyecto nuevo, bien hecho desde el principio**. El sistema actual es tu fuente de conocimiento del dominio (qué hace, para quién, qué reglas tiene, qué salió mal), pero el documento final describe **lo que debe construirse**, no lo que existe.
+El usuario quiere la **documentación base para construir un módulo, flujo o función bien hecho desde el principio**: qué construir, cómo y por qué. Cubre cuatro situaciones, según dos preguntas:
 
-Piensa en quien lo va a leer: un equipo que arranca un proyecto limpio y va a usar este documento como punto de partida para estimar, diseñar y construir. No conoce el sistema viejo y no le sirve que se lo cuenten; le sirve saber qué construir, cómo y por qué.
+- **¿Ya existe?** Si existe, la implementación actual es tu fuente de conocimiento del dominio (qué hace, para quién, qué reglas tiene, qué salió mal). Si no existe, el conocimiento sale del proyecto que lo rodea (usuarios, roles, almacenamiento, notificaciones, convenciones con las que debe integrarse) y de las prácticas habituales del dominio. Si existe algo parcial o parecido, trátalo como **extensión**: lo que existe es el sistema actual y lo que falta sale del dominio.
+- **¿Dónde se va a construir?** En **este proyecto** (un módulo nuevo o un rediseño en sitio) o en **un proyecto nuevo** (rehacerlo en otro lado, un entregable para otro equipo).
+
+En todos los casos, el documento describe **lo que debe construirse**, no lo que existe. Piensa en quien lo va a leer: un equipo que lo usará para estimar, diseñar y construir, y al que no le sirve un recorrido por el código viejo; le sirve saber qué construir, cómo y por qué.
+
+## Antes de empezar: qué existe y dónde se construye
+
+El destino es lo único que no se puede saber leyendo el código, y cambia todo el documento, así que resuélvelo antes de la investigación larga.
+
+1. **Primero una búsqueda rápida (segundos, no el análisis completo).** Busca el objetivo en el código por su nombre y sinónimos. Anota qué encontraste: el módulo, algo parcial o parecido, o nada.
+2. **Haz una sola pregunta, salvo que el pedido diga el destino explícitamente.** "Para un proyecto nuevo", "para otro equipo", "para construirlo en otro lado" → proyecto nuevo. "En este proyecto", "agrégalo a este sistema", "un módulo nuevo para esta plataforma" → este proyecto. Palabras como "crear", "diseñar" o "desde cero" **no** lo resuelven solas: un módulo se puede crear aquí o en otro lado. Cuando el destino no es explícito, pregunta, diciendo qué encontró la búsqueda rápida para que el usuario lo corrija si tomaste otra cosa:
+
+   > *No encontré un módulo de gestión documental. Sí hay un servicio de almacenamiento de archivos (`storage`) que tomaría como base.*
+   > *¿Para dónde es la especificación?*
+   > *a. Un módulo nuevo en este proyecto (recomendada): alineado con el stack actual e integrado por nombre con los módulos existentes.*
+   > *b. Un proyecto nuevo: neutral en tecnología y sin el nombre de la organización, lista para entregar a otro equipo.*
+
+   Recomienda **este proyecto** cuando el objetivo no existe (lo nuevo suele construirse donde se necesita) y **un proyecto nuevo** cuando existe y el usuario lo pidió "desde cero" (suele ser rehacerlo en otro lado). Para un objetivo que existe y se construye en este proyecto, la opción a dice "Rediseñarlo dentro de este proyecto".
+3. **Si no puedes preguntar** (una ejecución automática), toma la opción recomendada y dilo.
+4. **Deja el caso escrito en la línea de alcance** del documento: si el objetivo existía (y qué se encontró) y el destino.
+
+## Qué cambia en cada caso
+
+| | Se construye en un proyecto nuevo | Se construye en este proyecto |
+|---|---|---|
+| **Tecnología** | Neutral (ver "Tecnología") | Alineada con el stack actual; nombra los frameworks y servicios que ya usa el proyecto |
+| **Nombres** | Anonimizados: sin el nombre de la organización ni referencias al código actual (ver "Limpieza del documento") | Se nombran los módulos, entidades y servicios existentes, porque lo nuevo se integra con ellos; sin detalles explotables de fallas vivas |
+| **Integración** | Descrita como contratos con módulos genéricos | Concreta: qué módulos, entidades y endpoints existentes usa o alimenta, y qué hay que cambiar en ellos |
+| **Migración** | Solo si reemplaza un sistema | Plan de convivencia con lo que existe hoy (feature flags, migración de datos, orden de despliegue) |
+
+| | Existe (rehacer o extender) | No existe (nuevo) |
+|---|---|---|
+| **Casos de uso y reglas** | Del comportamiento actual, corregido y completado | Del pedido, el contexto del proyecto y la práctica del dominio, marcados como tales; las preguntas de alcance pasan a decisiones abiertas |
+| **Errores que esta especificación previene** | Defectos y riesgos encontrados en la implementación actual | Riesgos que ya tienen las piezas que va a reutilizar (p. ej. una URL de storage pública) más los errores típicos del dominio |
+| **Orígenes en la trazabilidad** | Defecto que previene, caso actual que se conserva, falta hoy, práctica de dominio | Pedido del usuario, integración con el proyecto, riesgo en una pieza reutilizada, práctica de dominio |
+
+Para algo que no existe, no inventes reglas de negocio como si fueran hechos: propónlas como práctica del dominio y deja las decisiones que definen el alcance (qué tipos de documento, volúmenes, reglas de retención, quién aprueba) como **decisiones abiertas** con tu recomendación.
 
 ## Cómo se transforma lo que encontraste
+
+Cuando el objetivo no existe, lee "el sistema actual" como las piezas del proyecto que va a reutilizar (autenticación, roles, almacenamiento, notificaciones…) y las prácticas habituales del dominio.
 
 - **"Qué haría diferente" deja de ser una opinión y pasa a ser el diseño.** Los rediseños que propondrías se vuelven la arquitectura, el flujo y las reglas de la especificación.
 - **Los defectos no se describen, se previenen.** Cada bug o riesgo que viste en el sistema actual se convierte en un requisito, una regla o un criterio de aceptación que lo hace imposible. Por ejemplo, "el endpoint de actualizar usuario era público y aceptaba el rol" se convierte en "RNF-SEG-2: ningún endpoint acepta campos de rol o estado desde el cliente; el cambio de rol es una acción de administración auditada". No cuentes la historia del error en el sistema actual; deja la lección como patrón genérico en "Errores que esta especificación previene".
@@ -15,7 +53,7 @@ Piensa en quien lo va a leer: un equipo que arranca un proyecto limpio y va a us
 
 ## Limpieza del documento
 
-La especificación tiene que poder entregarse a otra organización o a otro equipo sin modificarla (el archivo de trazabilidad, más abajo, es la excepción):
+Cuando el destino es **un proyecto nuevo**, la especificación tiene que poder entregarse a otra organización o a otro equipo sin modificarla (el archivo de trazabilidad, más abajo, es la excepción). Cuando se construye en **este proyecto**, no aplican las reglas de anonimización ni de no citar el código (ver "Qué cambia en cada caso"), pero sí las de lecciones sin detalles explotables y sin datos reales:
 
 - **Lecciones sí, detalles explotables no.** Los errores encontrados en el sistema actual sí van en la especificación, como patrones genéricos (ver "Errores que esta especificación previene"), porque un requisito sin su porqué es el primero que se relaja "para ir más rápido". Lo que queda fuera son los detalles que permitirían atacar el sistema vivo: dónde está hoy cada falla, sus rutas, endpoints e ids. Eso va solo en el archivo de trazabilidad.
 - **Sin referencias al código actual.** Nada de rutas de archivos, nombres de clases o endpoints viejos, ni números de línea. Tampoco va la línea de "Referencias técnicas" al final.
@@ -25,7 +63,7 @@ La especificación tiene que poder entregarse a otra organización o a otro equi
   - Apps y repositorios → por su función: portal del usuario, panel de administración, app móvil, API.
   - Busca el nombre de la organización en el código (textos de UI, plantillas de correo, dominios, nombres de repos) para saber exactamente qué reemplazar.
 - **Sin datos reales**: ni nombres de personas, ni documentos, ni correos, ni ids que aparezcan en el código, en semillas o en ejemplos.
-- **Neutral en tecnología por defecto.** Solo puedes leer el proyecto actual, no el proyecto para el que es esta especificación, así que su stack es desconocido. No heredes el stack actual (puede ser justo lo que el proyecto nuevo quiere cambiar) ni elijas uno por tu cuenta (sesgaría un documento que debe servir para cualquier decisión). Ver "Tecnología" más abajo para conservar lo aprendido sin nombrar productos.
+- **Neutral en tecnología para un proyecto nuevo.** Solo puedes leer el proyecto actual, no el proyecto para el que es esta especificación, así que su stack es desconocido. No heredes el stack actual (puede ser justo lo que el proyecto nuevo quiere cambiar) ni elijas uno por tu cuenta (sesgaría un documento que debe servir para cualquier decisión). Ver "Tecnología" más abajo para conservar lo aprendido sin nombrar productos.
 
 ## Las ocho secciones en este modo
 
@@ -108,6 +146,15 @@ Módulos e integraciones que el nuevo módulo necesita o alimenta, con el contra
 ```
 
 ## Tecnología
+
+**Se construye en este proyecto:** alinéate con el stack actual. Nombra los frameworks, la base de datos
+y los servicios que el proyecto ya usa, escribe cada requisito según cómo lo resuelve ese stack, y
+convierte "Lo que el stack elegido debe soportar" en **"Cómo lo cubre el stack actual"**: cada
+capacidad, cómo la da el stack y cualquier hueco que necesite una pieza nueva (el hueco va como
+decisión abierta). Las trampas del stack actual van directo a la especificación como reglas, porque
+el equipo va a construir con él.
+
+**Se construye en un proyecto nuevo:** aplica el resto de esta sección.
 
 La especificación tiene que seguir sirviendo con cualquier stack que termine usando el proyecto
 nuevo, sin perder lo que enseñó el sistema actual.

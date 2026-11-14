@@ -2,6 +2,10 @@
 
 All notable changes to this skill. The version lives in `SKILL.md` (`metadata.version`) and follows [semantic versioning](https://semver.org/): a new mode or section is a minor change; renaming modes or changing where the report goes is a major one.
 
+## 3.3.0 — 2026-11-13
+
+- **`as-new-spec` now also specifies modules that do not exist yet.** It covers four situations along two questions: does the target exist (rebuild or extension, using the current implementation as the source) or not (a new module, using the project around it and the domain's usual practices, with scope choices as open decisions), and will it be built in this project (aligned with the current stack, integrated by name with existing modules, with a coexistence plan) or in a new project (technology-neutral and anonymized, as before). Before the long investigation it runs a quick search and asks one question, showing what it found, unless the request states the destination explicitly ("create" or "from scratch" alone do not); without a way to ask it takes the recommended option and says so. The case is recorded in the scope line. Before, asking for a module that did not exist ended in "not found".
+
 ## 3.2.0 — 2026-11-13
 
 - **Stricter verification of 🔴 findings.** "Confirm the whole chain" is now spelled out: confirm the cited line is reachable by following every call down to its `return`/`throw`; name the exact route and handler (similar paths in different controllers are different endpoints); label each link of a multi-step attack on its own and give the chain its weakest label; find every endpoint that can leak the same secret; ask what an attacker really needs (a guessable id may make the secret unnecessary); read near-duplicate methods one by one; and report unreachable branches as dead code instead of vulnerabilities. Prompted by a real case where a public endpoint's leaky branch was reported as verified although a service call always threw before it.
