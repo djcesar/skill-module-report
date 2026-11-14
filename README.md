@@ -27,19 +27,6 @@ The full report is always saved as a Markdown file in `docs/module-reports/` at 
 - **Critical findings are double-checked.** Before reporting a 🔴, it re-reads the exact code and confirms the whole chain: that the cited line is actually reachable (following every call down to its `return` or `throw`), the exact route and handler, each link of a multi-step attack on its own, every endpoint that can leak the same secret, and what an attacker really needs. Unreachable branches are reported as dead code, not as vulnerabilities. Each one is labeled *(verified in code)* or *(inferred)*, plus *not tested live* unless it was actually reproduced.
 - **Mermaid diagrams where they help.** A sequence diagram of the main path and a state diagram in `as-technical`, a user-flow chart in `as-business`, and a state machine plus data model in `as-new-spec`. They render on GitHub and most editors.
 
-## Privacy and data
-
-module-report is a set of instructions and templates in Markdown: no code, no scripts, no network calls, no telemetry. On its own it cannot send anything anywhere. When an agent follows it:
-
-- **Nothing is sent to external services.** The skill tells the agent not to send code, findings or reports to any URL, API or service, and not to call live systems (production, staging or third-party APIs), not even to confirm a finding. That is why findings say *not tested live*.
-- **Reports stay on your machine.** They are written to `docs/module-reports/` in your project and nowhere else. They are never committed: the first time in a git repository the skill asks whether they should stay local (recommended) and adds the ignore rule if so.
-- **Secrets are never copied into reports.** Keys, passwords, tokens or personal data found in the code are described with their location and a masked value (`sk_live_…`), so a report can be shared without leaking them.
-- **Specifications meant to be handed over are cleaned.** `as-new-spec` for a new project removes the organization's name, code references and real data; exact locations of live flaws stay only in the internal traceability file.
-- **It reads, it does not change.** It does not modify your code, run migrations or deploy anything.
-- **The tests use fictional data.** The sample project in `evals/` is invented, and its keys are obviously fake.
-
-**One thing outside the skill's control:** the AI tool you run it with (Claude Code, Codex, Copilot…) sends the code it reads to its model provider to work, as it does for any task. How that data is handled depends on that tool's and provider's own privacy policy and your account settings, not on this skill. If your code is confidential, check that policy first.
-
 ## Modes
 
 The three modes are fixed identifiers: they are written the same way in any language.
@@ -188,6 +175,19 @@ README.es.md                this README in Spanish
 ```
 
 It does not modify code or deploy anything. The only files it writes are the reports in `docs/module-reports/` and, once per project and only if you choose it, an ignore rule.
+
+## Privacy and data
+
+module-report is a set of instructions and templates in Markdown: no code, no scripts, no network calls, no telemetry. On its own it cannot send anything anywhere. When an agent follows it:
+
+- **Nothing is sent to external services.** The skill tells the agent not to send code, findings or reports to any URL, API or service, and not to call live systems (production, staging or third-party APIs), not even to confirm a finding. That is why findings say *not tested live*. It may look up public documentation (for example, a framework's default behavior), but without including any code, findings, names or data from your project.
+- **Reports stay on your machine.** They are written to `docs/module-reports/` in your project and nowhere else. They are never committed: the first time in a git repository the skill asks whether they should stay local (recommended) and adds the ignore rule if so.
+- **Secrets are never copied into reports.** Keys, passwords, tokens or personal data found in the code are described with their location and a masked value (`sk_live_…`), so a report can be shared without leaking them.
+- **Specifications meant to be handed over are cleaned.** `as-new-spec` for a new project removes the organization's name, code references and real data; exact locations of live flaws stay only in the internal traceability file.
+- **It reads, it does not change.** It does not modify your code, run migrations or deploy anything.
+- **The tests use fictional data.** The sample project in `evals/` is invented, and its keys are obviously fake.
+
+**One thing outside the skill's control:** the AI tool you run it with (Claude Code, Codex, Copilot…) sends the code it reads to its model provider to work, as it does for any task. How that data is handled depends on that tool's and provider's own privacy policy and your account settings, not on this skill. If your code is confidential, check that policy first.
 
 ## Contributing
 

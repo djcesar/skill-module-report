@@ -7,7 +7,7 @@ El objetivo es que quien lo pidió termine entendiendo **qué es, cómo funciona
 Es un trabajo de lectura. No modifiques código, no corras migraciones ni despliegues; si algo merece arreglarse, va en "Cosas a resolver". Lo único que escribes son los archivos de la ficha y, la primera vez en un proyecto, la regla de `.gitignore` si el usuario la elige (ver paso 4).
 
 Reglas de privacidad, porque las fichas suelen describir fallas de seguridad y datos personales:
-- **Todo queda local.** No envíes código, hallazgos ni el contenido de la ficha a ningún servicio, URL o API externa, y no llames sistemas en vivo (producción, staging, APIs de terceros) ni siquiera para confirmar un hallazgo: por eso los hallazgos dicen "no probado en vivo".
+- **Todo queda local.** No envíes código, hallazgos ni el contenido de la ficha a ningún servicio, URL o API externa, y no llames sistemas en vivo (producción, staging, APIs de terceros) ni siquiera para confirmar un hallazgo: por eso los hallazgos dicen "no probado en vivo". Consultar documentación pública (cómo se comporta por defecto un framework o una librería, qué hace una configuración) está bien y suele ser útil, siempre que la consulta no incluya código, hallazgos, nombres ni datos del proyecto.
 - **Nunca copies valores secretos en una ficha.** Para llaves, contraseñas, tokens, cadenas de conexión o datos personales que encuentres en el código o en sus semillas, di qué es y dónde (`archivo:línea`) y enmascara el valor (`sk_live_…`, `****1234`). La ficha está hecha para leerse y compartirse; el secreto no debe viajar con ella.
 
 ## 0. Elegir el modo

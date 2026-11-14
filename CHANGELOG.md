@@ -2,6 +2,11 @@
 
 All notable changes to this skill. The version lives in `SKILL.md` (`metadata.version`) and follows [semantic versioning](https://semver.org/): a new mode or section is a minor change; renaming modes or changing where the report goes is a major one.
 
+## 3.4.1 — 2026-11-14
+
+- **Public documentation lookups are explicitly allowed.** The "everything stays local" rule could make an agent avoid checking public documentation (a framework's default behavior, what a setting does), which helps confirm findings. It is now allowed as long as the query contains no code, findings, names or data from the project.
+- **README:** the "Privacy and data" section moves down, right before "Contributing", in both languages.
+
 ## 3.4.0 — 2026-11-14
 
 - **Explicit privacy rules in the skill.** The agent must not send code, findings or report content to any external service, URL or API, and must not call live systems (production, staging, third-party APIs), not even to confirm a finding. Secret values found in the code (keys, passwords, tokens, connection strings, personal data) are never copied into a report: they are described with their location and a masked value, so reports can be shared safely. Before, the skill only forbade modifying code and deploying.

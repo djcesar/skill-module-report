@@ -25,19 +25,6 @@ La ficha completa siempre se guarda como archivo Markdown en `docs/module-report
 - **Los hallazgos críticos se verifican dos veces.** Antes de reportar un 🔴, vuelve a leer el código exacto y confirma la cadena completa: que la línea citada de verdad se ejecuta (siguiendo cada llamada hasta su `return` o `throw`), la ruta y el handler exactos, cada eslabón de un ataque de varios pasos por separado, todos los endpoints que pueden filtrar el mismo secreto y qué necesita realmente un atacante. Las ramas inalcanzables se reportan como código muerto, no como vulnerabilidades. Cada uno lleva *(verificado en código)* o *(inferido)*, y *no probado en vivo* salvo que se haya reproducido.
 - **Diagramas Mermaid donde ayudan.** Secuencia del camino principal y diagrama de estados en `as-technical`, flujo del usuario en `as-business`, y máquina de estados más modelo de datos en `as-new-spec`. Se ven en GitHub y en la mayoría de editores.
 
-## Privacidad y datos
-
-module-report es un conjunto de instrucciones y plantillas en Markdown: no tiene código, scripts, llamadas de red ni telemetría. Por sí solo no puede enviar nada a ningún lado. Cuando un agente lo sigue:
-
-- **No se envía nada a servicios externos.** El skill le indica al agente no enviar código, hallazgos ni fichas a ninguna URL, API o servicio, y no llamar sistemas en vivo (producción, staging o APIs de terceros), ni siquiera para confirmar un hallazgo. Por eso los hallazgos dicen *no probado en vivo*.
-- **Las fichas se quedan en tu máquina.** Se escriben en `docs/module-reports/` de tu proyecto y en ningún otro lugar. Nunca se suben a git por su cuenta: la primera vez en un repositorio git el skill pregunta si deben quedar locales (lo recomendado) y, si es así, agrega la regla para ignorarlas.
-- **Los secretos nunca se copian en las fichas.** Las llaves, contraseñas, tokens o datos personales que aparezcan en el código se describen con su ubicación y el valor enmascarado (`sk_live_…`), para que la ficha se pueda compartir sin filtrarlos.
-- **Las especificaciones pensadas para entregar se limpian.** `as-new-spec` para un proyecto nuevo quita el nombre de la organización, las referencias al código y los datos reales; la ubicación exacta de las fallas vivas queda solo en el archivo interno de trazabilidad.
-- **Lee, no cambia.** No modifica tu código, no corre migraciones ni despliega nada.
-- **Las pruebas usan datos ficticios.** El proyecto de ejemplo de `evals/` es inventado, y sus llaves son claramente falsas.
-
-**Algo que no depende del skill:** la herramienta de IA con la que lo uses (Claude Code, Codex, Copilot…) envía el código que lee a su proveedor de modelos para poder trabajar, como en cualquier tarea. Cómo se trata esa información depende de la política de privacidad de esa herramienta y de ese proveedor y de la configuración de tu cuenta, no de este skill. Si tu código es confidencial, revisa esa política primero.
-
 ## Modos
 
 Los tres modos son identificadores fijos: se escriben igual en cualquier idioma.
@@ -186,6 +173,19 @@ README.es.md                este README
 ```
 
 No modifica código ni despliega nada. Lo único que escribe son las fichas en `docs/module-reports/` y, una vez por proyecto y solo si lo eliges, una regla para ignorarlas.
+
+## Privacidad y datos
+
+module-report es un conjunto de instrucciones y plantillas en Markdown: no tiene código, scripts, llamadas de red ni telemetría. Por sí solo no puede enviar nada a ningún lado. Cuando un agente lo sigue:
+
+- **No se envía nada a servicios externos.** El skill le indica al agente no enviar código, hallazgos ni fichas a ninguna URL, API o servicio, y no llamar sistemas en vivo (producción, staging o APIs de terceros), ni siquiera para confirmar un hallazgo. Por eso los hallazgos dicen *no probado en vivo*. Puede consultar documentación pública (por ejemplo, cómo se comporta un framework por defecto), pero sin incluir código, hallazgos, nombres ni datos de tu proyecto.
+- **Las fichas se quedan en tu máquina.** Se escriben en `docs/module-reports/` de tu proyecto y en ningún otro lugar. Nunca se suben a git por su cuenta: la primera vez en un repositorio git el skill pregunta si deben quedar locales (lo recomendado) y, si es así, agrega la regla para ignorarlas.
+- **Los secretos nunca se copian en las fichas.** Las llaves, contraseñas, tokens o datos personales que aparezcan en el código se describen con su ubicación y el valor enmascarado (`sk_live_…`), para que la ficha se pueda compartir sin filtrarlos.
+- **Las especificaciones pensadas para entregar se limpian.** `as-new-spec` para un proyecto nuevo quita el nombre de la organización, las referencias al código y los datos reales; la ubicación exacta de las fallas vivas queda solo en el archivo interno de trazabilidad.
+- **Lee, no cambia.** No modifica tu código, no corre migraciones ni despliega nada.
+- **Las pruebas usan datos ficticios.** El proyecto de ejemplo de `evals/` es inventado, y sus llaves son claramente falsas.
+
+**Algo que no depende del skill:** la herramienta de IA con la que lo uses (Claude Code, Codex, Copilot…) envía el código que lee a su proveedor de modelos para poder trabajar, como en cualquier tarea. Cómo se trata esa información depende de la política de privacidad de esa herramienta y de ese proveedor y de la configuración de tu cuenta, no de este skill. Si tu código es confidencial, revisa esa política primero.
 
 ## Contribuir
 

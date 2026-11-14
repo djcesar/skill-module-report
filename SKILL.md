@@ -4,7 +4,7 @@ description: 'Analysis report on a flow, module, function, endpoint, screen or p
 license: Apache-2.0
 compatibility: 'Requires an agent with read access to the repository (search and open files). Recommended - write access to docs/module-reports/, read-only commands (git log) and subagents for large modules.'
 metadata:
-  version: "3.4.0"
+  version: "3.4.1"
 ---
 
 # Analyze module
@@ -14,7 +14,7 @@ The goal is that whoever asked ends up understanding **what it is, how it works,
 This is a reading job. Do not modify code, run migrations or deploy anything; if something deserves fixing, it goes in "Issues to fix". The only things you write are the report files and, the first time in a project, the `.gitignore` rule if the user chooses it (see step 4).
 
 Privacy rules, because the reports often describe security flaws and personal data:
-- **Everything stays local.** Do not send code, findings or report content to any external service, URL or API, and do not call live systems (production, staging, third-party APIs) even to confirm a finding: that is why findings say "not tested live".
+- **Everything stays local.** Do not send code, findings or report content to any external service, URL or API, and do not call live systems (production, staging, third-party APIs) even to confirm a finding: that is why findings say "not tested live". Looking up public documentation (how a framework or library behaves by default, what a setting does) is fine and often useful, as long as the query contains no code, findings, names or data from the project.
 - **Never copy secret values into a report.** For keys, passwords, tokens, connection strings or personal data found in the code or its seeds, say what it is and where (`file:line`) and mask the value (`sk_live_…`, `****1234`). The report is meant to be read and shared; the secret must not travel with it.
 
 ## 0. Choose the mode
