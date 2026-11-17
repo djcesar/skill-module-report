@@ -4,7 +4,7 @@ description: 'Analysis report on a flow, module, function, endpoint, screen or p
 license: Apache-2.0
 compatibility: 'Requires an agent with read access to the repository (search and open files). Recommended - write access to docs/module-reports/, read-only commands (git log) and subagents for large modules.'
 metadata:
-  version: "3.4.1"
+  version: "3.5.0"
 ---
 
 # Analyze module
@@ -129,6 +129,7 @@ And unless you ran it, add **"not tested live"**: reading the code is not the sa
 | As a… I want… so that… / Given… when… then… | Como… quiero… para… / Dado… cuando… entonces… |
 | (verified in code) / (inferred) / not tested live | (verificado en código) / (inferido) / no probado en vivo |
 | Traceability | Trazabilidad |
+| (assumed, OD-n) · Open decisions · Later phase · Design decisions adopted | (supuesto, DA-n) · Decisiones abiertas · Fase posterior · Decisiones de diseño adoptadas |
 
 For any other language, translate with the same criteria. The title must name what was requested and the mode (e.g. "Membership and members — as-business"), so it can be recognized among several.
 

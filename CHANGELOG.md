@@ -2,6 +2,14 @@
 
 All notable changes to this skill. The version lives in `SKILL.md` (`metadata.version`) and follows [semantic versioning](https://semver.org/): a new mode or section is a minor change; renaming modes or changing where the report goes is a major one.
 
+## 3.5.0 — 2026-11-16
+
+- **`as-new-spec` makes explicit what is decided, assumed or open.** In a real specification it was unclear whether "What I would do differently" and "Issues to fix" were already part of the design. Now:
+  - Three headings carry a suffix that says what they are in this mode: "Issues to fix · Open decisions", "Nice to have · Later phase" and "What I would do differently · Design decisions adopted".
+  - Design decisions are adopted, not suggested: each one must already shape the rest of the document and lists where it is reflected.
+  - Open decisions get one treatment everywhere: the body always assumes the recommended option and marks it "(assumed, OD-n)"; the table gains a "What changes if decided otherwise" column. No more bare references or "A or B, depending on OD-n".
+  - A "How to read this document" line at the top explains both.
+
 ## 3.4.1 — 2026-11-14
 
 - **Public documentation lookups are explicitly allowed.** The "everything stays local" rule could make an agent avoid checking public documentation (a framework's default behavior, what a setting does), which helps confirm findings. It is now allowed as long as the query contains no code, findings, names or data from the project.

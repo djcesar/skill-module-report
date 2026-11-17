@@ -73,19 +73,19 @@ What you need to know before touching or using it: what is not obvious and what 
 What is **wrong today**, with a severity for each item (🔴 high, 🟡 medium, 🟢 low).
 - **`as-technical`:** bugs, missing validations, security risks, dead code and inconsistencies between layers or channels, each with its mechanism and `file:line` evidence. Every 🔴 is labeled *(verified in code)* or *(inferred)*, plus *not tested live*.
 - **`as-business`:** problems from the user's point of view: confusing steps, misleading or missing messages, dead ends, rules that differ between channels, plus critical technical issues described by their impact on the user or the organization. Each one says where it shows (screen or button).
-- **`as-new-spec`:** since there is no system yet, this becomes **open decisions** for business or legal, with options, impact and a recommendation.
+- **`as-new-spec`:** titled "Issues to fix · Open decisions". Since there is no system yet, these are the things **not decided yet** that business or legal must decide, with options, a recommendation and what would change if they decide otherwise. The rest of the document assumes the recommendation and marks it "(assumed, OD-n)" wherever it is used.
 
 ### 6. Nice to have
 Improvements on what already exists. These are wishes, not defects (defects go in section 5).
 - **`as-technical`:** tests, logging, metrics, documentation, refactors and neighboring features.
 - **`as-business`:** product and experience improvements: confirmations, clearer messages, shortcuts, accessibility, useful information for the user or whoever supports them, reports.
-- **`as-new-spec`:** what can wait for a phase 2, with the reason it can wait.
+- **`as-new-spec`:** titled "Nice to have · Later phase": what can wait for a phase 2, with the reason it can wait.
 
 ### 7. What I would do differently
 How it should have been designed from the start, aiming for **what is right rather than what is quick**, even if it costs more. It does not repeat the defects from section 5; it proposes the design that would have prevented them at the root. Each item has three parts: **Today** (how it is built), **I would do it like this** (the concrete design) and **Why** (the principle behind it and the cost of the change).
 - **`as-technical`:** security by design, layering, contracts, data model, tests and logic duplicated across channels.
 - **`as-business`:** flow, error prevention, messages, consistency between channels, accessibility and privacy.
-- **`as-new-spec`:** becomes the project's **design decisions**: the decision, the rejected alternatives (including any quicker shortcut and why it was rejected) and the accepted cost.
+- **`as-new-spec`:** titled "What I would do differently · Design decisions adopted". They are not proposals: each decision is **already applied** in the specification, and the section records the decision, the rejected alternatives (including any quicker shortcut and why it was rejected), the accepted cost and where it is reflected.
 
 ### 8. Related
 A table of what this flow touches or what touches it, and how they relate.

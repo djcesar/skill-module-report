@@ -71,19 +71,19 @@ Lo que hay que saber antes de tocarlo o usarlo: lo que no se ve a simple vista y
 Lo que **está mal hoy**, con una severidad para cada punto (🔴 alta, 🟡 media, 🟢 baja).
 - **`as-technical`:** bugs, validaciones faltantes, riesgos de seguridad, código muerto e inconsistencias entre capas o canales, cada uno con su mecanismo y evidencia `archivo:línea`. Cada 🔴 lleva *(verificado en código)* o *(inferido)*, y *no probado en vivo*.
 - **`as-business`:** problemas desde la experiencia del usuario: pasos confusos, mensajes engañosos o ausentes, callejones sin salida, reglas distintas entre canales, más lo técnico crítico contado por su impacto en el usuario o en la organización. Cada uno dice dónde se ve (pantalla o botón).
-- **`as-new-spec`:** como todavía no hay sistema, se convierte en **decisiones abiertas** para negocio o jurídica, con opciones, impacto y una recomendación.
+- **`as-new-spec`:** se titula "Cosas a resolver · Decisiones abiertas". Como todavía no hay sistema, es lo que **aún no está decidido** y debe decidir negocio o jurídica, con opciones, una recomendación y qué cambiaría si deciden otra cosa. El resto del documento asume la recomendación y la marca como "(supuesto, DA-n)" donde la usa.
 
 ### 6. Cosas que sería bueno incluir
 Mejoras sobre lo que ya existe. Es lo deseable, no lo roto (eso va en la sección 5).
 - **`as-technical`:** pruebas, logs, métricas, documentación, refactors y funciones vecinas.
 - **`as-business`:** mejoras de producto y experiencia: confirmaciones, mensajes más claros, atajos, accesibilidad, información útil para el usuario o para quien lo atiende, reportes.
-- **`as-new-spec`:** lo que puede quedar para una fase 2, con la razón de por qué puede esperar.
+- **`as-new-spec`:** se titula "Cosas que sería bueno incluir · Fase posterior": lo que puede quedar para una fase 2, con la razón de por qué puede esperar.
 
 ### 7. Qué haría diferente
 Cómo debió diseñarse desde el principio, buscando **lo correcto y no lo rápido**, aunque cueste más. No repite los defectos de la sección 5: propone el diseño que los habría evitado de raíz. Cada punto tiene tres partes: **Hoy** (cómo está hecho), **Lo haría así** (el diseño concreto) y **Por qué** (el principio que lo justifica y el costo de cambiarlo).
 - **`as-technical`:** seguridad por diseño, capas, contratos, modelo de datos, pruebas y lógica duplicada entre canales.
 - **`as-business`:** flujo, prevención de errores, mensajes, consistencia entre canales, accesibilidad y privacidad.
-- **`as-new-spec`:** se convierte en las **decisiones de diseño** del proyecto: la decisión, las alternativas descartadas (incluido cualquier atajo más rápido y por qué se descartó) y el costo que se acepta.
+- **`as-new-spec`:** se titula "Qué haría diferente · Decisiones de diseño adoptadas". No son propuestas: cada decisión **ya está aplicada** en la especificación, y la sección deja escrito la decisión, las alternativas descartadas (incluido cualquier atajo más rápido y por qué se descartó), el costo que se acepta y dónde se refleja.
 
 ### 8. Relacionados
 Tabla con lo que este flujo toca o lo que lo toca, y cómo se relacionan.

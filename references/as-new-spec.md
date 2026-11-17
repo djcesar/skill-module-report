@@ -66,13 +66,17 @@ When the destination is **a new project**, the specification must be deliverable
 
 ## The eight sections in this mode
 
-Keep the same headings so it can be compared with the analysis report, but fill them like this:
+Keep the same eight headings so it can be compared with the analysis report. Three of them mean something different in this mode, so they carry a suffix that says what the reader is looking at (in Spanish: "Cosas a resolver · Decisiones abiertas", "Cosas que sería bueno incluir · Fase posterior", "Qué haría diferente · Decisiones de diseño adoptadas"). Fill them like this:
 
 ```markdown
 # <Module name> — Baseline specification
 
 > **Purpose of this document:** what will be built and for whom, in one or two lines.
 > **Out of scope:** what this module does not do (and which module does).
+> **How to read this document:** the design decisions (D-n) are **already built into** everything
+> below; their section only records why. The open decisions (OD-n) are **not decided yet**: the
+> document assumes the recommended option for each one and marks it "(assumed, OD-n)" wherever it
+> is used, so it can be built now and adjusted if the decision goes another way.
 
 ## Summary
 5–8 lines: what is being built, the 3–4 design decisions that define it and the open decisions
@@ -122,23 +126,33 @@ test that would catch it if it came back.
 |---|---|---|---|---|
 | M-1 | Mass assignment: an endpoint accepts the whole object from the client, so the client can set fields it should not (role, status, payment, owner) | Privilege escalation, fake payments | RNF-SEC-4 | Sending `role` or `status` in a sign-up body returns 400 and changes nothing |
 
-## Issues to fix
-**Open decisions** before building: questions for business, legal or operations.
-Each one with options, impact and your recommendation. They are not bugs: there is no system yet.
+## Issues to fix · Open decisions
+What is **not decided yet** and someone else has to decide: questions for business, legal or
+operations. They are not bugs: there is no system yet. One table:
 
-## Nice to have
+| OD | Question | Options | Recommendation (assumed in this document) | What changes if decided otherwise |
+|---|---|---|---|---|
+| OD-1 | … | a) … b) … | **b**, because … | RF-4, US-6, the "Activate account" screen |
+
+The last column lists the requirements, stories, screens or model elements that would have to
+change, so a different answer can be applied without rereading the whole document.
+
+## Nice to have · Later phase
 What is left for a **later phase** (v2): valuable but not needed for the first delivery.
 Say why it can wait.
 
-## What I would do differently
-Here it becomes the key **design decisions**, in a short ADR format. Choose what is right,
-not what is easy or quick: the correct design even if it costs more to build, and say so.
+## What I would do differently · Design decisions adopted
+The key **design decisions**, in a short ADR format. They are not proposals: each one is already
+applied in the sections above, and this section records why. Choose what is right, not what is
+easy or quick: the correct design even if it costs more to build, and say so.
 - **Decision:** what is done.
 - **Rejected alternatives:** the other reasonable options, including the one the previous
   system used, described generically ("state split across several flags"), without naming it.
   When there is a quicker or cheaper shortcut, list it here and say why it was rejected.
 - **Why:** the principle, the risk it avoids and the cost that is accepted (effort, time,
   complexity), stated plainly instead of hidden.
+- **Reflected in:** where the decision is applied (requirements, stories, entities, contracts:
+  RF-2, the state machine, the `Token` entity…).
 
 ## Related
 Modules and integrations the new module needs or feeds, with the contract between them
@@ -171,6 +185,23 @@ whatever stack the new project ends up using, without losing what the current sy
 - **If the user asks for a recommendation**, it goes in "Issues to fix" as an open decision: two or
   three candidate stacks compared against the checklist, with your recommendation. Never baked into
   the design.
+
+## Decided, assumed or open: make the status explicit
+
+A reader must be able to tell, for any statement in the specification, whether it is settled. Three
+rules keep that clear:
+
+- **Design decisions are adopted, not suggested.** Everything in "Design decisions adopted" must
+  already shape the description, use cases, requirements and model. If a decision is not reflected
+  anywhere ("Reflected in" would be empty), apply it or remove it. Never leave in that section
+  something the rest of the document does not do.
+- **Open decisions get one treatment everywhere.** The body always assumes the recommended option
+  and marks it "(assumed, OD-n)" at each place it is used: a deadline, a field being required, who
+  may do something. Do not mix styles: no bare "(OD-n)" references that leave the reader guessing,
+  and no "A or B, depending on OD-n" in requirements or stories. If you cannot recommend an option,
+  say so in the table, pick the most conservative one as the working assumption and mark it the same way.
+- **If it is not marked as assumed, it is decided.** Do not leave values that look final but came
+  from an open decision without their mark.
 
 ## Combining with `as-technical` and `as-business`
 

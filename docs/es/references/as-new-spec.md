@@ -67,13 +67,17 @@ Cuando el destino es **un proyecto nuevo**, la especificación tiene que poder e
 
 ## Las ocho secciones en este modo
 
-Mantén los mismos encabezados para que se pueda comparar con la ficha de análisis, pero llénalos así:
+Mantén los mismos ocho encabezados para que se pueda comparar con la ficha de análisis. Tres de ellos significan otra cosa en este modo, así que llevan un sufijo que dice qué está viendo el lector: "Cosas a resolver · Decisiones abiertas", "Cosas que sería bueno incluir · Fase posterior" y "Qué haría diferente · Decisiones de diseño adoptadas". Llénalos así:
 
 ```markdown
 # <Nombre del módulo> — Especificación base
 
 > **Propósito del documento:** qué se va a construir y para quién, en una o dos líneas.
 > **Fuera de alcance:** lo que este módulo no hace (y qué módulo sí lo hace).
+> **Cómo leer este documento:** las decisiones de diseño (D-n) **ya están incorporadas** en todo lo
+> que sigue; su sección solo deja escrito el porqué. Las decisiones abiertas (DA-n) **todavía no
+> están tomadas**: el documento asume la opción recomendada de cada una y la marca como
+> "(supuesto, DA-n)" donde la usa, para que se pueda construir ya y ajustar si se decide otra cosa.
 
 ## Resumen
 5–8 líneas: qué se construye, las 3–4 decisiones de diseño que lo definen y las decisiones
@@ -122,23 +126,33 @@ prueba de aceptación que la detectaría si volviera.
 |---|---|---|---|---|
 | E-1 | Asignación masiva: un endpoint acepta el objeto completo desde el cliente, que puede fijar campos que no debería (rol, estado, pago, dueño) | Escalada de privilegios, pagos falsos | RNF-SEG-4 | Enviar `role` o `status` en el cuerpo de un registro responde 400 y no cambia nada |
 
-## Cosas a resolver
-**Decisiones abiertas** antes de construir: preguntas para negocio, jurídica u operación.
-Cada una con opciones, impacto y tu recomendación. No son bugs: aquí no hay sistema todavía.
+## Cosas a resolver · Decisiones abiertas
+Lo que **todavía no está decidido** y tiene que decidir otra persona: preguntas para negocio,
+jurídica u operación. No son bugs: aquí no hay sistema todavía. Una tabla:
 
-## Cosas que sería bueno incluir
+| DA | Pregunta | Opciones | Recomendación (asumida en este documento) | Qué cambia si se decide otra cosa |
+|---|---|---|---|---|
+| DA-1 | … | a) … b) … | **b**, porque … | RF-4, HU-6, la pantalla "Activar cuenta" |
+
+La última columna lista los requisitos, historias, pantallas o elementos del modelo que habría que
+cambiar, para poder aplicar otra respuesta sin releer todo el documento.
+
+## Cosas que sería bueno incluir · Fase posterior
 Lo que queda para una **fase posterior** (v2): valioso pero no necesario para la primera entrega.
 Di por qué puede esperar.
 
-## Qué haría diferente
-Aquí se convierte en las **decisiones de diseño** clave, en formato corto de ADR. Elige lo
-correcto, no lo fácil ni lo rápido: el diseño bien hecho aunque cueste más construirlo, y dilo.
+## Qué haría diferente · Decisiones de diseño adoptadas
+Las **decisiones de diseño** clave, en formato corto de ADR. No son propuestas: cada una ya está
+aplicada en las secciones de arriba, y esta sección deja escrito el porqué. Elige lo correcto, no
+lo fácil ni lo rápido: el diseño bien hecho aunque cueste más construirlo, y dilo.
 - **Decisión:** lo que se hace.
 - **Alternativas descartadas:** las otras formas razonables, incluida la que tenía el sistema
   anterior, descrita de forma genérica ("estado repartido en varias banderas"), sin nombrarlo.
   Si hay un atajo más rápido o barato, ponlo aquí y di por qué se descartó.
 - **Por qué:** el principio, el riesgo que evita y el costo que se acepta (esfuerzo, tiempo,
   complejidad), dicho claramente y no escondido.
+- **Dónde se refleja:** dónde está aplicada la decisión (requisitos, historias, entidades,
+  contratos: RF-2, la máquina de estados, la entidad `Token`…).
 
 ## Relacionados
 Módulos e integraciones que el nuevo módulo necesita o alimenta, con el contrato entre ellos
@@ -172,6 +186,24 @@ nuevo, sin perder lo que enseñó el sistema actual.
   indica cómo la resuelve ese stack.
 - **Si el usuario pide una recomendación**, va en "Cosas a resolver" como decisión abierta: dos o tres
   stacks candidatos comparados contra la lista, con tu recomendación. Nunca metida en el diseño.
+
+## Decidido, supuesto o abierto: que el estado quede explícito
+
+Quien lea debe poder saber, de cualquier afirmación de la especificación, si ya está resuelta. Tres
+reglas lo mantienen claro:
+
+- **Las decisiones de diseño están adoptadas, no sugeridas.** Todo lo que aparezca en "Decisiones de
+  diseño adoptadas" ya debe dar forma a la descripción, los casos de uso, los requisitos y el modelo.
+  Si una decisión no se refleja en ningún lado ("Dónde se refleja" quedaría vacío), aplícala o
+  quítala. Nunca dejes en esa sección algo que el resto del documento no hace.
+- **Las decisiones abiertas se tratan igual en todo el documento.** El cuerpo siempre asume la opción
+  recomendada y la marca como "(supuesto, DA-n)" en cada lugar donde la usa: un plazo, un campo
+  obligatorio, quién puede hacer algo. No mezcles estilos: nada de referencias sueltas "(DA-n)" que
+  dejen al lector adivinando, ni "A o B, según DA-n" en requisitos o historias. Si no puedes
+  recomendar una opción, dilo en la tabla, toma la más conservadora como supuesto de trabajo y
+  márcala igual.
+- **Lo que no está marcado como supuesto, está decidido.** No dejes valores que parecen definitivos
+  pero salieron de una decisión abierta sin su marca.
 
 ## Combinación con `as-technical` y `as-business`
 
